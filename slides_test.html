@@ -1,0 +1,1808 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Welcome to DATA 201 &#8212; AI for Fusion Energy Summer School (2024)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="_static/wm_vertical_single_line_full_color.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="References" href="referencesmd.html" />
+    <link rel="prev" title="Regression with Deep Learning" href="Regression_Deep_Learning.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/wm_vertical_single_line_full_color.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">AI for Fusion Energy Summer School (2024)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI/ML for Fusion Summer School 2024
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures (integrate with notebooks below)
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">
+   Welcome to Data Science! (6/3/2024)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Monte_Carlo.html">
+   Intro to Monte Carlo (an example) (6/3/2024)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Regression_Deep_Learning.html">
+   Regression with Deep Learning (6/3/2024)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Additional resources
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Welcome to DATA 201
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="referencesmd.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2Fslides_test.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/slides_test.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Welcome to DATA 201
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out-preload-false-clicks-4">
+     transition: fade-out
+preload: false
+clicks: 4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-data-science">
+   What is Data Science?
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   What is Data Science?
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   What is Data Science?
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-the-course-all-about">
+   What is the course all about?
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-slide-up-level-2">
+     transition: slide-up
+level: 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#course-structure">
+   Course Structure
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#this-course-is-presented-in-five-modules">
+     This course is presented in five modules:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#layout-image-right-image-https-source-unsplash-com-collection-94734566-1920x1080">
+     layout: image-right
+image: https://source.unsplash.com/collection/94734566/1920x1080
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code">
+   Code
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     transition: fade-out
+preload: false
+clicks: 4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-are-variables">
+   What are variables?
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#central-tendency">
+   Central Tendency
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out-preload-false-clicks-2">
+     transition: fade-out
+preload: false
+clicks: 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#histograms">
+   Histograms
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out-preload-false-clicks-1">
+     transition: fade-out
+preload: false
+clicks: 1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   Histograms
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#variability-measures">
+   Variability Measures
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   Variability Measures
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coefficient-of-variation">
+   Coefficient of Variation
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#percentiles-and-quartiles">
+   Percentiles and Quartiles
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out-clicks-1">
+     transition: fade-out
+clicks: 1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#boxplots-and-outliers">
+   Boxplots and Outliers
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out-clicks-2">
+     transition: fade-out
+clicks: 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   Boxplots and Outliers
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     transition: fade-out
+clicks: 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bounds-justification">
+   Bounds Justification
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Welcome to DATA 201</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Welcome to DATA 201
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out-preload-false-clicks-4">
+     transition: fade-out
+preload: false
+clicks: 4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-data-science">
+   What is Data Science?
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   What is Data Science?
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   What is Data Science?
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-the-course-all-about">
+   What is the course all about?
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-slide-up-level-2">
+     transition: slide-up
+level: 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#course-structure">
+   Course Structure
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#this-course-is-presented-in-five-modules">
+     This course is presented in five modules:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#layout-image-right-image-https-source-unsplash-com-collection-94734566-1920x1080">
+     layout: image-right
+image: https://source.unsplash.com/collection/94734566/1920x1080
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code">
+   Code
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     transition: fade-out
+preload: false
+clicks: 4
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-are-variables">
+   What are variables?
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#central-tendency">
+   Central Tendency
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out-preload-false-clicks-2">
+     transition: fade-out
+preload: false
+clicks: 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#histograms">
+   Histograms
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out-preload-false-clicks-1">
+     transition: fade-out
+preload: false
+clicks: 1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id7">
+   Histograms
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#variability-measures">
+   Variability Measures
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   Variability Measures
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id11">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coefficient-of-variation">
+   Coefficient of Variation
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id12">
+     transition: fade-out
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#percentiles-and-quartiles">
+   Percentiles and Quartiles
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out-clicks-1">
+     transition: fade-out
+clicks: 1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#boxplots-and-outliers">
+   Boxplots and Outliers
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#transition-fade-out-clicks-2">
+     transition: fade-out
+clicks: 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
+   Boxplots and Outliers
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     transition: fade-out
+clicks: 2
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bounds-justification">
+   Bounds Justification
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="welcome-to-data-201">
+<h1>Welcome to DATA 201<a class="headerlink" href="#welcome-to-data-201" title="Permalink to this headline">#</a></h1>
+<p>Intro to Data Science</p>
+<div class="pt-12">
+  <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
+    Press Space for next page <carbon:arrow-right class="inline"/>
+  </span>
+</div>
+<div class="abs-br m-6 flex gap-2">
+  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon:edit />
+  </button>
+  <a href="https://github.com/dvasiliu/Intro-to-Data-Science" target="_blank" alt="GitHub" title="Open in GitHub"
+    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
+    <carbon-logo-github />
+  </a>
+</div>
+<!--
+The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
+-->
+<hr class="docutils" />
+<section id="transition-fade-out-preload-false-clicks-4">
+<h2>transition: fade-out
+preload: false
+clicks: 4<a class="headerlink" href="#transition-fade-out-preload-false-clicks-4" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="what-is-data-science">
+<h1>What is Data Science?<a class="headerlink" href="#what-is-data-science" title="Permalink to this headline">#</a></h1>
+<p>A good way to answer this question is to think of older, and well established “relatives.”</p>
+<v-clicks>
+<ul class="simple">
+<li><p>📈 <strong>Statistics</strong> - A mathematical discipline concerned with the collection, description, and interpretation of data.</p></li>
+<li><p>🖥️ <strong>Computer Science</strong> - The study of algorithms, data structures and programming methodologies.</p></li>
+<li><p>ⓘ <strong>Information Science</strong> - A field primarily concerned with the analysis, collection, classification, manipulation, storage, retrieval, movement, dissemination, and protection of information.</p></li>
+</ul>
+</v-clicks>
+<p v-if="$slidev.nav.clicks === 4">
+<div class="w-60 relative mt-6">
+  <div class="relative w-40 h-40">
+    <img
+      v-motion
+      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
+      :enter="final"
+      class="absolute top-0 left-20 right-0 bottom-0"
+      src="https://sli.dev/logo-circle.png"
+      alt=""
+    />
+        <img
+      v-motion
+      :initial="{ x: -200, y: -100, scale: 1.5, rotate: -50 }"
+      :enter="final"
+      class="absolute top-0 left-0 right-0 bottom-0"
+      src="https://sli.dev/logo-circle.png"
+      alt=""
+    />
+    <img
+      v-motion
+      :initial="{ y: 500, x: -100, scale: 4 }"
+      :enter="finalb"
+      class="absolute top-20 left-0 right-20 bottom-0"
+      src="https://sli.dev/logo-circle.png"
+      alt=""
+    />
+    <img
+      v-motion
+      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
+      :enter="finals"
+      class="absolute top-0 left-0 right-0 bottom-0"
+      src="https://sli.dev/logo-triangle.png"
+      alt=""
+    />
+  </div>
+</div>
+<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
+<script setup lang="ts">
+const final = {
+  x: 200,
+  y: 0,
+  rotate: 0,
+  scale: 1.5,
+  opacity: 0.35,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+const finalb = {
+  x: 235,
+  y: 5,
+  rotate: 0,
+  scale: 1.5,
+  opacity: 0.35,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+const finals = {
+  x: 210,
+  y: 5,
+  rotate: 0,
+  scale: 0.5,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+</script>
+<div
+  v-motion
+  :initial="{ x: -80,y:-400, opacity: 0}"
+  :enter="{ x: 200,y:-120, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
+  <span font-size="1em">📈</span>
+</div>
+<div
+  v-motion
+  :initial="{ x: -80,y:-400, opacity: 0}"
+  :enter="{ x: 350,y:-150, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
+  <span font-size="1em">🖥️</span>
+</div>
+<div
+  v-motion
+  :initial="{ x: -80,y:-400, opacity: 0}"
+  :enter="{ x: 285,y:-50, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
+  <p class="text-blue-700" size="24px">ⓘ</p> 
+</div>
+<div
+  v-motion
+  :initial="{ x: -80,y:-10, opacity: 0}"
+  :enter="{ x: 250,y:-150, opacity: 1, transition: { delay: 2400, duration: 1000 } }">
+  <span style="color:orange" font-size="1em">Data Science</span>
+</div>
+<div
+  v-motion
+  :initial="{ x:35, y: 40, opacity: 0}"
+  :enter="{ x:700,y: -100, opacity: 1, transition: { delay: 3500 } }">
+<p><a class="reference external" href="https://www.amazon.com/Data-Science-Handbook-Field-Cady/dp/1119092949/ref=sr_1_6?crid=3W248VBBRKKJ2&amp;keywords=data+science+handbook&amp;qid=1704913744&amp;sprefix=data+science+handbook%2Caps%2C76&amp;sr=8-6">Learn More</a></p>
+</div>
+</p>
+<!--
+You can have `style` tag in markdown to override the style for the current page.
+Learn more: https://sli.dev/guide/syntax#embedded-styles 
+-->
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<hr class="docutils" />
+<section id="transition-fade-out">
+<h2>transition: fade-out<a class="headerlink" href="#transition-fade-out" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>What is Data Science?<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+
+
+</style>
+<p>Key components of data science include:</p>
+<v-clicks>
+<ol class="simple">
+<li><p><strong>Data Collection</strong>: Gathering data from various sources, which can be structured (e.g., databases) or unstructured (e.g., text, images, sensor data).</p></li>
+<li><p><strong>Data Cleaning and Preprocessing</strong>: Preparing the data for analysis by handling missing values, outliers, and ensuring data quality.</p></li>
+<li><p><strong>Data Analysis</strong>: Applying statistical and computational techniques to explore, analyze, and model the data, often using programming languages like Python or R.</p></li>
+<li><p><strong>Data Visualization</strong>: Creating meaningful visual representations of data through charts, graphs, and dashboards to facilitate better understanding and communication of insights.</p></li>
+<li><p><strong>Machine Learning</strong>: Developing and applying machine learning algorithms to build predictive models, classification systems, or recommendation systems.</p></li>
+</ol>
+</v-clicks>
+<hr class="docutils" />
+<section id="id2">
+<h2>transition: fade-out<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id3">
+<h1>What is Data Science?<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>Key components of data science include:</p>
+<v-clicks>
+<ol class="simple">
+<li><p><strong>Data Interpretation</strong>: Drawing actionable conclusions from data analysis, often to inform business decisions, optimize processes, or address specific problems.</p></li>
+<li><p><strong>Domain Expertise</strong>: Combining data expertise with domain-specific knowledge to generate valuable insights tailored to specific industries or applications.</p></li>
+</ol>
+</v-clicks>
+<v-clicks>
+<p><strong>Data science</strong> is an interdisciplinary field that combines various techniques, processes, algorithms, and systems to extract valuable insights and knowledge from data. It involves collecting, cleaning, analyzing, visualizing, and interpreting data to make informed decisions and solve complex problems.</p>
+<p><strong>Data scientists</strong> work with large and complex datasets to uncover patterns, trends, and hidden insights that can drive business growth, scientific discoveries, and decision-making across various domains such as finance, healthcare, marketing, and more. The field of data science continues to evolve rapidly, incorporating advancements in technology, data management, and machine learning to harness the power of data for practical purposes.
+</v-clicks></p>
+<hr class="docutils" />
+<section id="id4">
+<h2>transition: fade-out<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="what-is-the-course-all-about">
+<h1>What is the course all about?<a class="headerlink" href="#what-is-the-course-all-about" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>Our course provides an introduction to modeling and machine learning methods.</p>
+<center>
+<img src='https://i.imgur.com/1GlG4mx.png' width='700px'/>
+<figcaption> </figcaption></center>
+<hr class="docutils" />
+<section id="transition-slide-up-level-2">
+<h2>transition: slide-up
+level: 2<a class="headerlink" href="#transition-slide-up-level-2" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="course-structure">
+<h1>Course Structure<a class="headerlink" href="#course-structure" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<section id="this-course-is-presented-in-five-modules">
+<h2>This course is presented in five modules:<a class="headerlink" href="#this-course-is-presented-in-five-modules" title="Permalink to this headline">#</a></h2>
+<v-clicks>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><kbd><b>Module 1</b>: Managing, Manipulating and Generating Data</kbd></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd><b>Module 2</b>: Describing Data</kbd></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><kbd><b>Module 3</b>: Introduction to Modeling - Regression</kbd></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><kbd><b>Module 4</b>: Introduction to Modeling - Classification</kbd></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><kbd><b>Module 5</b>: Unsupervised Learning - Clustering</kbd></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</v-clicks>
+<!-- https://sli.dev/guide/animations.html#click-animations -->
+<p><img
+  v-click
+  class="absolute -bottom-12 -left-7 w-80 opacity-50"
+  src="https://sli.dev/assets/arrow-bottom-left.svg"
+  alt=""
+/></p>
+<p v-after class="absolute bottom-20 left-45 opacity-30 transform -rotate-40">For more info</p>
+<p v-if="$slidev.nav.clicks === 6">
+<div
+  v-motion
+  :initial="{ x:800, y: -250, opacity: 0}"
+  :enter="{ x:10,y:100, opacity: 1, transition: { delay: 500 } }"
+  :transition="{
+    type: 'spring',
+    damping: 5,
+    stiffness: 10,
+    mass: 20}">
+<p><a class="reference external" href="https://github.com/dvasiliu/Intro-to-Data-Science"><font color='navy'> Check the Schedule</font></a></p>
+</div>
+</p>
+</section>
+<hr class="docutils" />
+<section id="layout-image-right-image-https-source-unsplash-com-collection-94734566-1920x1080">
+<h2>layout: image-right
+image: <a class="reference external" href="https://source.unsplash.com/collection/94734566/1920x1080">https://source.unsplash.com/collection/94734566/1920x1080</a><a class="headerlink" href="#layout-image-right-image-https-source-unsplash-com-collection-94734566-1920x1080" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="code">
+<h1>Code<a class="headerlink" href="#code" title="Permalink to this headline">#</a></h1>
+<p>For coding, we use Python programming and specialized libraries. The following is a tiny example that does not involve any library import.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;yellow&#39;</span><span class="p">]</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span><span class="s1">&#39;carrot&#39;</span><span class="p">,</span><span class="s1">&#39;peach&#39;</span><span class="p">,</span><span class="s1">&#39;mango&#39;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">):</span>
+  <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">B</span><span class="p">:</span>
+      <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">y</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">l</span>
+</pre></div>
+</div>
+<arrow v-click="[2, 3]" x1="395" y1="420" x2="150" y2="270" color="red" width="3" arrowSize="1" />
+<p v-click="[2, 3]" class="absolute bottom-23 left-100 opacity-90" color="red">function definition </p>
+<p v-if="$slidev.nav.clicks === 4">
+<div
+  v-motion
+  :initial="{ x:800, y: -250, opacity: 0}"
+  :enter="{ x:10,y:100, opacity: 1, transition: { delay: 500 } }"
+  :transition="{
+    type: 'spring',
+    damping: 5,
+    stiffness: 5,
+    mass: 10}">
+<p><font color='navy' size=6px>What does this code do?</font></p>
+</div>
+</p>
+<style>
+.footnotes-sep {
+  @apply mt-20 opacity-10;
+}
+.footnotes {
+  @apply text-sm opacity-75;
+}
+.footnote-backref {
+  display: none;
+}
+</style>
+<hr class="docutils" />
+<section id="id5">
+<h2>transition: fade-out
+preload: false
+clicks: 4<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="what-are-variables">
+<h1>What are variables?<a class="headerlink" href="#what-are-variables" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>We can imagine that variables are measurements or attributes.</p>
+<v-click>
+    <img
+      v-motion
+      :initial="{ x: 800, y: -100, scale: 0.5, rotate: -50}"
+      :enter="final1"
+      class="absolute top-0 left-20 right-0 bottom-0"
+      src="https://i.imgur.com/dTBpAGr.png"
+      alt=""
+    />
+</v-click>
+<v-click>
+    <img
+      v-motion
+      :initial="{ x: -200, y: -100, scale: 0.5, rotate: -50 }"
+      :enter="final2"
+      class="absolute top-0 left-0 right-0 bottom-0"
+      src="https://i.imgur.com/7W9S0GB.png"
+      alt=""
+    />
+</v-click>
+<v-click>
+    <img
+      v-motion
+      :initial="{ y: 500, x: -100, scale: 4 }"
+      :enter="final3"
+      class="absolute top-20 left-0 right-20 bottom-0"
+      src="https://i.imgur.com/VTXXLFb.png"
+      alt=""
+    />
+</v-click>
+<v-click>
+    <img
+      v-motion
+      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
+      :enter="final4"
+      class="absolute top-0 left-0 right-0 bottom-0"
+      src="https://i.imgur.com/ApgRbw3.png"
+      alt=""
+    />
+</v-click>
+<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
+<script setup lang="ts">
+const final1 = {
+  x: 10,
+  y: 65,
+  rotate: 0,
+  scale: 0.4,
+  opacity: 1,
+  contrast: 2.5,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+const final2 = {
+  x: 118,
+  y: 140,
+  rotate: 0,
+  scale: 0.35,
+  opacity: 1,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+const final3 = {
+  x: 140,
+  y: 135,
+  rotate: 0,
+  scale: 0.3,
+  opacity: 1,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+const final4 = {
+  x: 230,
+  y: 305,
+  rotate: 0,
+  scale: 0.3,
+  opacity: 1,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+</script>
+<hr class="docutils" />
+<section id="id6">
+<h2>transition: fade-out<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="central-tendency">
+<h1>Central Tendency<a class="headerlink" href="#central-tendency" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>The idea is that we want to find what is “typical” for a data set.</p>
+<p>What are the differences between the two following data sets?</p>
+<v-clicks>
+<p><font size=8px>1, 2, 3, 4, 4, 4, 5</font></p>
+<br/>
+<p><font size=8px>1, 2, 3, 4, 4, 4, 5000</font>
+</v-clicks></p>
+<arrow v-click="[4, 5]" x1="595" y1="350" x2="420" y2="300" color="red" width="3" arrowSize="1" />
+<p v-click="[4, 5]" class="absolute bottom-40 left-150 opacity-90" color="red">What is the difference between the two samples? </p>
+<p v-click class="absolute bottom-20 text-indigo-600"><font size=5px>What measures of central tendency are describing the data well?</font></p>
+<hr class="docutils" />
+<section id="transition-fade-out-preload-false-clicks-2">
+<h2>transition: fade-out
+preload: false
+clicks: 2<a class="headerlink" href="#transition-fade-out-preload-false-clicks-2" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="histograms">
+<h1>Histograms<a class="headerlink" href="#histograms" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>Histograms show the overall distribution, how frequent is data ocurring in certain intervals.</p>
+<p v-if="$slidev.nav.clicks ===1">
+    <img
+      v-motion
+      :initial="{ x: 600, y: 400, scale: 0.5, rotate: 100, opacity: 0.2 }"
+      :enter="final5"
+      class="absolute top-0 left-0 right-0 bottom-0"
+      src="https://i.imgur.com/9hMQw09.png"
+      alt=""
+    />
+</p>
+<v-click>
+<img
+      v-motion
+      :initial="{ x: 600, y: 400, scale: 0.5, rotate: 100, opacity: 0.2 }"
+      :enter="final6"
+      class="absolute top-0 left-0 right-0 bottom-0"
+      src="https://i.imgur.com/vmGK3mI.png"
+      alt=""
+    />
+</v-click>
+<script setup lang="ts">
+const final5 = {
+  x: -50,
+  y: 38,
+  rotate: 0,
+  scale: 0.7,
+  opacity: 1,
+  contrast: 2.5,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+
+const final6 = {
+  x: 400,
+  y: 100,
+  rotate: 0,
+  scale: 0.8,
+  opacity: 1,
+  contrast: 2.5,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+</script>
+<hr class="docutils" />
+<section id="transition-fade-out-preload-false-clicks-1">
+<h2>transition: fade-out
+preload: false
+clicks: 1<a class="headerlink" href="#transition-fade-out-preload-false-clicks-1" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id7">
+<h1>Histograms<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>The shape of the distribution matters for estimating probability values.</p>
+<p v-if="$slidev.nav.clicks ===1">
+    <img
+      v-motion
+      :initial="{ x: 600, y: 400, scale: 0.5, rotate: 100, opacity: 0.2 }"
+      :enter="final5"
+      class="absolute top-0 left-0 right-0 bottom-0"
+      src="https://i.imgur.com/POPqkGO.png"
+      alt=""
+    />
+</p>
+<script setup lang="ts">
+const final5 = {
+  x: 100,
+  y: 70,
+  rotate: 0,
+  scale: 0.8,
+  opacity: 1,
+  contrast: 2.5,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+
+const final6 = {
+  x: 320,
+  y: 38,
+  rotate: 0,
+  scale: 0.7,
+  opacity: 1,
+  contrast: 2.5,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+</script>
+<hr class="docutils" />
+<section id="id8">
+<h2>transition: fade-out<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="variability-measures">
+<h1>Variability Measures<a class="headerlink" href="#variability-measures" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>We want to know how spread the data is from its center or typical value.</p>
+<p>If the data is a continuous variable and the center is defined to be the mean, then variance and standard deviation are measures of variability:</p>
+<v-clicks>
+<div><font size=5px> Variance</font></div>
+<div class="math notranslate nohighlight">
+\[\large \text{Var}(X):= \frac{\sum (X_i-\mu)^2}{N}\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\mu\)</span> is the mean of the random variable, and <span class="math notranslate nohighlight">\(N\)</span> is the size of the population.</p>
+<div><font size=5px>Sample Variance</font></div>
+<div class="math notranslate nohighlight">
+\[\large \text{Var}(x):= \frac{\sum (x_i-\bar{x})^2}{n-1}\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\bar{x}\)</span> is the mean of the sample, and <span class="math notranslate nohighlight">\(n\)</span> is the sample size.</p>
+</v-clicks>
+<hr class="docutils" />
+<section id="id9">
+<h2>transition: fade-out<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id10">
+<h1>Variability Measures<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>The standard deviation can help us create a useful metric for variable studied, and also scale its values.</p>
+<v-clicks>
+<p>The sample standard deviation is:</p>
+<div class="math notranslate nohighlight">
+\[\Large s_x:= \sqrt{\frac{\sum (x_i-\bar{x})^2}{n-1}}\]</div>
+<p>Therefore, a scaler can be achieved via <span class="math notranslate nohighlight">\(z\)</span>-score:</p>
+<div class="math notranslate nohighlight">
+\[\Large z_{x_i} = \frac{x_i-\bar{x}}{s_x}\]</div>
+<p>This works in many situations, provided the standard deviation is not zero.</p>
+<p class="text-indigo-600"><font color='red' size=6px>Critical Thinking:</font>What would the data look like if the standard deviation is exactly zero?</p>
+</v-clicks>
+<hr class="docutils" />
+<section id="id11">
+<h2>transition: fade-out<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="coefficient-of-variation">
+<h1>Coefficient of Variation<a class="headerlink" href="#coefficient-of-variation" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>For the data below we want to find a solution that is less biased when highlighting differences.
+<v-clicks></p>
+<p><font size=8px class='text-indigo-600'>1, 2, 3, 4, 4, 4, 5</font></p>
+<br/>
+<p><font size=8px class='text-red-600'>1, 2, 3, 4, 4, 4, 5000</font></p>
+<p>The coefficient of variation may shed some light:</p>
+<div class="math notranslate nohighlight">
+\[\large \frac{s_x}{\bar{x}}\]</div>
+<p>For the first sample this is <span class="math notranslate nohighlight">\(0.388\)</span>, and for the second sample this is <span class="math notranslate nohighlight">\(2.439.\)</span></p>
+</v-clicks>
+<hr class="docutils" />
+<section id="id12">
+<h2>transition: fade-out<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="percentiles-and-quartiles">
+<h1>Percentiles and Quartiles<a class="headerlink" href="#percentiles-and-quartiles" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>Main point: we want to analyze measures resistant to outliers.</p>
+<v-clicks>
+<p size=6px class="text-indigo-700"><font size=6px class="text-red-600">Percentiles:</font> The p-th percentile is a value x in the metric of a variable (that is at least interval level) such that p% of the values of the variable are below x.</p>
+<p size=6px class="text-indigo-700"><font size=6px class="text-red-600">Median:</font> The median is the 50-th percentile.</p>
+<p size=6px class="text-indigo-700"><font size=6px class="text-red-600">Quartiles:</font> Q1 is th 25-th percentile, and Q3 is the 75-th percentile.</p>
+<p size=6px class="text-indigo-700"><font size=6px class="text-red-600">IQR (Inter-quartile Range):</font> Q3 - Q1.</p>
+<p size=6px class="text-indigo-700"><font size=6px class="text-red-600">Outliers:</font> Any value that is 1.5xIQR below Q1 or 1.5xIQR above Q3.</p>
+<p>Can we provide a summary of a variable based on these ideas? Yes, we can create boxplots.</p>
+</v-clicks>
+<hr class="docutils" />
+<section id="transition-fade-out-clicks-1">
+<h2>transition: fade-out
+clicks: 1<a class="headerlink" href="#transition-fade-out-clicks-1" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="boxplots-and-outliers">
+<h1>Boxplots and Outliers<a class="headerlink" href="#boxplots-and-outliers" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>Consider the data sample:</p>
+<p>1.5, 1.75, 2, 2.13, 2.42, 2.61, 3.1, 3.1, 3.4, 3.98, 3.99</p>
+<p>The boxplot is:</p>
+<p v-if="$slidev.nav.clicks ===1">
+    <img
+      v-motion
+      :initial="{ x: 600, y: 400, scale: 0.5, rotate: 100, opacity: 0.2 }"
+      :enter="final5"
+      class="absolute top-0 left-0 right-0 bottom-0"
+      src="https://i.imgur.com/v7ysndm.png"
+      alt=""
+    />
+</p>
+<script setup lang="ts">
+const final5 = {
+  x: 350,
+  y: 230,
+  rotate: 0,
+  scale: 1.8,
+  opacity: 1,
+  contrast: 2.5,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+</script>
+<hr class="docutils" />
+<section id="transition-fade-out-clicks-2">
+<h2>transition: fade-out
+clicks: 2<a class="headerlink" href="#transition-fade-out-clicks-2" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id13">
+<h1>Boxplots and Outliers<a class="headerlink" href="#id13" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>For using boxplot from Matplotlib the clarification is here:</p>
+<p v-if="$slidev.nav.clicks ===1">
+    <img
+      v-motion
+      :initial="{ x: 600, y: 400, scale: 0.01, rotate: 120, opacity: 0.2 }"
+      :enter="final5"
+      class="absolute top-0 left-0 right-0 bottom-0"
+      src="https://i.imgur.com/qEQQhKV.png"
+      alt=""
+    />
+</p>
+<script setup lang="ts">
+
+const final5 = {
+  x: 20,
+  y: 50,
+  rotate: 0,
+  scale: 0.6,
+  opacity: 1,
+  contrast: 2.5,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+</script>
+<p v-if="$slidev.nav.clicks === 1">
+<div
+  v-motion
+  :initial="{ x:0, y:340, opacity: 0}"
+  :enter="{ x:650,y:340, opacity: 1, transition: { delay: 2000 } }"
+  :transition="{
+    type: 'spring',
+    damping: 2,
+    stiffness: 1,
+    mass: 2}">
+<p><a class="reference external" href="https://www.nickmccullum.com/python-visualization/boxplot/"><font color='navy'> Reference </font></a></p>
+</div>
+</p>
+<hr class="docutils" />
+<section id="id14">
+<h2>transition: fade-out
+clicks: 2<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="bounds-justification">
+<h1>Bounds Justification<a class="headerlink" href="#bounds-justification" title="Permalink to this headline">#</a></h1>
+<style>
+h1 {
+  background-color: #2B90B6;
+  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 25%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+</style>
+<p>The justification for the “minimum” and the “maximum” values in the case of boxplots is drawn from a normal distribution.</p>
+<p v-if="$slidev.nav.clicks ===1">
+    <img
+      v-motion
+      :initial="{ x: 600, y: 400, scale: 0.01, rotate: 100, opacity: 0.2 }"
+      :enter="final5"
+      class="absolute top-0 left-0 right-0 bottom-0"
+      src="https://i.imgur.com/pSaIQpM.png"
+      alt=""
+    />
+</p>
+<script setup lang="ts">
+const final5 = {
+  x: -50,
+  y: -30,
+  rotate: 0,
+  scale: 0.5,
+  opacity: 1,
+  contrast: 2.5,
+  transition: {
+    type: 'spring',
+    damping: 10,
+    stiffness: 20,
+    mass: 2
+  }
+}
+</script>
+<p v-if="$slidev.nav.clicks === 1">
+<div
+  v-motion
+  :initial="{ x:0, y:340, opacity: 0}"
+  :enter="{ x:650,y:340, opacity: 1, transition: { delay: 2000 } }"
+  :transition="{
+    type: 'spring',
+    damping: 2,
+    stiffness: 1,
+    mass: 2}">
+<p><a class="reference external" href="https://towardsdatascience.com/create-and-customize-boxplots-with-pythons-matplotlib-to-get-lots-of-insights-from-your-data-d561c9883643"><font color='navy'> Reference </font></a></p>
+</div>
+</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "ai4fusion-wmschool/summer2024",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="Regression_Deep_Learning.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Regression with Deep Learning</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="referencesmd.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">References</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Open-Fair-Fusion for Machine Learning Applications<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
