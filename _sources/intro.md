@@ -18,7 +18,7 @@ name: fig-layout
 ---
 ```
 
-[Course Syllabus]()
+[Course Syllabus](to appear)
 
 <b>Synopsis: </b> An intensive 2-week summer school focused on undergraduate students with backgrounds in physics, engineering, computer science, applied mathematics and data science will be offered at William & Mary. This summer course will include a close to equal distribution of traditional instruction and active projects. The traditional instruction will provide daily 80 min instruction in morning classes with a focus on computing, applied mathematics, machine learning and fusion energy. These classes will be based on existing classes offered in data science at W&M, such as databases, applied machine learning and deep learning, Bayesian reasoning in data science. These classes will be supplemented with a class focused on fusion energy for the applications the students will tackle during the hands-on component and for students’ summer research. A draft agenda to be posted soon.
 
