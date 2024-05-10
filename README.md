@@ -12,3 +12,6 @@ Please include your Jupyter notebooks in the folder /notebook
 NB:
 For your lecture you can either use slides or notebooks or even both. 
 In the Jupyter Hub, they will be accompanied by date and lecture number, so students can navigate throught the lecture content. 
+
+The compiled book is rendered as gh-pages at the following link: 
+https://ai4fusion-wmschool.github.io/summer2024/intro.html 
