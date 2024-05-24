@@ -1,3 +1,5 @@
 TITLE - URL
 
 welcome to data science - https://fabulous-torte-3ed97c.netlify.app/1
+
+Normalizing Flows - https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing
