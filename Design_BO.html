@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Create detector geometry and simulate tracks &#8212; AI for Fusion Energy Summer School (2024)</title>
+    <title>Bayesian Optimization &#8212; AI for Fusion Energy Summer School (2024)</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -154,7 +154,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Create detector geometry and simulate tracks
+   (6/13/2024) Single-Objective Bayesian Optimization
   </a>
  </li>
  <li class="toctree-l1">
@@ -461,68 +461,66 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-detector-geometry-and-simulate-tracks">
    Create detector geometry and simulate tracks
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#list-of-parameters">
      LIST OF PARAMETERS
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#define-objectives">
-     Define Objectives
-    </a>
-   </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#define-objectives">
+   Define Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bayesian-optimization-of-the-detector-geometry">
    Bayesian Optimization of the Detector Geometry
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-optimization-with-gaussian-processes">
-     Bayesian Optimization with Gaussian Processes
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#results-from-bo-gp">
-       Results from BO(GP)
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#convergence">
-       Convergence
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#optimal-geometry">
-       Optimal Geometry
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-optimization-with-gbrt">
-     Bayesian Optimization with GBRT
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-optimization-with-gaussian-processes">
+   Bayesian Optimization with Gaussian Processes
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#results-from-bo-gp">
+     Results from BO(GP)
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#random-search">
-     Random Search
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convergence">
+     Convergence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#optimal-geometry">
+     Optimal Geometry
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-optimization-with-gbrt">
+   Bayesian Optimization with GBRT
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#random-search">
+   Random Search
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#visualization-of-results">
    Visualization of Results
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#solution-1">
    Solution 1
   </a>
@@ -536,7 +534,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Create detector geometry and simulate tracks</h1>
+                <h1>Bayesian Optimization</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -546,68 +544,66 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-detector-geometry-and-simulate-tracks">
    Create detector geometry and simulate tracks
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#list-of-parameters">
      LIST OF PARAMETERS
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#define-objectives">
-     Define Objectives
-    </a>
-   </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#define-objectives">
+   Define Objectives
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bayesian-optimization-of-the-detector-geometry">
    Bayesian Optimization of the Detector Geometry
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-optimization-with-gaussian-processes">
-     Bayesian Optimization with Gaussian Processes
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#results-from-bo-gp">
-       Results from BO(GP)
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#convergence">
-       Convergence
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#optimal-geometry">
-       Optimal Geometry
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayesian-optimization-with-gbrt">
-     Bayesian Optimization with GBRT
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-optimization-with-gaussian-processes">
+   Bayesian Optimization with Gaussian Processes
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#results-from-bo-gp">
+     Results from BO(GP)
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#random-search">
-     Random Search
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convergence">
+     Convergence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#optimal-geometry">
+     Optimal Geometry
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-optimization-with-gbrt">
+   Bayesian Optimization with GBRT
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#random-search">
+   Random Search
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#visualization-of-results">
    Visualization of Results
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#solution-1">
    Solution 1
   </a>
@@ -622,10 +618,12 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="cell docutils container">
+  <section id="bayesian-optimization">
+<h1>Bayesian Optimization<a class="headerlink" href="#bayesian-optimization" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!git clone https://github.com/cfteach/modules.git
-!pip install scikit-optimize 
+!pip install scikit-optimize
 </pre></div>
 </div>
 </div>
@@ -655,7 +653,7 @@ Successfully installed pyaml-21.10.1 scikit-optimize-0.9.0
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load_ext</span> <span class="n">autoreload</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load_ext</span> <span class="n">autoreload</span>
 <span class="o">%</span><span class="n">autoreload</span> <span class="mi">2</span>
 
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Math</span><span class="p">,</span> <span class="n">Latex</span>
@@ -665,7 +663,7 @@ Successfully installed pyaml-21.10.1 scikit-optimize-0.9.0
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="c1">#import AI4NP_detector_opt.sol2.detector2 as detector2 </span>
+<span class="c1">#import AI4NP_detector_opt.sol2.detector2 as detector2</span>
 <span class="kn">import</span> <span class="nn">modules.detector2</span> <span class="k">as</span> <span class="nn">detector2</span>
 <span class="kn">import</span> <span class="nn">re</span>
 </pre></div>
@@ -673,14 +671,14 @@ Successfully installed pyaml-21.10.1 scikit-optimize-0.9.0
 </div>
 </div>
 <section id="create-detector-geometry-and-simulate-tracks">
-<h1>Create detector geometry and simulate tracks<a class="headerlink" href="#create-detector-geometry-and-simulate-tracks" title="Permalink to this headline">#</a></h1>
+<h2>Create detector geometry and simulate tracks<a class="headerlink" href="#create-detector-geometry-and-simulate-tracks" title="Permalink to this headline">#</a></h2>
 <p>The module detector creates a simple 2D geometry of a wire based tracker made by 4 planes.</p>
 <p>The adjustable parameters are the radius of each wire, the pitch (along the y axis), and the shift along y and z of a plane with respect to the previous one.</p>
 <p>A total of 8 parameters can be tuned.</p>
 <p>The goal of this toy model, is to tune the detector design so to optimize the efficiency (fraction of tracks which are detected) as well as the cost for its realization. As a proxy for the cost, we use the material/volume (the surface in 2D) of the detector. For a track to be detetected, in the efficiency definition we require at least two wires hit by the track.</p>
 <p>So we want to maximize the efficiency (defined in <a class="reference external" href="http://detector.py">detector.py</a>) and minimize the cost.</p>
 <section id="list-of-parameters">
-<h2>LIST OF PARAMETERS<a class="headerlink" href="#list-of-parameters" title="Permalink to this headline">#</a></h2>
+<h3>LIST OF PARAMETERS<a class="headerlink" href="#list-of-parameters" title="Permalink to this headline">#</a></h3>
 <p>(baseline values)</p>
 <ul class="simple">
 <li><p>R = .5   [cm]</p></li>
@@ -697,8 +695,8 @@ Successfully installed pyaml-21.10.1 scikit-optimize-0.9.0
 
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;::::: BASELINE PARAMETERS :::::&quot;</span><span class="p">)</span>
-<span class="n">R</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1">#.5  </span>
-<span class="n">pitch</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="c1">#10.0  </span>
+<span class="n">R</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1">#.5</span>
+<span class="n">pitch</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="c1">#10.0</span>
 <span class="n">y1</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="n">y2</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="n">y3</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -744,13 +742,14 @@ R, pitch, y1, y2, y3, z1, z2, z3:  0.5 4.0 0.0 0.0 0.0 2.0 4.0 6.0
 :::: TRACK GENERATION ::::
 </pre></div>
 </div>
-<img alt="_images/Design_BO_3_1.png" src="_images/Design_BO_3_1.png" />
-<img alt="_images/Design_BO_3_2.png" src="_images/Design_BO_3_2.png" />
+<img alt="_images/Design_BO_4_1.png" src="_images/Design_BO_4_1.png" />
+<img alt="_images/Design_BO_4_2.png" src="_images/Design_BO_4_2.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fraction of tracks detected:  0.264
 </pre></div>
 </div>
 </div>
 </div>
+</section>
 </section>
 <hr class="docutils" />
 <section id="define-objectives">
@@ -763,21 +762,21 @@ R, pitch, y1, y2, y3, z1, z2, z3:  0.5 4.0 0.0 0.0 0.0 2.0 4.0 6.0
 <span class="k">class</span> <span class="nc">Obj</span><span class="p">:</span>
 
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">R</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">pitch</span><span class="o">=</span><span class="mf">4.0</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">R</span> 
-    <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span> <span class="o">=</span> <span class="n">pitch</span>  
+    <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">R</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span> <span class="o">=</span> <span class="n">pitch</span>
 
   <span class="k">def</span> <span class="nf">update_pars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">r</span> 
-    <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span> <span class="o">=</span> <span class="n">p</span>  
-    
+    <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">r</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span> <span class="o">=</span> <span class="n">p</span>
+
 
   <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
 
     <span class="c1">#you have to upack R, pitch if included in the BO</span>
-    <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span> <span class="o">=</span> <span class="n">x</span> 
+    <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span> <span class="o">=</span> <span class="n">x</span>
     <span class="n">Z</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">Tracker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span><span class="p">)</span><span class="o">.</span><span class="n">create_geometry</span><span class="p">()</span>
     <span class="c1">#a track is detected if at least two wires have been hit</span>
-    <span class="n">val</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">tracks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> 
+    <span class="n">val</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">tracks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="c1">#print(self.R, self.pitch)</span>
 
     <span class="k">return</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">val</span>  <span class="c1"># the smaller, the better.</span>
@@ -789,10 +788,9 @@ R, pitch, y1, y2, y3, z1, z2, z3:  0.5 4.0 0.0 0.0 0.0 2.0 4.0 6.0
 </div>
 </div>
 </section>
-</section>
 <hr class="docutils" />
-<section class="tex2jax_ignore mathjax_ignore" id="bayesian-optimization-of-the-detector-geometry">
-<h1>Bayesian Optimization of the Detector Geometry<a class="headerlink" href="#bayesian-optimization-of-the-detector-geometry" title="Permalink to this headline">#</a></h1>
+<section id="bayesian-optimization-of-the-detector-geometry">
+<h2>Bayesian Optimization of the Detector Geometry<a class="headerlink" href="#bayesian-optimization-of-the-detector-geometry" title="Permalink to this headline">#</a></h2>
 <p>You can find different options for the optimization.</p>
 <p>We refer to sklearn optimization package:
 <a class="reference external" href="https://scikit-optimize.github.io/stable/">https://scikit-optimize.github.io/stable/</a></p>
@@ -801,8 +799,8 @@ R, pitch, y1, y2, y3, z1, z2, z3:  0.5 4.0 0.0 0.0 0.0 2.0 4.0 6.0
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skopt</span> <span class="kn">import</span> <span class="n">gp_minimize</span><span class="p">,</span> <span class="n">gbrt_minimize</span><span class="p">,</span> <span class="n">dummy_minimize</span>
 
-<span class="c1"># You can change values within pre-defined ranges </span>
-<span class="c1"># Below we are considering only the shifts along y and z </span>
+<span class="c1"># You can change values within pre-defined ranges</span>
+<span class="c1"># Below we are considering only the shifts along y and z</span>
 <span class="c1"># (of each plane with respect to the previous plane)</span>
 
 <span class="n">y1_min</span><span class="p">,</span> <span class="n">y1_max</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">]</span>
@@ -812,7 +810,7 @@ R, pitch, y1, y2, y3, z1, z2, z3:  0.5 4.0 0.0 0.0 0.0 2.0 4.0 6.0
 <span class="n">z2_min</span><span class="p">,</span> <span class="n">z2_max</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]</span>
 <span class="n">z3_min</span><span class="p">,</span> <span class="n">z3_max</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]</span>
 
-<span class="n">dims</span> <span class="o">=</span> <span class="p">[(</span><span class="n">y1_min</span><span class="p">,</span> <span class="n">y1_max</span><span class="p">),(</span><span class="n">y2_min</span><span class="p">,</span> <span class="n">y2_max</span><span class="p">),</span> <span class="p">(</span><span class="n">y3_min</span><span class="p">,</span> <span class="n">y3_max</span><span class="p">),</span> 
+<span class="n">dims</span> <span class="o">=</span> <span class="p">[(</span><span class="n">y1_min</span><span class="p">,</span> <span class="n">y1_max</span><span class="p">),(</span><span class="n">y2_min</span><span class="p">,</span> <span class="n">y2_max</span><span class="p">),</span> <span class="p">(</span><span class="n">y3_min</span><span class="p">,</span> <span class="n">y3_max</span><span class="p">),</span>
         <span class="p">(</span><span class="n">z1_min</span><span class="p">,</span> <span class="n">z1_max</span><span class="p">),</span> <span class="p">(</span><span class="n">z2_min</span><span class="p">,</span> <span class="n">z2_max</span><span class="p">),(</span><span class="n">z3_min</span><span class="p">,</span> <span class="n">z3_max</span><span class="p">)]</span>
 
 <span class="n">ncalls</span> <span class="o">=</span> <span class="mi">100</span>
@@ -821,6 +819,7 @@ R, pitch, y1, y2, y3, z1, z2, z3:  0.5 4.0 0.0 0.0 0.0 2.0 4.0 6.0
 </div>
 </div>
 </div>
+</section>
 <section id="bayesian-optimization-with-gaussian-processes">
 <h2>Bayesian Optimization with Gaussian Processes<a class="headerlink" href="#bayesian-optimization-with-gaussian-processes" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
@@ -839,11 +838,11 @@ R, pitch, y1, y2, y3, z1, z2, z3:  0.5 4.0 0.0 0.0 0.0 2.0 4.0 6.0
     <span class="n">func</span><span class="o">=</span><span class="n">obj_fun</span><span class="o">.</span><span class="n">objective</span><span class="p">,</span>  <span class="c1"># the function to minimize</span>
     <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>  <span class="c1"># the bounds on each dimension of x</span>
     <span class="n">acq_func</span><span class="o">=</span><span class="s2">&quot;gp_hedge&quot;</span><span class="p">,</span> <span class="c1">#&quot;gp_hedge&quot;,  # the acquisition function EI</span>
-    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f </span>
+    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f</span>
     <span class="n">n_random_starts</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>  <span class="c1"># the number of random initialization points</span>
     <span class="c1">#noise=0.01**2,  # the noise level (optional)</span>
-    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed, use same for reproducibility </span>
-    <span class="c1">#kappa=kappa,  # the adjustable parameter of LCB; control variance </span>
+    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed, use same for reproducibility</span>
+    <span class="c1">#kappa=kappa,  # the adjustable parameter of LCB; control variance</span>
     <span class="c1">#xi = xi, # adjustable parameter of either EI, PI: controls improvement</span>
     <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -862,7 +861,7 @@ R, pitch, y1, y2, y3, z1, z2, z3:  0.5 4.0 0.0 0.0 0.0 2.0 4.0 6.0
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Objective optimum = &quot;</span><span class="p">,</span> <span class="n">res_gp</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best score (efficiency) = &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">res_gp</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
 
-<span class="c1"># get found optimal geometry #R, pitch, </span>
+<span class="c1"># get found optimal geometry #R, pitch,</span>
 <span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_gp</span><span class="o">.</span><span class="n">x</span>
 
 </pre></div>
@@ -896,7 +895,7 @@ Best score (efficiency) =  0.41500000000000004
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f0de9cb0c90&gt;
 </pre></div>
 </div>
-<img alt="_images/Design_BO_14_2.png" src="_images/Design_BO_14_2.png" />
+<img alt="_images/Design_BO_15_2.png" src="_images/Design_BO_15_2.png" />
 </div>
 </div>
 </section>
@@ -928,7 +927,7 @@ Best score (efficiency) =  0.41500000000000004
 num_wires:  20
 </pre></div>
 </div>
-<img alt="_images/Design_BO_16_1.png" src="_images/Design_BO_16_1.png" />
+<img alt="_images/Design_BO_17_1.png" src="_images/Design_BO_17_1.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fraction of tracks detected:  0.415
 </pre></div>
 </div>
@@ -944,10 +943,10 @@ num_wires:  20
     <span class="n">func</span><span class="o">=</span><span class="n">obj_fun</span><span class="o">.</span><span class="n">objective</span><span class="p">,</span>  <span class="c1"># the function to minimize</span>
     <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>  <span class="c1"># the bounds on each dimension of x</span>
     <span class="n">acq_func</span><span class="o">=</span><span class="s2">&quot;EI&quot;</span><span class="p">,</span>  <span class="c1"># the acquisition function EI</span>
-    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f </span>
+    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f</span>
     <span class="n">n_random_starts</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>  <span class="c1"># the number of random initialization points</span>
-    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed, use same for reproducibility </span>
-    <span class="c1">#kappa=kappa,  # the adjustable parameter of LCB; control variance </span>
+    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed, use same for reproducibility</span>
+    <span class="c1">#kappa=kappa,  # the adjustable parameter of LCB; control variance</span>
     <span class="c1">#xi = xi, # adjustable parameter of either EI, PI: controls improvement</span>
     <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -978,7 +977,7 @@ Best score =  0.378
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res_rand</span> <span class="o">=</span> <span class="n">dummy_minimize</span><span class="p">(</span>
     <span class="n">func</span><span class="o">=</span><span class="n">obj_fun</span><span class="o">.</span><span class="n">objective</span><span class="p">,</span>  <span class="c1"># the function to minimize</span>
     <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>  <span class="c1"># the bounds on each dimension of x</span>
-    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f </span>
+    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f</span>
     <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed</span>
     <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -1002,9 +1001,8 @@ Best score =  0.33099999999999996
 </div>
 </div>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="visualization-of-results">
-<h1>Visualization of Results<a class="headerlink" href="#visualization-of-results" title="Permalink to this headline">#</a></h1>
+<section id="visualization-of-results">
+<h2>Visualization of Results<a class="headerlink" href="#visualization-of-results" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;....plotting convergence&quot;</span><span class="p">)</span>
@@ -1020,32 +1018,32 @@ Best score =  0.33099999999999996
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f0dc912c550&gt;
 </pre></div>
 </div>
-<img alt="_images/Design_BO_22_2.png" src="_images/Design_BO_22_2.png" />
+<img alt="_images/Design_BO_23_2.png" src="_images/Design_BO_23_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">list_str</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;y1&quot;</span><span class="p">,</span> <span class="s2">&quot;y2&quot;</span><span class="p">,</span> <span class="s2">&quot;y3&quot;</span><span class="p">,</span> <span class="s2">&quot;z1&quot;</span><span class="p">,</span> <span class="s2">&quot;z2&quot;</span><span class="p">,</span> <span class="s2">&quot;z3&quot;</span><span class="p">]</span> <span class="c1">#----&quot;R&quot;, &quot;pitch&quot;</span>
 
-<span class="kn">from</span> <span class="nn">skopt.plots</span> <span class="kn">import</span> <span class="n">plot_objective</span> 
+<span class="kn">from</span> <span class="nn">skopt.plots</span> <span class="kn">import</span> <span class="n">plot_objective</span>
 <span class="n">_</span> <span class="o">=</span> <span class="n">plot_objective</span><span class="p">(</span><span class="n">res_gp</span><span class="p">,</span><span class="n">dimensions</span><span class="o">=</span><span class="n">list_str</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Design_BO_23_0.png" src="_images/Design_BO_23_0.png" />
+<img alt="_images/Design_BO_24_0.png" src="_images/Design_BO_24_0.png" />
 </div>
 </div>
 </section>
 <hr class="docutils" />
-<section class="tex2jax_ignore mathjax_ignore" id="solution-1">
-<h1>Solution 1<a class="headerlink" href="#solution-1" title="Permalink to this headline">#</a></h1>
+<section id="solution-1">
+<h2>Solution 1<a class="headerlink" href="#solution-1" title="Permalink to this headline">#</a></h2>
 <ol class="simple">
 <li><p>Increase radius to 1.0 and compare convergence plots of GP and RS with before.</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">,</span> <span class="n">pitch</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span> <span class="c1">#to update final plot of optimal geometry  </span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">,</span> <span class="n">pitch</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span> <span class="c1">#to update final plot of optimal geometry</span>
 
 <span class="n">obj_fun</span><span class="o">.</span><span class="n">update_pars</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pitch</span><span class="p">)</span>
 </pre></div>
@@ -1058,9 +1056,9 @@ Best score =  0.33099999999999996
     <span class="n">func</span><span class="o">=</span><span class="n">obj_fun</span><span class="o">.</span><span class="n">objective</span><span class="p">,</span>  <span class="c1"># the function to minimize</span>
     <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>  <span class="c1"># the bounds on each dimension of x</span>
     <span class="n">acq_func</span><span class="o">=</span><span class="s2">&quot;gp_hedge&quot;</span><span class="p">,</span> <span class="c1">#&quot;gp_hedge&quot;,  # the acquisition function EI</span>
-    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f </span>
+    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f</span>
     <span class="n">n_random_starts</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>  <span class="c1"># the number of random initialization points</span>
-    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed, use same for reproducibility </span>
+    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed, use same for reproducibility</span>
     <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------&quot;</span><span class="p">)</span>
@@ -1087,7 +1085,7 @@ Best score =  0.887
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res_rand_largeR</span> <span class="o">=</span> <span class="n">dummy_minimize</span><span class="p">(</span>
     <span class="n">func</span><span class="o">=</span><span class="n">obj_fun</span><span class="o">.</span><span class="n">objective</span><span class="p">,</span>  <span class="c1"># the function to minimize</span>
     <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>  <span class="c1"># the bounds on each dimension of x</span>
-    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f </span>
+    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f</span>
     <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed</span>
     <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -1125,7 +1123,7 @@ Best score =  0.796
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f0de9b1bd10&gt;
 </pre></div>
 </div>
-<img alt="_images/Design_BO_28_2.png" src="_images/Design_BO_28_2.png" />
+<img alt="_images/Design_BO_29_2.png" src="_images/Design_BO_29_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1144,7 +1142,7 @@ Best score =  0.796
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_gp_largeR</span><span class="o">.</span><span class="n">x</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_gp_largeR</span><span class="o">.</span><span class="n">x</span>
 
 <span class="c1">#------------- GEOMETRY ---------------#</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;:::: OPTIMAL GEOMETRY ::::&quot;</span><span class="p">)</span>
@@ -1169,12 +1167,13 @@ Best score =  0.796
 num_wires:  21
 </pre></div>
 </div>
-<img alt="_images/Design_BO_32_1.png" src="_images/Design_BO_32_1.png" />
+<img alt="_images/Design_BO_31_1.png" src="_images/Design_BO_31_1.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fraction of tracks detected:  0.887
 </pre></div>
 </div>
 </div>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
