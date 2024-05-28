@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="_static/wm_vertical_single_line_full_color.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Monte Carlo Method" href="Monte_Carlo.html" />
+    <link rel="next" title="A very basic example from the NFlows Library" href="NFlows_BasicExample_new.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -121,7 +121,17 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">
-   Welcome to Data Science! (6/3/2024)
+   (6/3/2024) - Intro to Data Science (get started, variance/bias)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">
+   (6/11/2024) - Intro to Normalizing Flows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   test lecture (to appear)
   </a>
  </li>
 </ul>
@@ -132,13 +142,45 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="Monte_Carlo.html">
-   Intro to Monte Carlo (an example) (6/3/2024)
+  <a class="reference internal" href="NFlows_BasicExample_new.html">
+   (6/11/2024) Normalizing Flows - Basic Example
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Regression_Deep_Learning.html">
-   Regression with Deep Learning (6/3/2024)
+  <a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">
+   (6/11/2024) Normalizing Flows - GlueX BCAL Example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_MOBO.html">
+   (6/13/2024) Multi-Objective Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_MOEA.html">
+   (6/13/2024 morning) Multi-Objective Genetic Algorithm
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">
+   Nuclear Fusion Data (Classification)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">
+   Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">
+   The updated ITPA global H-mode confinement database; description and analysis (Regression)
   </a>
  </li>
 </ul>
@@ -336,7 +378,7 @@ title="Print to PDF"
 <section class="tex2jax_ignore mathjax_ignore" id="ai-ml-for-fusion-summer-school-2024">
 <h1>AI/ML for Fusion Summer School 2024<a class="headerlink" href="#ai-ml-for-fusion-summer-school-2024" title="Permalink to this headline">#</a></h1>
 <p><b> The </b> <b><a class="reference external" href="https://crea-psfc.github.io/open-fair-fusion/">Open and Fair Fusion for Machine Learning Applications</a></b> <b>Project</b></p>
-<p>(last update: Mar 11/2024)</p>
+<p>(last update: May 27/2024 v6)</p>
 </center>
 <!-- It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information. -->
 <figure class="align-default" id="fig-layout">
@@ -348,14 +390,27 @@ title="Print to PDF"
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures (integrate with notebooks below)</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">Welcome to Data Science! (6/3/2024)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">(6/3/2024) - Intro to Data Science (get started, variance/bias)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">(6/11/2024) - Intro to Normalizing Flows</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1ZGrY9QxWgT1hVMc9_fhNoPDuyxSNHDe-levOsysO4m4/edit#slide=id.g2e09e1fdb2d_0_0">(6/11/2024) - Intro to Optimization</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">test lecture (to appear)</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Notebooks</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Monte_Carlo.html">Intro to Monte Carlo (an example) (6/3/2024)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Regression_Deep_Learning.html">Regression with Deep Learning (6/3/2024)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFlows_BasicExample_new.html">(6/11/2024) Normalizing Flows - Basic Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">(6/11/2024) Normalizing Flows - GlueX BCAL Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_MOBO.html">(6/13/2024) Multi-Objective Bayesian Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_MOEA.html">(6/13/2024 morning) Multi-Objective Genetic Algorithm</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">Nuclear Fusion Data (Classification)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">The updated ITPA global H-mode confinement database; description and analysis (Regression)</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -393,10 +448,10 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='right-next' id="next-link" href="Monte_Carlo.html" title="next page">
+    <a class='right-next' id="next-link" href="NFlows_BasicExample_new.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Monte Carlo Method</p>
+        <p class="prev-next-title">A very basic example from the NFlows Library</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

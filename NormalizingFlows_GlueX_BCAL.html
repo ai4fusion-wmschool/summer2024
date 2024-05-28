@@ -1,0 +1,1946 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Normalizing Flows for GlueX Simulation &#8212; AI for Fusion Energy Summer School (2024)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="_static/wm_vertical_single_line_full_color.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="References" href="referencesmd.html" />
+    <link rel="prev" title="A very basic example from the NFlows Library" href="NFlows_BasicExample.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/wm_vertical_single_line_full_color.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">AI for Fusion Energy Summer School (2024)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI/ML for Fusion Summer School 2024
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures (integrate with notebooks below)
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">
+   (6/3/2024 morning ses. 1) - Intro to Data Science (get started, variance/bias)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">
+   (6/11/2024 morning ses. 2) - Intro to Normalizing Flows
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notebooks
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="NFlows_BasicExample.html">
+   A very basic example from the NFlows Library
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Normalizing Flows for GlueX Simulation
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Additional resources
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="referencesmd.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=lab/tree/notebooks/NormalizingFlows_GlueX_BCAL.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://jupyterhub.wm.edu/hub/user-redirect/git-pull?repo=https://github.com/ai4fusion-wmschool/summer2024&urlpath=lab/tree/summer2024/notebooks/NormalizingFlows_GlueX_BCAL.ipynb&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/NormalizingFlows_GlueX_BCAL.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FNormalizingFlows_GlueX_BCAL.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/NormalizingFlows_GlueX_BCAL.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Normalizing Flows for GlueX Simulation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-the-data-and-take-a-look">
+   Load the data and take a look
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#we-want-to-learn-the-generate-the-features-of-the-bcal-as-a-function-of-the-kinematics">
+     We want to learn the generate the features of the BCAL as a function of the kinematics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-visualization-is-important">
+   Data visualization is important
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dataloaders">
+   DataLoaders
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-model">
+   The model
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-function">
+   Training function
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generations">
+   Generations
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   Your turn.
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Normalizing Flows for GlueX Simulation</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Normalizing Flows for GlueX Simulation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-the-data-and-take-a-look">
+   Load the data and take a look
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#we-want-to-learn-the-generate-the-features-of-the-bcal-as-a-function-of-the-kinematics">
+     We want to learn the generate the features of the BCAL as a function of the kinematics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-visualization-is-important">
+   Data visualization is important
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dataloaders">
+   DataLoaders
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-model">
+   The model
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-function">
+   Training function
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generations">
+   Generations
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   Your turn.
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="normalizing-flows-for-gluex-simulation">
+<h1>Normalizing Flows for GlueX Simulation<a class="headerlink" href="#normalizing-flows-for-gluex-simulation" title="Permalink to this headline">#</a></h1>
+<p><img alt="Example Image" src="https://halldweb.jlab.org/wiki/images/2/25/BCAL.png" /></p>
+<p>We are going to look at two different neutral particles in the Barrel Calorimeter (BCAL), photons (<span class="math notranslate nohighlight">\(\gamma\)</span>) and neutrons (<span class="math notranslate nohighlight">\(n\)</span>) and use normalizing flows to generate them. We will make assumptions that both classes are well represented by the simulation.</p>
+</section>
+<section id="load-the-data-and-take-a-look">
+<h1>Load the data and take a look<a class="headerlink" href="#load-the-data-and-take-a-look" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lets load the data. We store in simple csv files.</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">neutrons</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;D:\BCAL\Neutrons.csv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">photons</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;D:\BCAL\Photons.csv&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">index_col</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">neutrons</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">photons</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;recon_BCAL_z_entry&#39;, &#39;recon_BCAL_E&#39;, &#39;recon_BCAL_r&#39;,
+       &#39;recon_BCAL_Layer1_E&#39;, &#39;recon_BCAL_Layer2_E&#39;, &#39;recon_BCAL_Layer3_E&#39;,
+       &#39;recon_BCAL_Layer4_E&#39;, &#39;recon_BCAL_Layer4bySumLayers_E&#39;,
+       &#39;recon_BCAL_Layer3bySumLayers_E&#39;, &#39;recon_BCAL_Layer2bySumLayers_E&#39;,
+       &#39;recon_BCAL_Layer1bySumLayers_E&#39;, &#39;recon_BCAL_ZWidth&#39;,
+       &#39;recon_BCAL_RWidth&#39;, &#39;recon_BCAL_TWidth&#39;, &#39;recon_BCAL_PhiWidth&#39;,
+       &#39;recon_BCAL_ThetaWidth&#39;],
+      dtype=&#39;object&#39;)
+Index([&#39;recon_BCAL_z_entry&#39;, &#39;recon_BCAL_E&#39;, &#39;recon_BCAL_r&#39;,
+       &#39;recon_BCAL_Layer1_E&#39;, &#39;recon_BCAL_Layer2_E&#39;, &#39;recon_BCAL_Layer3_E&#39;,
+       &#39;recon_BCAL_Layer4_E&#39;, &#39;recon_BCAL_Layer4bySumLayers_E&#39;,
+       &#39;recon_BCAL_Layer3bySumLayers_E&#39;, &#39;recon_BCAL_Layer2bySumLayers_E&#39;,
+       &#39;recon_BCAL_Layer1bySumLayers_E&#39;, &#39;recon_BCAL_ZWidth&#39;,
+       &#39;recon_BCAL_RWidth&#39;, &#39;recon_BCAL_TWidth&#39;, &#39;recon_BCAL_PhiWidth&#39;,
+       &#39;recon_BCAL_ThetaWidth&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="we-want-to-learn-the-generate-the-features-of-the-bcal-as-a-function-of-the-kinematics">
+<h2>We want to learn the generate the features of the BCAL as a function of the kinematics<a class="headerlink" href="#we-want-to-learn-the-generate-the-features-of-the-bcal-as-a-function-of-the-kinematics" title="Permalink to this headline">#</a></h2>
+<p>Lets look at how the features are distributed for both photons and neutrons, as a function of the two kinematic variables.</p>
+<p><span class="math notranslate nohighlight">\(\boldsymbol{z}\)</span> - recon_BCAL_z_entry</p>
+<p>This is the z position (along the beamline) that a particle interacts with the innermost layer of the BCAL. The shower profile will change with a function of z. Does this make sense to you?</p>
+<p><span class="math notranslate nohighlight">\(\boldsymbol{E}\)</span> - recon_BCAL_E</p>
+<p>The total reconstructed (by the detector) energy of a particle. The shower profile will change as a function of energy? Does this make sense to you?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+
+<span class="k">def</span> <span class="nf">make_plots</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">particle</span><span class="p">):</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;recon_BCAL_r&#39;</span><span class="p">,</span> <span class="s1">&#39;recon_BCAL_Layer1_E&#39;</span><span class="p">,</span> <span class="s1">&#39;recon_BCAL_Layer2_E&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;recon_BCAL_Layer3_E&#39;</span><span class="p">,</span> <span class="s1">&#39;recon_BCAL_Layer4_E&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;recon_BCAL_Layer4bySumLayers_E&#39;</span><span class="p">,</span> <span class="s1">&#39;recon_BCAL_Layer3bySumLayers_E&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;recon_BCAL_Layer2bySumLayers_E&#39;</span><span class="p">,</span> <span class="s1">&#39;recon_BCAL_Layer1bySumLayers_E&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;recon_BCAL_ZWidth&#39;</span><span class="p">,</span> <span class="s1">&#39;recon_BCAL_RWidth&#39;</span><span class="p">,</span> <span class="s1">&#39;recon_BCAL_TWidth&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;recon_BCAL_PhiWidth&#39;</span><span class="p">,</span> <span class="s1">&#39;recon_BCAL_ThetaWidth&#39;</span><span class="p">]</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
+    <span class="n">axs</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Radius&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$E (1^</span><span class="si">{st}</span><span class="s1"> \, Layer)$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$E (2^</span><span class="si">{nd}</span><span class="s1"> \, Layer)$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$E (3^</span><span class="si">{rd}</span><span class="s1"> \, Layer)$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$E (4^</span><span class="si">{th}</span><span class="s1"> \, Layer)$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$\frac{E (4^</span><span class="si">{th}</span><span class="s1"> \, Layer)}{\sum E}$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$\frac{E (3^</span><span class="si">{rd}</span><span class="s1"> \, Layer)}{\sum E}$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$\frac{E (2^</span><span class="si">{nd}</span><span class="s1"> \, Layer)}{\sum E}$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$\frac{E (1^</span><span class="si">{st}</span><span class="s1"> \, Layer)}{\sum E}$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$Z \, Width$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$R \, Width$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$T \, Width$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$\phi \,  Width$&#39;</span><span class="p">,</span>
+     <span class="sa">r</span><span class="s1">&#39;$\theta  \, Width$&#39;</span><span class="p">]</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">particle</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;recon_BCAL_E&#39;</span><span class="p">]</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">hist2d</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">LogNorm</span><span class="p">())</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span> 
+        <span class="n">ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">)</span>
+
+        <span class="n">s</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">labelpad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">7</span><span class="p">)):</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Energy&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">labelpad</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">N</span><span class="p">:]:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">.3</span><span class="p">)</span>
+    <span class="n">axs</span> <span class="o">=</span> <span class="n">axs</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">column</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;recon_BCAL_z_entry&#39;</span><span class="p">]</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">hist2d</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="mi">55</span><span class="p">,</span><span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">LogNorm</span><span class="p">())</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>  <span class="c1">#to Set Matplotlib Tick Labels Font Size.</span>
+        <span class="n">ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="n">ticks</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">labelpad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">7</span><span class="p">)):</span>
+            <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Z Position&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span><span class="n">labelpad</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+        <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">N</span><span class="p">:]:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_plots</span><span class="p">(</span><span class="n">photons</span><span class="p">,</span><span class="s2">&quot;Photons&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Photons
+</pre></div>
+</div>
+<img alt="_images/NormalizingFlows_GlueX_BCAL_4_1.png" src="_images/NormalizingFlows_GlueX_BCAL_4_1.png" />
+<img alt="_images/NormalizingFlows_GlueX_BCAL_4_2.png" src="_images/NormalizingFlows_GlueX_BCAL_4_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_plots</span><span class="p">(</span><span class="n">neutrons</span><span class="p">,</span><span class="s2">&quot;Neutrons&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Neutrons
+</pre></div>
+</div>
+<img alt="_images/NormalizingFlows_GlueX_BCAL_5_1.png" src="_images/NormalizingFlows_GlueX_BCAL_5_1.png" />
+<img alt="_images/NormalizingFlows_GlueX_BCAL_5_2.png" src="_images/NormalizingFlows_GlueX_BCAL_5_2.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="data-visualization-is-important">
+<h1>Data visualization is important<a class="headerlink" href="#data-visualization-is-important" title="Permalink to this headline">#</a></h1>
+<p>We have expected distributions of the features as a function of the two kinematic parameters. This will be useful later for comparisons. We can generate artificial data with out network and check if the relationships are retained.</p>
+<p>Now lets work on making methods to load the data into our models using standard pytorch functions.</p>
+<p>I am going to introduce you to two different methods.</p>
+<ol class="simple">
+<li><p>Custom Datasets</p></li>
+<li><p>Dataloaders</p></li>
+</ol>
+<p>Note that we don’t really need a custom dataset here and a simple TensorDataset() would do just fine, but lets use one anyways to get you more familiar with different pytorch methods.</p>
+<p>Lets setup dictionaries of the normalization statistics of the two datasets, i.e., maximum and minimums. We could just use an sklearn method of MinMaxScaler() here, but lets consider a case when this is not feasible. For example, if we cannot fit all data into RAM and we need to load batches from file (not the case here, but you could face this).</p>
+<p>One could precompute the statistics and load individual files to create the batches, scaling in the way we will define below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fields</span> <span class="o">=</span> <span class="n">photons</span><span class="o">.</span><span class="n">columns</span>
+
+<span class="n">stats</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+    <span class="n">p_max</span> <span class="o">=</span> <span class="n">photons</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">n_max</span> <span class="o">=</span> <span class="n">neutrons</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">p_min</span> <span class="o">=</span> <span class="n">photons</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">n_min</span> <span class="o">=</span> <span class="n">neutrons</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    
+    <span class="n">stats</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">_max&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">p_max</span><span class="p">,</span><span class="n">n_max</span><span class="p">)</span>
+    <span class="n">stats</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">_min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">p_min</span><span class="p">,</span><span class="n">n_min</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;recon_BCAL_z_entry_max&#39;: 2.6199997,
+ &#39;recon_BCAL_z_entry_min&#39;: 1.6200029,
+ &#39;recon_BCAL_E_max&#39;: 2.1999831,
+ &#39;recon_BCAL_E_min&#39;: 0.2000011,
+ &#39;recon_BCAL_r_max&#39;: 0.74404915,
+ &#39;recon_BCAL_r_min&#39;: 0.65299995,
+ &#39;recon_BCAL_Layer1_E_max&#39;: 1.8684639,
+ &#39;recon_BCAL_Layer1_E_min&#39;: 0.0,
+ &#39;recon_BCAL_Layer2_E_max&#39;: 1.8641225,
+ &#39;recon_BCAL_Layer2_E_min&#39;: 0.0,
+ &#39;recon_BCAL_Layer3_E_max&#39;: 2.002063,
+ &#39;recon_BCAL_Layer3_E_min&#39;: 0.0,
+ &#39;recon_BCAL_Layer4_E_max&#39;: 2.1544363,
+ &#39;recon_BCAL_Layer4_E_min&#39;: 0.0,
+ &#39;recon_BCAL_Layer4bySumLayers_E_max&#39;: 0.99562687,
+ &#39;recon_BCAL_Layer4bySumLayers_E_min&#39;: 0.0,
+ &#39;recon_BCAL_Layer3bySumLayers_E_max&#39;: 1.0,
+ &#39;recon_BCAL_Layer3bySumLayers_E_min&#39;: 0.0,
+ &#39;recon_BCAL_Layer2bySumLayers_E_max&#39;: 1.0,
+ &#39;recon_BCAL_Layer2bySumLayers_E_min&#39;: 0.0,
+ &#39;recon_BCAL_Layer1bySumLayers_E_max&#39;: 1.0,
+ &#39;recon_BCAL_Layer1bySumLayers_E_min&#39;: 0.0,
+ &#39;recon_BCAL_ZWidth_max&#39;: 0.7497995999999999,
+ &#39;recon_BCAL_ZWidth_min&#39;: 0.00046754237,
+ &#39;recon_BCAL_RWidth_max&#39;: 0.158894415,
+ &#39;recon_BCAL_RWidth_min&#39;: 5.087822e-09,
+ &#39;recon_BCAL_TWidth_max&#39;: 9.955425,
+ &#39;recon_BCAL_TWidth_min&#39;: 6.242522e-05,
+ &#39;recon_BCAL_PhiWidth_max&#39;: 0.33884382,
+ &#39;recon_BCAL_PhiWidth_min&#39;: 1.1770585e-12,
+ &#39;recon_BCAL_ThetaWidth_max&#39;: 0.38148192,
+ &#39;recon_BCAL_ThetaWidth_min&#39;: 0.0002796732}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="k">class</span> <span class="nc">BCALDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dataset</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;Single&quot;</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please select one of the following modes:&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. Single&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. Combined&quot;</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">stats</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">4</span><span class="p">:]</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_max&#39;</span><span class="p">)])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">4</span><span class="p">:]</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_min&#39;</span><span class="p">)])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_conds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="mi">4</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_max&#39;</span><span class="p">)])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_conds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="mi">4</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_min&#39;</span><span class="p">)])</span>
+            
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Applying no scaling to your data.&quot;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;Single&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">dataset</span>
+
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;Combined&quot;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You need to write some code!&#39;</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">()</span>
+            <span class="c1"># I leave this up to you.</span>
+            <span class="c1"># Is it possible to combine the two particles under one model?</span>
+            <span class="c1"># What else would you need to add?</span>
+            <span class="c1"># Hint: Perhaps another conditional parameter corresponding to the PID (label)?</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error in dataset creation. Exiting&quot;</span><span class="p">)</span>
+            <span class="n">exit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">scale_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_values</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_values</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_values</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span> <span class="c1"># (-1,1) </span>
+    
+    <span class="k">def</span> <span class="nf">scale_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">conditions</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">conditions</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_conds</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_conds</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_conds</span><span class="p">)</span> <span class="c1"># (0,1)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="c1"># Get the sample</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">conditions</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="n">unscaled_conditions</span> <span class="o">=</span> <span class="n">conditions</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">conditions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_conditions</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
+            <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_features</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+
+       <span class="c1"># PID = data[-1]   # Incase you want to get creative and combine the models. How could we use a PID?</span>
+
+        <span class="k">return</span> <span class="n">features</span><span class="p">,</span><span class="n">conditions</span><span class="p">,</span><span class="n">unscaled_conditions</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets take a look at how this works.</p>
+<p>In pytorch when we create a custom dataset we will pass this to a “DataLoader”. The dataloader is simple a method of providing indicies to our <strong>getitem</strong>() function. All custom datasets need to have this function in order for the dataloader to be able to properly return batches!</p>
+<p>With custom datasets we are able to have better control over our loading pipeline. As mentioned before, consider the case where you have large inputs that cannot all fit into RAM at once. Instead of grabbing a specific index of a preloaded numpy array (as above) we could load individual numpy files and create batches this way inside the <strong>getitem</strong>() function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">photon_dataset</span> <span class="o">=</span> <span class="n">BCALDataset</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">photons</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span><span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;Single&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets grab one item from our dataset and see what it looks like.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features</span><span class="p">,</span><span class="n">conditions</span><span class="p">,</span><span class="n">unscaled_conditions</span> <span class="o">=</span> <span class="n">photon_dataset</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scaled Features&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scaled Conditions&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Conditions&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">unscaled_conditions</span><span class="p">)</span>
+
+<span class="k">del</span> <span class="n">photon_dataset</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scaled Features
+[-0.3991721  -0.40765139 -0.19837827 -0.71272782 -0.98625145 -0.98143995
+ -0.64119646 -0.0677566  -0.3095258  -0.54592446 -0.61825955 -0.80214282
+ -0.88954777 -0.75460464]
+Scaled Conditions
+[0.26407545 0.73630133]
+Conditions
+[1.8840775 1.6725905]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dataloaders">
+<h1>DataLoaders<a class="headerlink" href="#dataloaders" title="Permalink to this headline">#</a></h1>
+<p>Now that we have an object that can sufficiently provide data to your network. We need to wrap it with a DataLoader() from pytorch. Why?</p>
+<p>A pytorch dataloader takes as input some sort of Dataset object. It will then look at the entire length of the dataset and precompute a series of indices to form batches. For example, lets say our batch size is 5, the dataloader will produce something as follows:</p>
+<p><span class="math notranslate nohighlight">\(B_1 = [0,10,25,45,21]\)</span></p>
+<p><span class="math notranslate nohighlight">\(B_2 = [14,13,22,16,99]\)</span></p>
+<p>Each of these integers is simply an index! This will produce a tensor of shape (5,features).</p>
+<p>Now lets also make a custom collate function. A collate function simply tells the dataloader how I want you to format the output from my dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+
+<span class="k">def</span> <span class="nf">BCAL_Collate</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">unscaled</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># PIDs = []</span>
+
+    <span class="k">for</span> <span class="n">f</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">uc</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">:</span>
+        <span class="n">features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="n">conditions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+        <span class="n">unscaled</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">uc</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">features</span><span class="p">),</span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">conditions</span><span class="p">),</span><span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">unscaled</span><span class="p">)</span>
+
+<span class="c1"># Create dataloaders to iterate.</span>
+<span class="k">def</span> <span class="nf">CreateLoaders</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span><span class="n">val_dataset</span><span class="p">,</span><span class="n">test_dataset</span><span class="p">,</span><span class="n">train_batch</span><span class="p">,</span><span class="n">val_batch</span><span class="p">,</span><span class="n">test_batch</span><span class="p">):</span>
+    <span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span>
+                            <span class="n">batch_size</span><span class="o">=</span><span class="n">train_batch</span><span class="p">,</span>
+                            <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">collate_fn</span><span class="o">=</span><span class="n">BCAL_Collate</span><span class="p">,</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">pin_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">val_loader</span> <span class="o">=</span>  <span class="n">DataLoader</span><span class="p">(</span><span class="n">val_dataset</span><span class="p">,</span>
+                            <span class="n">batch_size</span><span class="o">=</span><span class="n">val_batch</span><span class="p">,</span>
+                            <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">collate_fn</span><span class="o">=</span><span class="n">BCAL_Collate</span><span class="p">,</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">pin_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">test_loader</span> <span class="o">=</span>  <span class="n">DataLoader</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">,</span>
+                            <span class="n">batch_size</span><span class="o">=</span><span class="n">val_batch</span><span class="p">,</span>
+                            <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">collate_fn</span><span class="o">=</span><span class="n">BCAL_Collate</span><span class="p">,</span><span class="n">num_workers</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">pin_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">train_loader</span><span class="p">,</span><span class="n">val_loader</span><span class="p">,</span><span class="n">test_loader</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that once again we do not need a custom collate function. Our data is a simple tabular format and pytorch has prebuilt functions (TensorDataset() and its collate function) that would handle this. But lets be complete.</p>
+<p>Notice some of the arguments in the above DataLoader() functions. Here we control the batch size, whether we want to shuffle indices between epochs, etc. There are other arguments that are not extremely important here such as. You can see how these work in more complex environments here: <a class="reference external" href="https://pytorch.org/docs/stable/data.html">https://pytorch.org/docs/stable/data.html</a></p>
+<p>We have one more thing to do, we need to make a train,val,test split. We can use sklearn() functions to do this, or we can do it manually.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_train_test_split</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+    <span class="n">Nt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.7</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">))</span>
+    <span class="n">train</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[:</span><span class="n">Nt</span><span class="p">]</span>
+    <span class="n">test_val</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">Nt</span><span class="p">:]</span>
+    
+    <span class="n">Nv</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">test_val</span><span class="p">))</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="n">test_val</span><span class="p">[:</span><span class="n">Nv</span><span class="p">]</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">test_val</span><span class="p">[</span><span class="n">Nv</span><span class="p">:]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total dataset size: &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of Training data points: &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of Validation data points: &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of Testing data points: &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">train</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">test</span>
+
+<span class="n">training_photons</span><span class="p">,</span><span class="n">validation_photons</span><span class="p">,</span><span class="n">testing_photons</span> <span class="o">=</span> <span class="n">create_train_test_split</span><span class="p">(</span><span class="n">photons</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total dataset size:  1726143
+Number of Training data points:  1208300
+Number of Validation data points:  258921
+Number of Testing data points:  258922
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now lets complete the entire dataloading pipeline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_photons</span> <span class="o">=</span> <span class="n">BCALDataset</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">training_photons</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;Single&quot;</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">)</span>
+<span class="n">val_photons</span> <span class="o">=</span> <span class="n">BCALDataset</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">validation_photons</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;Single&quot;</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">)</span>
+<span class="n">test_photons</span> <span class="o">=</span> <span class="n">BCALDataset</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">testing_photons</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;Single&quot;</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">)</span>
+
+<span class="c1"># Lets use batch sizes of 2048</span>
+
+<span class="n">train_batch_size</span> <span class="o">=</span> <span class="mi">2048</span>
+<span class="n">val_batch_size</span> <span class="o">=</span> <span class="mi">2048</span>
+<span class="n">test_batch_size</span> <span class="o">=</span> <span class="mi">2048</span>
+
+<span class="n">train_loader</span><span class="p">,</span><span class="n">val_loader</span><span class="p">,</span><span class="n">test_loader</span> <span class="o">=</span> <span class="n">CreateLoaders</span><span class="p">(</span><span class="n">train_photons</span><span class="p">,</span><span class="n">val_photons</span><span class="p">,</span><span class="n">test_photons</span><span class="p">,</span><span class="n">train_batch_size</span><span class="p">,</span><span class="n">val_batch_size</span><span class="p">,</span><span class="n">test_batch_size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can simple iterate the dataset as below. Being that you all have GPU access, we will make a simple assumption and put everything to GPU by default in training.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_loader</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Features: &quot;</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scaled Conditions: &quot;</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Conditions: &quot;</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Features:  tensor([[-0.5154, -0.6776, -0.3125,  ..., -0.8510, -0.8174, -0.7701],
+        [-0.6462, -0.6791, -0.6610,  ..., -0.7984, -0.8842, -0.8836],
+        [-0.7868, -0.8619, -0.9346,  ..., -0.9278, -0.8619, -0.8468],
+        ...,
+        [-0.8164, -0.8232, -0.8869,  ..., -0.7821, -0.9238, -0.8011],
+        [-0.7866, -0.8845, -0.9403,  ..., -0.7892, -0.9057, -0.8226],
+        [-0.8172, -0.8539, -0.9318,  ..., -0.8289, -0.9067, -0.6786]],
+       dtype=torch.float64)
+Scaled Conditions:  tensor([[0.1413, 0.4361],
+        [0.7357, 0.2645],
+        [0.2219, 0.0363],
+        ...,
+        [0.4717, 0.0546],
+        [0.8018, 0.0094],
+        [0.1417, 0.0237]], dtype=torch.float64)
+Conditions:  tensor([[1.7613, 1.0723],
+        [2.3557, 0.7290],
+        [1.8419, 0.2726],
+        ...,
+        [2.0917, 0.3091],
+        [2.4218, 0.2189],
+        [1.7617, 0.2475]], dtype=torch.float64)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-model">
+<h1>The model<a class="headerlink" href="#the-model" title="Permalink to this headline">#</a></h1>
+<p>This is fairly complicated, but we have written it to be inclusive of everything you will need.</p>
+<p>The functions we will be using are:</p>
+<ol class="simple">
+<li><p>log_prob() -&gt; for training.</p></li>
+<li><p>_sample() -&gt; for generation.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">FrEIA.modules.base</span> <span class="kn">import</span> <span class="n">InvertibleModule</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">special_ortho_group</span>
+<span class="kn">import</span> <span class="nn">FrEIA.framework</span> <span class="k">as</span> <span class="nn">Ff</span>
+<span class="kn">import</span> <span class="nn">FrEIA.modules</span> <span class="k">as</span> <span class="nn">Fm</span>
+<span class="kn">from</span> <span class="nn">nflows.distributions.normal</span> <span class="kn">import</span> <span class="n">ConditionalDiagonalNormal</span>
+<span class="kn">from</span> <span class="nn">nflows.utils</span> <span class="kn">import</span> <span class="n">torchutils</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Tuple</span>
+
+
+<span class="k">class</span> <span class="nc">FreiaNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">input_shape</span><span class="p">,</span><span class="n">layers</span><span class="p">,</span><span class="n">context_shape</span><span class="p">,</span><span class="n">embedding</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">hidden_units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span><span class="n">num_blocks</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cuda&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FreiaNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span> <span class="o">=</span> <span class="n">input_shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context_shape</span> <span class="o">=</span> <span class="n">context_shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span> <span class="o">=</span> <span class="n">embedding</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_units</span> <span class="o">=</span> <span class="n">hidden_units</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_blocks</span> <span class="o">=</span> <span class="n">num_blocks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">stats</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_values</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">4</span><span class="p">:]</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_max&#39;</span><span class="p">)]))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_values</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">4</span><span class="p">:]</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_min&#39;</span><span class="p">)]))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_conds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="mi">4</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_max&#39;</span><span class="p">)]))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">min_conds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">keys</span><span class="p">())[:</span><span class="mi">4</span><span class="p">]</span> <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_min&#39;</span><span class="p">)]))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You have no included any stats for normalization values. Is this intentional?&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">context_embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">context_shape</span><span class="p">,</span><span class="mi">16</span><span class="p">),</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="n">input_shape</span><span class="p">)])</span>
+
+        <span class="c1"># Here we are setting up the conditional distribution</span>
+        <span class="c1"># We will use an MLP to perform a learnable transformation on our conditions</span>
+        <span class="c1"># The output of the MLP will characterize the mean and std of our Gaussian distribution</span>
+        <span class="n">context_encoder</span> <span class="o">=</span>  <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">context_shape</span><span class="p">,</span><span class="mi">16</span><span class="p">),</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="n">input_shape</span><span class="o">*</span><span class="mi">2</span><span class="p">)])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span> <span class="o">=</span> <span class="n">ConditionalDiagonalNormal</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="n">input_shape</span><span class="p">],</span><span class="n">context_encoder</span><span class="o">=</span><span class="n">context_encoder</span><span class="p">)</span>
+
+        <span class="c1"># Create the bijective functions</span>
+        <span class="c1"># Here we are combining FrEAI and NFlows</span>
+        <span class="c1"># We will use the affine coupling transformation from FrEAI, but this entire function is derived from NFlows.</span>
+        <span class="k">def</span> <span class="nf">create_freai</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span><span class="n">layer</span><span class="p">,</span><span class="n">cond_shape</span><span class="p">):</span>
+            <span class="n">inn</span> <span class="o">=</span> <span class="n">Ff</span><span class="o">.</span><span class="n">SequenceINN</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">layers</span><span class="p">):</span>
+                <span class="n">inn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Fm</span><span class="o">.</span><span class="n">AllInOneBlock</span><span class="p">,</span><span class="n">cond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">cond_shape</span><span class="o">=</span><span class="p">(</span><span class="n">cond_shape</span><span class="p">,),</span><span class="n">subnet_constructor</span><span class="o">=</span><span class="n">subnet_fc</span><span class="p">,</span> <span class="n">permute_soft</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">inn</span>
+
+        <span class="k">def</span> <span class="nf">block</span><span class="p">(</span><span class="n">hidden_units</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_units</span><span class="p">,</span><span class="n">hidden_units</span><span class="p">),</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_units</span><span class="p">,</span><span class="n">hidden_units</span><span class="p">),</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()]</span>
+
+        <span class="k">def</span> <span class="nf">subnet_fc</span><span class="p">(</span><span class="n">c_in</span><span class="p">,</span> <span class="n">c_out</span><span class="p">):</span>
+            <span class="n">blks</span> <span class="o">=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">c_in</span><span class="p">,</span><span class="n">hidden_units</span><span class="p">)]</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_blocks</span><span class="p">):</span>
+                <span class="n">blks</span> <span class="o">+=</span> <span class="n">block</span><span class="p">(</span><span class="n">hidden_units</span><span class="p">)</span>
+
+            <span class="n">blks</span> <span class="o">+=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_units</span><span class="p">,</span><span class="n">c_out</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">blks</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span> <span class="o">=</span> <span class="n">create_freai</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_shape</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">context_shape</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">log_prob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">inputs</span><span class="p">,</span><span class="n">context</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">:</span>
+            <span class="n">embedded_context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_embedding</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">embedded_context</span> <span class="o">=</span> <span class="n">context</span>
+
+        <span class="n">noise</span><span class="p">,</span><span class="n">logabsdet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span><span class="n">rev</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">embedded_context</span><span class="p">])</span>
+        <span class="n">log_prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span><span class="n">context</span><span class="o">=</span><span class="n">embedded_context</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">log_prob</span> <span class="o">+</span> <span class="n">logabsdet</span>
+
+
+    <span class="k">def</span> <span class="nf">__sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">num_samples</span><span class="p">,</span><span class="n">context</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">:</span>
+            <span class="n">embedded_context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context_embedding</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">embedded_context</span> <span class="o">=</span> <span class="n">context</span>
+
+        <span class="n">noise</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span><span class="n">context</span><span class="o">=</span><span class="n">embedded_context</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">embedded_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">noise</span> <span class="o">=</span> <span class="n">torchutils</span><span class="o">.</span><span class="n">merge_leading_dims</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span> <span class="n">num_dims</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">embedded_context</span> <span class="o">=</span> <span class="n">torchutils</span><span class="o">.</span><span class="n">repeat_rows</span><span class="p">(</span>
+                <span class="n">embedded_context</span><span class="p">,</span> <span class="n">num_reps</span><span class="o">=</span><span class="n">num_samples</span>
+            <span class="p">)</span>
+
+        <span class="n">samples</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span><span class="n">rev</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">embedded_context</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">samples</span>
+
+    <span class="k">def</span> <span class="nf">unscale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_values</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_values</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_values</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_values</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">min_values</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+
+    <span class="k">def</span> <span class="nf">_sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">num_samples</span><span class="p">,</span><span class="n">context</span><span class="p">):</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__sample</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span><span class="n">context</span><span class="p">)</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unscale</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">samples</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+
+    <span class="k">def</span> <span class="nf">sample_and_log_prob</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">num_samples</span><span class="p">,</span><span class="n">context</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">:</span>
+            <span class="n">embedded_context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embedding_net</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">embedded_context</span> <span class="o">=</span> <span class="n">context</span>
+
+        <span class="n">noise</span><span class="p">,</span> <span class="n">log_prob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">sample_and_log_prob</span><span class="p">(</span>
+            <span class="n">num_samples</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">embedded_context</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">embedded_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Merge the context dimension with sample dimension in order to apply the transform.</span>
+            <span class="n">noise</span> <span class="o">=</span> <span class="n">torchutils</span><span class="o">.</span><span class="n">merge_leading_dims</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span> <span class="n">num_dims</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">embedded_context</span> <span class="o">=</span> <span class="n">torchutils</span><span class="o">.</span><span class="n">repeat_rows</span><span class="p">(</span>
+                <span class="n">embedded_context</span><span class="p">,</span> <span class="n">num_reps</span><span class="o">=</span><span class="n">num_samples</span>
+            <span class="p">)</span>
+        <span class="n">samples</span><span class="p">,</span> <span class="n">logabsdet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span><span class="n">rev</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="n">embedded_context</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">embedded_context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Split the context dimension from sample dimension.</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="n">torchutils</span><span class="o">.</span><span class="n">split_leading_dim</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">])</span>
+            <span class="n">logabsdet</span> <span class="o">=</span> <span class="n">torchutils</span><span class="o">.</span><span class="n">split_leading_dim</span><span class="p">(</span><span class="n">logabsdet</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">])</span>
+            
+        <span class="n">samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unscale</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">samples</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="p">(</span><span class="n">log_prob</span> <span class="o">-</span> <span class="n">logabsdet</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    
+<span class="c1"># Lets make a model. We will use the following parameters:</span>
+<span class="c1"># input_shape,layers,context_shape,embedding=False,hidden_units=512,num_blocks=2</span>
+<span class="n">input_shape</span> <span class="o">=</span> <span class="mi">14</span> <span class="c1"># the number of features we have</span>
+<span class="n">layers</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1"># how many chained bijections do we want to use i.e., f(f(f(x)))</span>
+<span class="n">context_shape</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># Number of conditional parameters</span>
+<span class="n">hidden_units</span> <span class="o">=</span> <span class="mi">256</span> <span class="c1"># Recall that in our affine function we parameterize part of the transformation with a neural network.</span>
+                   <span class="c1"># This controls how many &quot;nodes&quot; we want to use at each layer of this neural network</span>
+<span class="n">num_blocks</span> <span class="o">=</span> <span class="mi">2</span>     <span class="c1"># How many instances of the NN we use in the affine function -&gt; see block() function above.</span>
+<span class="c1"># stats = stats -&gt; we will simply use the predefined statistics from above</span>
+
+<span class="n">photon_network</span> <span class="o">=</span> <span class="n">FreiaNet</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="n">input_shape</span><span class="p">,</span><span class="n">layers</span><span class="o">=</span><span class="n">layers</span><span class="p">,</span><span class="n">context_shape</span><span class="o">=</span><span class="n">context_shape</span><span class="p">,</span><span class="n">hidden_units</span><span class="o">=</span><span class="n">hidden_units</span><span class="p">,</span><span class="n">num_blocks</span><span class="o">=</span><span class="n">num_blocks</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">photon_network</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>FreiaNet(
+  (distribution): ConditionalDiagonalNormal(
+    (_context_encoder): Sequential(
+      (0): Linear(in_features=2, out_features=16, bias=True)
+      (1): ReLU()
+      (2): Linear(in_features=16, out_features=28, bias=True)
+    )
+  )
+  (sequence): SequenceINN(
+    (module_list): ModuleList(
+      (0): AllInOneBlock(
+        (softplus): Softplus(beta=0.5, threshold=20)
+        (subnet): Sequential(
+          (0): Linear(in_features=9, out_features=256, bias=True)
+          (1): Linear(in_features=256, out_features=256, bias=True)
+          (2): ReLU()
+          (3): Linear(in_features=256, out_features=256, bias=True)
+          (4): ReLU()
+          (5): Linear(in_features=256, out_features=256, bias=True)
+          (6): ReLU()
+          (7): Linear(in_features=256, out_features=256, bias=True)
+          (8): ReLU()
+          (9): Linear(in_features=256, out_features=14, bias=True)
+        )
+      )
+      (1): AllInOneBlock(
+        (softplus): Softplus(beta=0.5, threshold=20)
+        (subnet): Sequential(
+          (0): Linear(in_features=9, out_features=256, bias=True)
+          (1): Linear(in_features=256, out_features=256, bias=True)
+          (2): ReLU()
+          (3): Linear(in_features=256, out_features=256, bias=True)
+          (4): ReLU()
+          (5): Linear(in_features=256, out_features=256, bias=True)
+          (6): ReLU()
+          (7): Linear(in_features=256, out_features=256, bias=True)
+          (8): ReLU()
+          (9): Linear(in_features=256, out_features=14, bias=True)
+        )
+      )
+      (2): AllInOneBlock(
+        (softplus): Softplus(beta=0.5, threshold=20)
+        (subnet): Sequential(
+          (0): Linear(in_features=9, out_features=256, bias=True)
+          (1): Linear(in_features=256, out_features=256, bias=True)
+          (2): ReLU()
+          (3): Linear(in_features=256, out_features=256, bias=True)
+          (4): ReLU()
+          (5): Linear(in_features=256, out_features=256, bias=True)
+          (6): ReLU()
+          (7): Linear(in_features=256, out_features=256, bias=True)
+          (8): ReLU()
+          (9): Linear(in_features=256, out_features=14, bias=True)
+        )
+      )
+      (3): AllInOneBlock(
+        (softplus): Softplus(beta=0.5, threshold=20)
+        (subnet): Sequential(
+          (0): Linear(in_features=9, out_features=256, bias=True)
+          (1): Linear(in_features=256, out_features=256, bias=True)
+          (2): ReLU()
+          (3): Linear(in_features=256, out_features=256, bias=True)
+          (4): ReLU()
+          (5): Linear(in_features=256, out_features=256, bias=True)
+          (6): ReLU()
+          (7): Linear(in_features=256, out_features=256, bias=True)
+          (8): ReLU()
+          (9): Linear(in_features=256, out_features=14, bias=True)
+        )
+      )
+      (4): AllInOneBlock(
+        (softplus): Softplus(beta=0.5, threshold=20)
+        (subnet): Sequential(
+          (0): Linear(in_features=9, out_features=256, bias=True)
+          (1): Linear(in_features=256, out_features=256, bias=True)
+          (2): ReLU()
+          (3): Linear(in_features=256, out_features=256, bias=True)
+          (4): ReLU()
+          (5): Linear(in_features=256, out_features=256, bias=True)
+          (6): ReLU()
+          (7): Linear(in_features=256, out_features=256, bias=True)
+          (8): ReLU()
+          (9): Linear(in_features=256, out_features=14, bias=True)
+        )
+      )
+      (5): AllInOneBlock(
+        (softplus): Softplus(beta=0.5, threshold=20)
+        (subnet): Sequential(
+          (0): Linear(in_features=9, out_features=256, bias=True)
+          (1): Linear(in_features=256, out_features=256, bias=True)
+          (2): ReLU()
+          (3): Linear(in_features=256, out_features=256, bias=True)
+          (4): ReLU()
+          (5): Linear(in_features=256, out_features=256, bias=True)
+          (6): ReLU()
+          (7): Linear(in_features=256, out_features=256, bias=True)
+          (8): ReLU()
+          (9): Linear(in_features=256, out_features=14, bias=True)
+        )
+      )
+      (6): AllInOneBlock(
+        (softplus): Softplus(beta=0.5, threshold=20)
+        (subnet): Sequential(
+          (0): Linear(in_features=9, out_features=256, bias=True)
+          (1): Linear(in_features=256, out_features=256, bias=True)
+          (2): ReLU()
+          (3): Linear(in_features=256, out_features=256, bias=True)
+          (4): ReLU()
+          (5): Linear(in_features=256, out_features=256, bias=True)
+          (6): ReLU()
+          (7): Linear(in_features=256, out_features=256, bias=True)
+          (8): ReLU()
+          (9): Linear(in_features=256, out_features=14, bias=True)
+        )
+      )
+      (7): AllInOneBlock(
+        (softplus): Softplus(beta=0.5, threshold=20)
+        (subnet): Sequential(
+          (0): Linear(in_features=9, out_features=256, bias=True)
+          (1): Linear(in_features=256, out_features=256, bias=True)
+          (2): ReLU()
+          (3): Linear(in_features=256, out_features=256, bias=True)
+          (4): ReLU()
+          (5): Linear(in_features=256, out_features=256, bias=True)
+          (6): ReLU()
+          (7): Linear(in_features=256, out_features=256, bias=True)
+          (8): ReLU()
+          (9): Linear(in_features=256, out_features=14, bias=True)
+        )
+      )
+    )
+  )
+)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="training-function">
+<h1>Training function<a class="headerlink" href="#training-function" title="Permalink to this headline">#</a></h1>
+<p>Lets write the training function in such a way that we can use it for any network, i.e., photons or neutrons.</p>
+<p>There are two main components:</p>
+<ol class="simple">
+<li><p>Training loop</p></li>
+<li><p>Validation loop</p></li>
+</ol>
+<p>We also need a clever way to store our parameters. Lets use a dictionary to do this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;seed&quot;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span>
+          <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;MyPhotonFlow&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;run_val&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+          <span class="s2">&quot;stats&quot;</span> <span class="p">:</span><span class="n">stats</span><span class="p">,</span>
+          <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="s2">&quot;num_layers&quot;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span>
+               <span class="s2">&quot;input_shape&quot;</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span>
+               <span class="s2">&quot;cond_shape&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+               <span class="s2">&quot;num_blocks&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+               <span class="s2">&quot;hidden_nodes&quot;</span><span class="p">:</span> <span class="mi">512</span>
+           <span class="p">},</span>
+          <span class="s2">&quot;optimizer&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="mf">7e-4</span><span class="p">,</span>
+            <span class="p">},</span>
+          <span class="s2">&quot;num_epochs&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+          <span class="s2">&quot;dataloader&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;train&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">2048</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;val&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">2048</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">25</span>
+            <span class="p">},</span>
+          <span class="p">},</span>
+            <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;dir&quot;</span><span class="p">:</span><span class="s2">&quot;./&quot;</span>
+            <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">pkbar</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">lr_scheduler</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">trainer</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="n">dataset</span><span class="p">):</span>
+    <span class="c1"># Setup random seed</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">])</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">])</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">])</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Create experiment name</span>
+    <span class="n">exp_name</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="n">exp_name</span><span class="p">)</span>
+
+    <span class="c1"># Create directory structure</span>
+    <span class="n">output_folder</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">][</span><span class="s1">&#39;dir&#39;</span><span class="p">]</span>
+    <span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span><span class="n">exp_name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_path</span><span class="p">):</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">dt_object</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+        <span class="n">formatted_time</span> <span class="o">=</span> <span class="n">dt_object</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H_%M_%S&#39;</span><span class="p">)</span>
+        <span class="n">output_path</span> <span class="o">=</span> <span class="n">output_path</span> <span class="o">+</span><span class="s2">&quot;_&quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">formatted_time</span><span class="p">)</span>
+        
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="s1">&#39;config.json&#39;</span><span class="p">),</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
+
+
+       <span class="c1"># Load the dataset</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating Loaders.&#39;</span><span class="p">)</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;stats&#39;</span><span class="p">]</span>
+    <span class="c1"># Create datasets</span>
+    <span class="n">train</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">test</span> <span class="o">=</span> <span class="n">create_train_test_split</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span>
+    <span class="n">train</span> <span class="o">=</span> <span class="n">BCALDataset</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">train</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;Single&quot;</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">)</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="n">BCALDataset</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">val</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;Single&quot;</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">)</span>
+    <span class="n">test_photons</span> <span class="o">=</span> <span class="n">BCALDataset</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">test</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;Single&quot;</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">)</span>
+
+    <span class="n">train_batch_size</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;dataloader&#39;</span><span class="p">][</span><span class="s1">&#39;train&#39;</span><span class="p">][</span><span class="s1">&#39;batch_size&#39;</span><span class="p">]</span>
+    <span class="n">val_batch_size</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;dataloader&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">][</span><span class="s1">&#39;batch_size&#39;</span><span class="p">]</span>
+    <span class="n">test_batch_size</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;dataloader&#39;</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">][</span><span class="s1">&#39;batch_size&#39;</span><span class="p">]</span>
+
+    <span class="n">train_loader</span><span class="p">,</span><span class="n">val_loader</span><span class="p">,</span><span class="n">test_loader</span> <span class="o">=</span> <span class="n">CreateLoaders</span><span class="p">(</span><span class="n">train</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">test</span><span class="p">,</span><span class="n">train_batch_size</span><span class="p">,</span><span class="n">val_batch_size</span><span class="p">,</span><span class="n">test_batch_size</span><span class="p">)</span>
+    
+    <span class="n">history</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;train_loss&#39;</span><span class="p">:[],</span><span class="s1">&#39;val_loss&#39;</span><span class="p">:[],</span><span class="s1">&#39;lr&#39;</span><span class="p">:[]}</span>
+
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Size: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="o">.</span><span class="n">dataset</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Validation Size: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val_loader</span><span class="o">.</span><span class="n">dataset</span><span class="p">)))</span>
+
+    <span class="c1"># Create the model</span>
+    <span class="n">num_layers</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="s1">&#39;num_layers&#39;</span><span class="p">])</span>
+    <span class="n">input_shape</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="s1">&#39;input_shape&#39;</span><span class="p">])</span>
+    <span class="n">cond_shape</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="s1">&#39;cond_shape&#39;</span><span class="p">])</span>
+    <span class="n">num_blocks</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="s1">&#39;num_blocks&#39;</span><span class="p">])</span>
+    <span class="n">hidden_nodes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="s1">&#39;hidden_nodes&#39;</span><span class="p">])</span>
+    <span class="n">net</span> <span class="o">=</span> <span class="n">FreiaNet</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span><span class="n">num_layers</span><span class="p">,</span><span class="n">cond_shape</span><span class="p">,</span><span class="n">embedding</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">hidden_units</span><span class="o">=</span><span class="n">hidden_nodes</span><span class="p">,</span><span class="n">num_blocks</span><span class="o">=</span><span class="n">num_blocks</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">)</span>
+    <span class="n">t_params</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Network Parameters: &quot;</span><span class="p">,</span><span class="n">t_params</span><span class="p">)</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+    <span class="n">net</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Optimizer</span>
+    <span class="n">num_epochs</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;num_epochs&#39;</span><span class="p">])</span>
+    <span class="n">lr</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;optimizer&#39;</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">])</span>
+
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">,</span> <span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">())),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+    <span class="n">num_steps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_epochs</span>
+    <span class="n">scheduler</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">CosineAnnealingLR</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">T_max</span><span class="o">=</span><span class="n">num_steps</span><span class="p">,</span> <span class="n">last_epoch</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+                                                           <span class="n">eta_min</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">startEpoch</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">global_step</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===========  Optimizer  ==================:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;      LR:&#39;</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;      num_epochs:&#39;</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">startEpoch</span><span class="p">,</span><span class="n">num_epochs</span><span class="p">):</span>
+
+        <span class="n">kbar</span> <span class="o">=</span> <span class="n">pkbar</span><span class="o">.</span><span class="n">Kbar</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="p">),</span> <span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">always_stateful</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">net</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_loader</span><span class="p">):</span>
+            <span class="nb">input</span>  <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">set_grad_enabled</span><span class="p">(</span><span class="kc">True</span><span class="p">):</span>
+                <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">net</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="nb">input</span><span class="p">,</span><span class="n">context</span><span class="o">=</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">clip_grad_norm_</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">max_norm</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">error_if_nonfinite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+            <span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+            <span class="n">running_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">*</span> <span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">kbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;loss&quot;</span><span class="p">,</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())])</span>
+            <span class="n">global_step</span> <span class="o">+=</span> <span class="mi">1</span>
+
+
+        <span class="n">history</span><span class="p">[</span><span class="s1">&#39;train_loss&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running_loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="o">.</span><span class="n">dataset</span><span class="p">))</span>
+        <span class="n">history</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scheduler</span><span class="o">.</span><span class="n">get_last_lr</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+
+
+        <span class="c1">######################</span>
+        <span class="c1">## validation phase ##</span>
+        <span class="c1">######################</span>
+        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;run_val&#39;</span><span class="p">]):</span>
+            <span class="n">net</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+            <span class="n">val_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">val_loader</span><span class="p">):</span>
+                    <span class="nb">input</span>  <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+                    <span class="n">k</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+                    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">net</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="nb">input</span><span class="p">,</span><span class="n">context</span><span class="o">=</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+                    <span class="n">val_loss</span> <span class="o">+=</span> <span class="n">loss</span>
+
+            <span class="n">val_loss</span> <span class="o">=</span> <span class="n">val_loss</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">val_loader</span><span class="p">)</span>
+
+            <span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val_loss</span><span class="p">)</span>
+
+            <span class="n">kbar</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;val_loss&quot;</span><span class="p">,</span> <span class="n">val_loss</span><span class="o">.</span><span class="n">item</span><span class="p">())])</span>
+
+            <span class="n">name_output_file</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_epoch</span><span class="si">{:02d}</span><span class="s1">_val_loss_</span><span class="si">{:.6f}</span><span class="s1">.pth&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kbar</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">values</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span><span class="mf">0.</span><span class="p">)])</span>
+            <span class="n">name_output_file</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_epoch</span><span class="si">{:02d}</span><span class="s1">_train_loss_</span><span class="si">{:.6f}</span><span class="s1">.pth&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">running_loss</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_loader</span><span class="o">.</span><span class="n">dataset</span><span class="p">))</span>
+
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">name_output_file</span><span class="p">)</span>
+
+        <span class="n">checkpoint</span><span class="o">=</span><span class="p">{}</span>
+        <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;net_state_dict&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
+        <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;optimizer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
+        <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;scheduler&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
+        <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">epoch</span>
+        <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;history&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">history</span>
+        <span class="n">checkpoint</span><span class="p">[</span><span class="s1">&#39;global_step&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">global_step</span>
+
+        <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">checkpoint</span><span class="p">,</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trainer</span><span class="p">(</span><span class="n">config</span><span class="p">,</span><span class="n">photons</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MyPhotonFlow
+Creating Loaders.
+Total dataset size:  1726143
+Number of Training data points:  1208300
+Number of Validation data points:  258921
+Number of Testing data points:  258922
+Training Size: 1208300
+Validation Size: 258921
+Network Parameters:  8507292
+===========  Optimizer  ==================:
+      LR: 0.0007
+      num_epochs: 50
+
+Epoch: 1/50
+590/590 [====================] - 36s 61ms/step - loss: -15.7811 - val_loss: -23.0734
+
+Epoch: 2/50
+590/590 [====================] - 37s 62ms/step - loss: -23.5876 - val_loss: -25.2945
+
+Epoch: 3/50
+590/590 [====================] - 36s 62ms/step - loss: -26.7721 - val_loss: -29.2837
+
+Epoch: 4/50
+590/590 [====================] - 36s 61ms/step - loss: -28.6670 - val_loss: -29.3588
+
+Epoch: 5/50
+590/590 [====================] - 37s 63ms/step - loss: -30.2723 - val_loss: -31.9371
+
+Epoch: 6/50
+590/590 [====================] - 36s 61ms/step - loss: -31.3206 - val_loss: -26.9388
+
+Epoch: 7/50
+590/590 [====================] - 38s 64ms/step - loss: -32.3121 - val_loss: -31.5324
+
+Epoch: 8/50
+590/590 [====================] - 38s 64ms/step - loss: -32.8519 - val_loss: -34.8192
+
+Epoch: 9/50
+590/590 [====================] - 38s 65ms/step - loss: -33.4952 - val_loss: -34.4054
+
+Epoch: 10/50
+590/590 [====================] - 36s 61ms/step - loss: -34.2644 - val_loss: -33.2906
+
+Epoch: 11/50
+590/590 [====================] - 37s 62ms/step - loss: -34.4450 - val_loss: -33.7442
+
+Epoch: 12/50
+590/590 [====================] - 37s 63ms/step - loss: -35.1955 - val_loss: -35.8152
+
+Epoch: 13/50
+590/590 [====================] - 36s 62ms/step - loss: -35.7122 - val_loss: -36.7076
+
+Epoch: 14/50
+590/590 [====================] - 36s 61ms/step - loss: -35.9211 - val_loss: -36.0396
+
+Epoch: 15/50
+590/590 [====================] - 37s 63ms/step - loss: -36.4086 - val_loss: -37.1407
+
+Epoch: 16/50
+590/590 [====================] - 37s 62ms/step - loss: -37.1040 - val_loss: -38.9651
+
+Epoch: 17/50
+590/590 [====================] - 35s 60ms/step - loss: -37.4943 - val_loss: -38.7098
+
+Epoch: 18/50
+590/590 [====================] - 38s 64ms/step - loss: -37.9354 - val_loss: -37.2029
+
+Epoch: 19/50
+590/590 [====================] - 37s 64ms/step - loss: -38.2999 - val_loss: -37.4931
+
+Epoch: 20/50
+590/590 [====================] - 36s 61ms/step - loss: -38.8132 - val_loss: -38.5643
+
+Epoch: 21/50
+590/590 [====================] - 38s 64ms/step - loss: -39.1179 - val_loss: -39.6604
+
+Epoch: 22/50
+590/590 [====================] - 36s 62ms/step - loss: -39.7670 - val_loss: -40.9566
+
+Epoch: 23/50
+590/590 [====================] - 36s 61ms/step - loss: -39.9575 - val_loss: -39.4983
+
+Epoch: 24/50
+590/590 [====================] - 36s 61ms/step - loss: -40.0217 - val_loss: -40.2014
+
+Epoch: 25/50
+590/590 [====================] - 36s 61ms/step - loss: -40.7165 - val_loss: -37.5825
+
+Epoch: 26/50
+590/590 [====================] - 39s 65ms/step - loss: -41.1335 - val_loss: -42.2259
+
+Epoch: 27/50
+590/590 [====================] - 36s 61ms/step - loss: -41.9188 - val_loss: -43.5321
+
+Epoch: 28/50
+590/590 [====================] - 37s 63ms/step - loss: -42.3257 - val_loss: -42.8018
+
+Epoch: 29/50
+590/590 [====================] - 38s 64ms/step - loss: -43.0250 - val_loss: -45.0684
+
+Epoch: 30/50
+590/590 [====================] - 36s 61ms/step - loss: -43.5797 - val_loss: -44.6893
+
+Epoch: 31/50
+590/590 [====================] - 37s 63ms/step - loss: -43.5913 - val_loss: -45.2529
+
+Epoch: 32/50
+590/590 [====================] - 37s 62ms/step - loss: -44.2181 - val_loss: -45.8438
+
+Epoch: 33/50
+590/590 [====================] - 36s 62ms/step - loss: -44.9653 - val_loss: -42.1269
+
+Epoch: 34/50
+590/590 [====================] - 37s 63ms/step - loss: -45.4804 - val_loss: -46.6598
+
+Epoch: 35/50
+590/590 [====================] - 36s 62ms/step - loss: -46.1099 - val_loss: -46.8541
+
+Epoch: 36/50
+590/590 [====================] - 39s 65ms/step - loss: -46.4144 - val_loss: -46.9682
+
+Epoch: 37/50
+590/590 [====================] - 38s 64ms/step - loss: -47.2430 - val_loss: -48.0255
+
+Epoch: 38/50
+590/590 [====================] - 38s 65ms/step - loss: -47.5707 - val_loss: -48.8237
+
+Epoch: 39/50
+590/590 [====================] - 37s 62ms/step - loss: -48.4577 - val_loss: -49.4211
+
+Epoch: 40/50
+590/590 [====================] - 37s 62ms/step - loss: -49.1232 - val_loss: -48.6593
+
+Epoch: 41/50
+590/590 [====================] - 38s 64ms/step - loss: -49.6061 - val_loss: -50.0657
+
+Epoch: 42/50
+590/590 [====================] - 37s 62ms/step - loss: -50.2779 - val_loss: -49.2068
+
+Epoch: 43/50
+590/590 [====================] - 36s 61ms/step - loss: -50.4121 - val_loss: -50.0939
+
+Epoch: 44/50
+590/590 [====================] - 38s 64ms/step - loss: -50.9818 - val_loss: -51.1764
+
+Epoch: 45/50
+590/590 [====================] - 36s 62ms/step - loss: -51.3545 - val_loss: -51.3688
+
+Epoch: 46/50
+590/590 [====================] - 37s 63ms/step - loss: -51.5845 - val_loss: -51.4888
+
+Epoch: 47/50
+590/590 [====================] - 38s 65ms/step - loss: -51.7385 - val_loss: -51.6711
+
+Epoch: 48/50
+590/590 [====================] - 38s 64ms/step - loss: -51.8533 - val_loss: -51.7354
+
+Epoch: 49/50
+590/590 [====================] - 37s 62ms/step - loss: -51.9240 - val_loss: -51.7806
+
+Epoch: 50/50
+590/590 [====================] - 37s 63ms/step - loss: -51.9569 - val_loss: -51.7927
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="generations">
+<h1>Generations<a class="headerlink" href="#generations" title="Permalink to this headline">#</a></h1>
+<p>We have trained our model, and at each epoch we have saved the weights of the model to .pth file. This will be located in a folder corresponding to the “name” field of the config dictionary.</p>
+<p>Lets load in the model, and create some generations. We will make the same plots as before and see if the relationships between E,z to each of the features is retained.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_layers</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="s1">&#39;num_layers&#39;</span><span class="p">])</span>
+<span class="n">input_shape</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="s1">&#39;input_shape&#39;</span><span class="p">])</span>
+<span class="n">cond_shape</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="s1">&#39;cond_shape&#39;</span><span class="p">])</span>
+<span class="n">num_blocks</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="s1">&#39;num_blocks&#39;</span><span class="p">])</span>
+<span class="n">hidden_nodes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">][</span><span class="s1">&#39;hidden_nodes&#39;</span><span class="p">])</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">FreiaNet</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span><span class="n">num_layers</span><span class="p">,</span><span class="n">cond_shape</span><span class="p">,</span><span class="n">embedding</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">hidden_units</span><span class="o">=</span><span class="n">hidden_nodes</span><span class="p">,</span><span class="n">num_blocks</span><span class="o">=</span><span class="n">num_blocks</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">)</span>
+<span class="n">t_params</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Network Parameters: &quot;</span><span class="p">,</span><span class="n">t_params</span><span class="p">)</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+<span class="n">net</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span>
+
+<span class="n">dicte</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;MyPhotonFlow&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">net</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">dicte</span><span class="p">[</span><span class="s2">&quot;net_state_dict&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Network Parameters:  8507292
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;All keys matched successfully&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lets create a dataloader that contains all the data. Realistically we only need the conditions!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_data</span> <span class="o">=</span> <span class="n">BCALDataset</span><span class="p">(</span><span class="n">photons</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;Single&quot;</span><span class="p">,</span><span class="n">stats</span><span class="o">=</span><span class="n">stats</span><span class="p">)</span>
+<span class="n">all_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">all_data</span><span class="p">,</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+
+<span class="n">net</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span> <span class="c1"># Eval mode </span>
+
+<span class="n">generations</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">kbar</span> <span class="o">=</span> <span class="n">pkbar</span><span class="o">.</span><span class="n">Kbar</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">all_loader</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">always_stateful</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_loader</span><span class="p">):</span>
+    <span class="n">kinematics</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+    <span class="n">conditions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+    
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">set_grad_enabled</span><span class="p">(</span><span class="kc">False</span><span class="p">):</span> <span class="c1"># Same as with torch.no_grad():</span>
+        <span class="n">gens</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">_sample</span><span class="p">(</span><span class="n">num_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">context</span><span class="o">=</span><span class="n">kinematics</span><span class="p">)</span>
+    
+    <span class="n">generations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gens</span><span class="p">)</span>
+    
+    <span class="n">kbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    
+<span class="n">generations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">generations</span><span class="p">)</span>
+<span class="n">conditions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>172/173 [==================&gt;.] - ETA: 0s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">generated_dataframe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">generations</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">photons</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+<span class="n">generated_dataframe</span><span class="p">[</span><span class="s1">&#39;recon_BCAL_z_entry&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conditions</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">generated_dataframe</span><span class="p">[</span><span class="s1">&#39;recon_BCAL_E&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conditions</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">generated_dataframe</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_r&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer1_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer2_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer3_E&#39;}&gt;],
+       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer4_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer4bySumLayers_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer3bySumLayers_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer2bySumLayers_E&#39;}&gt;],
+       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer1bySumLayers_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_ZWidth&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_RWidth&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_TWidth&#39;}&gt;],
+       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_PhiWidth&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_ThetaWidth&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_z_entry&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_E&#39;}&gt;]], dtype=object)
+</pre></div>
+</div>
+<img alt="_images/NormalizingFlows_GlueX_BCAL_33_1.png" src="_images/NormalizingFlows_GlueX_BCAL_33_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">photons</span><span class="p">[</span><span class="n">generated_dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">),</span><span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_r&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer1_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer2_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer3_E&#39;}&gt;],
+       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer4_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer4bySumLayers_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer3bySumLayers_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer2bySumLayers_E&#39;}&gt;],
+       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_Layer1bySumLayers_E&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_ZWidth&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_RWidth&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_TWidth&#39;}&gt;],
+       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_PhiWidth&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_ThetaWidth&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_z_entry&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;recon_BCAL_E&#39;}&gt;]], dtype=object)
+</pre></div>
+</div>
+<img alt="_images/NormalizingFlows_GlueX_BCAL_34_1.png" src="_images/NormalizingFlows_GlueX_BCAL_34_1.png" />
+</div>
+</div>
+<p>Looks ok. Lets make the same plots as we did from the true datasets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_plots</span><span class="p">(</span><span class="n">generated_dataframe</span><span class="p">,</span><span class="s2">&quot;Generated Photons&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Generated Photons
+</pre></div>
+</div>
+<img alt="_images/NormalizingFlows_GlueX_BCAL_36_1.png" src="_images/NormalizingFlows_GlueX_BCAL_36_1.png" />
+<img alt="_images/NormalizingFlows_GlueX_BCAL_36_2.png" src="_images/NormalizingFlows_GlueX_BCAL_36_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">make_plots</span><span class="p">(</span><span class="n">photons</span><span class="p">,</span><span class="s2">&quot;True Photons&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True Photons
+</pre></div>
+</div>
+<img alt="_images/NormalizingFlows_GlueX_BCAL_37_1.png" src="_images/NormalizingFlows_GlueX_BCAL_37_1.png" />
+<img alt="_images/NormalizingFlows_GlueX_BCAL_37_2.png" src="_images/NormalizingFlows_GlueX_BCAL_37_2.png" />
+</div>
+</div>
+<p>Not bad! Do you notice some things that are potentially wrong with the dataset we have generated? For example, what are the physical bounds of some of these features? This is something to think about with generative models in physics. In most cases, it is not enough to simply just generate data. One must come up with a scheme to ensure all samples generated are physical!</p>
+<p>Can you think of ways to do this?</p>
+</section>
+<section id="your-turn">
+<h1>Your turn.<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h1>
+<p>Now I want you to utlize the code we have developed together above to recreate a model that works on neutrons. You can make any changes you want to hyperparameters, but keep in mind training times as network complexity grows.</p>
+<p>This is your individual copy of the notebook, so feel free to work directly below this cell, or you can make a copy.</p>
+<p>Things I want you to think about:</p>
+<ol class="simple">
+<li><p>Once you have trained your model, look at the generations and see how they compare.</p></li>
+<li><p>Are any of the generations unphysical? Can you come up with a strategy to deal with this? This can be as simple or complicated as you like.</p></li>
+</ol>
+<p>Any issues or questions please let me know!</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "ai4fusion-wmschool/summer2024",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="NFlows_BasicExample.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">A very basic example from the NFlows Library</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="referencesmd.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">References</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Open-Fair-Fusion for Machine Learning Applications<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

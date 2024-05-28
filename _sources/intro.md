@@ -5,13 +5,13 @@
 <b> The </b> <b>[Open and Fair Fusion for Machine Learning Applications](https://crea-psfc.github.io/open-fair-fusion/)</b> <b>Project</b>
 
 
-(last update: Mar 11/2024)
+(last update: May 27/2024 v6)
 
 </center>
 
 <!-- It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information. -->
 
-```{figure} ./images/AIforFusion_logo.pdf
+```{figure} ./images/AIforFusion_logo.png
 ---
 width: 600px
 name: fig-layout
