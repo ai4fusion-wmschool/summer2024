@@ -1,0 +1,2894 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Supervised Machine Learning: Linear Regression &#8212; AI for Fusion Energy Summer School (2024)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="_static/wm_vertical_single_line_full_color.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Nonparamatric Methods" href="Nonparametric_Methods_GAMs.html" />
+    <link rel="prev" title="Lecturers" href="lecturers.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/wm_vertical_single_line_full_color.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">AI for Fusion Energy Summer School (2024)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI/ML for Fusion Summer School 2024
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Information on the Summer School
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="schedule.html">
+   Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecturers.html">
+   Lecturers
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lecture Notes (to integrate with notebooks below)
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">
+   (6/3/2024) - Intro to Data Science (get started, variance/bias)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">
+   (6/11/2024) - Intro to Normalizing Flows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   test lecture (to appear)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notebooks
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   (6/3/2024) Supervised Learning, Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Nonparametric_Methods_GAMs.html">
+   (6/5/2024) Nonparametric Methods, GAMs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">
+   (6/6/2024) Dimensionality Reduction, Unsupervised Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">
+   (6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="NFlows_BasicExample_new.html">
+   (6/11/2024) Normalizing Flows - Basic Example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">
+   (6/11/2024) Normalizing Flows - GlueX BCAL Example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_BO.html">
+   (6/13/2024) Single-Objective Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_MOBO.html">
+   (6/13/2024) Multi-Objective Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_MOEA.html">
+   (6/13/2024) Multi-Objective Genetic Algorithm
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">
+   Nuclear Fusion Data (Classification)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">
+   Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">
+   The updated ITPA global H-mode confinement database; description and analysis (Regression)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Additional resources
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="referencesmd.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=lab/tree/notebooks/Supervised_Learning_Linear_Regression.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://jupyterhub.wm.edu/hub/user-redirect/git-pull?repo=https://github.com/ai4fusion-wmschool/summer2024&urlpath=lab/tree/summer2024/notebooks/Supervised_Learning_Linear_Regression.ipynb&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Supervised_Learning_Linear_Regression.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FSupervised_Learning_Linear_Regression.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/Supervised_Learning_Linear_Regression.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-size-5pt-introduction-font">
+   <font color="blue" size="5pt">
+    Introduction
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-multiple-linear-regression-linear-models-with-more-features-font">
+   <font color="blue">
+    Multiple Linear Regression (Linear models with more features)
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-vector-spaces-font">
+   <font color="blue">
+    Vector Spaces
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-linear-vs-non-linear-models-font">
+   <font color="blue">
+    Linear vs Non-linear models
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#we-have-a-vector-of-weights">
+   We have a vector of weights:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-forestgreen">
+   <font color="forestgreen">
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-darkgreen-we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals">
+   <font color="darkgreen">
+    We want to
+    <em>
+     learn
+    </em>
+    the weights
+    <span class="math notranslate nohighlight">
+     \(\beta_1,\beta_2,...\beta_p\)
+    </span>
+    that minimize the sum of the squared residuals:
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-red-how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals-font">
+   <font color="red">
+    How do we know we are on the right track after we perform the minimization of the square residuals?
+    <font>
+    </font>
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-the-anderson-darling-test-font">
+   <font color="blue">
+    The Anderson-Darling Test
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-error-metrics">
+   <font color="blue">
+    Error Metrics
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-blue-mse">
+     <font color="blue">
+      MSE
+     </font>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-blue-rmse">
+     <font color="blue">
+      RMSE
+     </font>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-blue-size-5pt-mae">
+     <font color="blue" size="5pt">
+      MAE
+     </font>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-import">
+   Data Import
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#relationship-between-x-and-y">
+   Relationship between x and y
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#message-the-histogram-does-not-quite-look-like-a-normal-distribution-we-can-also-consider-a-q-q-plot">
+   Message: The histogram does not quite look like a normal distribution. We can also consider a Q-Q Plot:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-conclusion-in-our-case-is-that-the-normality-assumption-is-not-violated">
+   The conclusion, in our case, is that the normality assumption is not violated.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-different-normality-test-indicates-the-same-thing">
+   A different normality test indicates the same thing
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Supervised Machine Learning: Linear Regression</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-size-5pt-introduction-font">
+   <font color="blue" size="5pt">
+    Introduction
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-multiple-linear-regression-linear-models-with-more-features-font">
+   <font color="blue">
+    Multiple Linear Regression (Linear models with more features)
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-vector-spaces-font">
+   <font color="blue">
+    Vector Spaces
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-linear-vs-non-linear-models-font">
+   <font color="blue">
+    Linear vs Non-linear models
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#we-have-a-vector-of-weights">
+   We have a vector of weights:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-forestgreen">
+   <font color="forestgreen">
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-darkgreen-we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals">
+   <font color="darkgreen">
+    We want to
+    <em>
+     learn
+    </em>
+    the weights
+    <span class="math notranslate nohighlight">
+     \(\beta_1,\beta_2,...\beta_p\)
+    </span>
+    that minimize the sum of the squared residuals:
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-red-how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals-font">
+   <font color="red">
+    How do we know we are on the right track after we perform the minimization of the square residuals?
+    <font>
+    </font>
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-the-anderson-darling-test-font">
+   <font color="blue">
+    The Anderson-Darling Test
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-error-metrics">
+   <font color="blue">
+    Error Metrics
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-blue-mse">
+     <font color="blue">
+      MSE
+     </font>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-blue-rmse">
+     <font color="blue">
+      RMSE
+     </font>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-blue-size-5pt-mae">
+     <font color="blue" size="5pt">
+      MAE
+     </font>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-import">
+   Data Import
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#relationship-between-x-and-y">
+   Relationship between x and y
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#message-the-histogram-does-not-quite-look-like-a-normal-distribution-we-can-also-consider-a-q-q-plot">
+   Message: The histogram does not quite look like a normal distribution. We can also consider a Q-Q Plot:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-conclusion-in-our-case-is-that-the-normality-assumption-is-not-violated">
+   The conclusion, in our case, is that the normality assumption is not violated.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-different-normality-test-indicates-the-same-thing">
+   A different normality test indicates the same thing
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="supervised-machine-learning-linear-regression">
+<h1>Supervised Machine Learning: Linear Regression<a class="headerlink" href="#supervised-machine-learning-linear-regression" title="Permalink to this headline">#</a></h1>
+<section id="font-color-blue-size-5pt-introduction-font">
+<h2><font color='blue' size=5pt>   Introduction </font><a class="headerlink" href="#font-color-blue-size-5pt-introduction-font" title="Permalink to this headline">#</a></h2>
+<p><strong>Main Idea</strong>:</p>
+<ul class="simple">
+<li><p>the output (dependent) variable is continuous and we want to “predict” its value within the range of the input features. (<font color='red'>WARNING: doing otherwise could lead to flawed inferences</font>).</p></li>
+<li><p>there is “noise” which means that for essentially the same input values there may be different slightly different values of the output variable or there is “noise” in the measurement of all the variables.</p></li>
+<li><p>we assume that the noise (i.e. the errors in measurement) are following a normal distribution with mean 0 and some unknown standard deviation.</p></li>
+</ul>
+<p><strong>Seminal Work</strong>:
+The linear correlation coefficient between two variables was introduced by Pearson, Karl (20 June 1895). “Notes on regression and inheritance in the case of two parents”. Proceedings of the Royal Society of London. 58: 240–242.)</p>
+<div class="math notranslate nohighlight">
+\[\large r: = \frac{1}{n-1}\sum_{i=1}^{n} \left(\frac{x_i - \bar{x}}{s_x}\right)\left(\frac{y_i - \bar{y}}{s_y}\right)\]</div>
+<p>Here <span class="math notranslate nohighlight">\(\bar{x}\)</span> is the mean of <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(\bar{y}\)</span> is the mean of <span class="math notranslate nohighlight">\(y\)</span> and, <span class="math notranslate nohighlight">\(s_x\)</span> is the standard deviation of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(s_y\)</span> is the standard deviation of <span class="math notranslate nohighlight">\(y.\)</span></p>
+<p><strong>Visual Intuition</strong>:</p>
+<figure>
+<center>
+<img src='https://i.imgur.com/djs0rro.png' width='600px' />
+<figcaption>The Linear Correlation Concept</figcaption></center>
+</figure>
+<p><strong>Test statistic</strong> for the corelation coefficient:</p>
+<div class="math notranslate nohighlight">
+\[\large t=\frac{r\sqrt{n-2}}{\sqrt{1-r^2}}\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the number of observations and <span class="math notranslate nohighlight">\(r\)</span> represents the correlation coefficient computed from the data.</p>
+<p>The slope of the regression line is</p>
+<div class="math notranslate nohighlight">
+\[\large m = r\cdot\frac{s_y}{s_x}\]</div>
+<p><strong>Theoretical Perspective</strong>:</p>
+<ul class="simple">
+<li><p>we want to estimate the expected value of the dependent variable as a function of the input features. Thus we want to approximate a conditional expectation <span class="math notranslate nohighlight">\(\mathbb{E}(Y|\text{input features})\)</span> as a function of the input features such as</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\large\mathbb{E}(Y|X=x) = f(x)\]</div>
+<ul class="simple">
+<li><p>we want to determine the simplest form of the function <span class="math notranslate nohighlight">\(f\)</span> (principle of parsimony) and we assume that</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\large Y = f(X) + \sigma \epsilon\]</div>
+<p>where <span class="math notranslate nohighlight">\(\epsilon\)</span> is the “noise”, in statistical terms, <span class="math notranslate nohighlight">\(\epsilon\)</span> is independent and identically distributed, it follows a standard normal distribution and, <span class="math notranslate nohighlight">\(\sigma&gt;0\)</span> is generally unknown.</p>
+<p><strong>The Coefficient of Determination</strong></p>
+<div class="math notranslate nohighlight">
+\[\large R^2:=1-\frac{\sum (residual_i)^2}{\sum(y_i-\bar{y})^2}\]</div>
+</section>
+<section id="font-color-blue-multiple-linear-regression-linear-models-with-more-features-font">
+<h2><font color='blue'>  Multiple Linear Regression (Linear models with more features)</font><a class="headerlink" href="#font-color-blue-multiple-linear-regression-linear-models-with-more-features-font" title="Permalink to this headline">#</a></h2>
+<p><strong>Important</strong> The matrix vector product is a linear combination of the columns of the matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\large X\beta =\beta_1\begin{bmatrix}
+           x_{11} \\
+           x_{21} \\
+           \vdots \\
+           x_{n1}
+         \end{bmatrix}
+         +
+         \beta_2\begin{bmatrix}
+           x_{11} \\
+           x_{21} \\
+           \vdots \\
+           x_{n1}
+         \end{bmatrix}
+                  + ...
+         \beta_p\begin{bmatrix}
+           x_{1p} \\
+           x_{2p} \\
+           \vdots \\
+           x_{np}
+         \end{bmatrix}
+\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\large X = \begin{bmatrix}
+x_{11}, x_{12}, ... x_{1p} \\
+x_{21},x_{22}, ...x_{2p} \\
+\vdots \\
+x_{n1}, x_{n2}, ... x_{np}
+\end{bmatrix}
+\end{split}\]</div>
+</section>
+<section id="font-color-blue-vector-spaces-font">
+<h2><font color='blue'> Vector Spaces </font><a class="headerlink" href="#font-color-blue-vector-spaces-font" title="Permalink to this headline">#</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Axiom</strong></p></th>
+<th class="head"><p><strong>Meaning</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Associativity">Associativity</a> of vector addition</p></td>
+<td><p><strong>u</strong> + (<strong>v</strong> + <strong>w</strong>) = (<strong>u</strong> + <strong>v</strong>) + <strong>w</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Commutativity">Commutativity</a> of vector addition</p></td>
+<td><p><strong>u</strong> + <strong>v</strong> = <strong>v</strong> + <strong>u</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Identity_element">Identity element</a> of vector addition</p></td>
+<td><p>There exists an element <strong>0</strong>∈ <em>V</em>, called the <em><a class="reference external" href="https://en.wikipedia.org/wiki/Zero_vector">zero vector</a></em>, such that <strong>v</strong> + <strong>0</strong> = <strong>v</strong> for all <strong>v</strong>∈ <em>V</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Inverse_element">Inverse elements</a> of vector addition</p></td>
+<td><p>For every <strong>v</strong>∈ <em>V</em>, there exists an element −<strong>v</strong> ∈ <em>V</em>, called the <em><a class="reference external" href="https://en.wikipedia.org/wiki/Additive_inverse">additive inverse</a></em> of <strong>v</strong>, such that <strong>v</strong> + (−<strong>v</strong>) = <strong>0</strong>.</p></td>
+</tr>
+<tr class="row-even"><td><p>Compatibility of scalar multiplication with field multiplication</p></td>
+<td><p><em>a</em>(<em>b</em><strong>v</strong>) = (<em>ab</em>)<strong>v</strong><sup><a class="reference external" href="https://en.wikipedia.org/wiki/Vector_space#cite_note-4">[nb 3]</a></sup></p></td>
+</tr>
+<tr class="row-odd"><td><p>Identity element of scalar multiplication</p></td>
+<td><p>1<strong>v</strong> = <strong>v</strong>, where 1 denotes the <a class="reference external" href="https://en.wikipedia.org/wiki/Multiplicative_identity">multiplicative identity</a> in <em>F</em>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Distributivity">Distributivity</a> of scalar multiplication with respect to vector addition</p></td>
+<td><p><em>a</em>(<strong>u</strong> + <strong>v</strong>) = <em>a</em><strong>u</strong> + <em>a</em><strong>v</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Distributivity of scalar multiplication with respect to field addition</p></td>
+<td><p>(<em>a</em> + <em>b</em>)<strong>v</strong> = <em>a</em><strong>v</strong> + <em>b</em><strong>v</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>An example of a linear model with two features is <span class="math notranslate nohighlight">\(\hat{y}_i = 1+3x_{i1}+5x_{i2}.\)</span></p>
+<p>In this example the value <span class="math notranslate nohighlight">\(1\)</span> is referred to as the <em>intercept</em>.</p>
+<p>If <span class="math notranslate nohighlight">\(p\)</span> features in the data and we want to create a linear model, the <em>input-output</em> mechanism is</p>
+<div class="math notranslate nohighlight">
+\[
+\underbrace{Y}_\text{Output}  = \underbrace{\beta_1 X_1+\beta_2 X_2+...+\beta_p X_p}_\text{Linear combination of features}
+\]</div>
+<p>This could represented as a matrix-vector product:</p>
+<div class="math notranslate nohighlight">
+\[
+\underbrace{Y}_\text{Output}  = \underbrace{X\cdot \beta}_\text{Linear combination of the columns of matrix X}
+\]</div>
+<p>In this model the features are <span class="math notranslate nohighlight">\(X_1, X_2, ...X_p\)</span> and <span class="math notranslate nohighlight">\(\beta_1, \beta_2,...\beta_p\)</span> are a set of weights (real numbers).</p>
+<p>The assumption for multiple linear regression is</p>
+<div class="math notranslate nohighlight">
+\[\large
+Y = X\beta + \sigma \epsilon
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviatin of the noise. Further, we assume that the “noise” <span class="math notranslate nohighlight">\(\epsilon\)</span> is independent and identically distributed with a zero mean.</p>
+<p>We believe that the output is a linear combination of the input features.</p>
+<p>Thus, if we would like to solve for the “weights” <span class="math notranslate nohighlight">\(\beta\)</span> we may consider</p>
+<div class="math notranslate nohighlight">
+\[\large
+X^tY = X^tX\beta+\sigma X^t\epsilon
+\]</div>
+<p>And if the matrix <span class="math notranslate nohighlight">\(X^tX\)</span> is invertible then we can solve for expected value of <span class="math notranslate nohighlight">\(\beta\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\large
+\mathbb{E}(\beta) = (X^tX)^{-1}X^t Y
+\]</div>
+<p>We can show by using <em>Linear Algebra</em> that the OLS solution obtained form minimizing the sum of the square residuals is equivalent.</p>
+</section>
+<section id="font-color-blue-linear-vs-non-linear-models-font">
+<h2><font color='blue'>Linear vs Non-linear models</font><a class="headerlink" href="#font-color-blue-linear-vs-non-linear-models-font" title="Permalink to this headline">#</a></h2>
+<p>This is a linear model in terms of the weights <span class="math notranslate nohighlight">\(\beta\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\large
+\hat{y} = \beta_0 + \beta_1x_1 + \beta_2x_2 - \beta_3x_3
+\]</div>
+<p>An example for what linear in weights means
+<font color='forestgreen'>
+$<span class="math notranslate nohighlight">\(
+\hat{y}(2\beta+3\alpha) = 2\hat{y}(\beta)+3\hat{y}(\alpha)
+\)</span>$</font></p>
+<p>The following is a non-linear model in terms of the coefficients (weights):</p>
+<div class="math notranslate nohighlight">
+\[\large
+\hat{y} = \beta_0 + \beta_1^3x_1 + \frac{1}{\beta_2+\beta_3}x_2 - e^{\beta_3}x_3
+\]</div>
+<font color='magenta'>
+$$
+\hat{y}(2\beta+3\alpha) \neq 2\hat{y}(\beta)+3\hat{y}(\alpha)
+$$</font>
+<p>The main point of linear regression is to assume that predictions can ben made by using a linear combination of the features.</p>
+<p>For example, if the data from feature <span class="math notranslate nohighlight">\(j\)</span> is a column vector, e.g.
+\begin{bmatrix}
+x_{1j} \
+x_{2j} \
+\vdots \
+x_{nj}
+\end{bmatrix}<br />
+then we assume that the depdendent variable is predicted by a linear combination of these columns populated with features’ data. Each column represents a feature and each row an independent observation.</p>
+<p>The predicted value is denoted by <span class="math notranslate nohighlight">\(\hat{y}\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\hat{y} = \beta_1\begin{bmatrix}
+           x_{11} \\
+           x_{21} \\
+           \vdots \\
+           x_{n1}
+         \end{bmatrix}
+         +
+         \beta_2\begin{bmatrix}
+           x_{11} \\
+           x_{21} \\
+           \vdots \\
+           x_{n1}
+         \end{bmatrix}
+                  + ...
+         \beta_p\begin{bmatrix}
+           x_{1p} \\
+           x_{2p} \\
+           \vdots \\
+           x_{np}
+         \end{bmatrix}
+\end{split}\]</div>
+</section>
+<section id="we-have-a-vector-of-weights">
+<h2>We have a vector of weights:<a class="headerlink" href="#we-have-a-vector-of-weights" title="Permalink to this headline">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\beta = \begin{bmatrix}
+           \beta_{1} \\
+           \beta_{2} \\
+           \vdots \\
+           \beta_{p}
+         \end{bmatrix}
+\end{split}\]</div>
+</section>
+<section id="font-color-forestgreen">
+<h2><font color="forestgreen"><a class="headerlink" href="#font-color-forestgreen" title="Permalink to this headline">#</a></h2>
+<p>Critical thinking: what exactly is <span class="math notranslate nohighlight">\(\hat{y}\)</span>?
+</font></p>
+<p><font color='magenta'> The matrix-vector product between the feaures and the weights
+$<span class="math notranslate nohighlight">\(
+\hat{y} = X\cdot\beta
+\)</span>$
+</font></p>
+<p>The main idea is that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\hat{y}= \begin{bmatrix}
+           \hat{y}_{1} \\
+            \hat{y}_{2}  \\
+           \vdots \\
+             \hat{y}_{n}
+         \end{bmatrix}
+\end{split}\]</div>
+<p>represents the predictions we make by training (or as we say in ML <em>learning</em>) the weights <span class="math notranslate nohighlight">\(\beta.\)</span></p>
+<p>Training means running an optimization algorithm and determining the values of the weights that minimize an objective function.</p>
+</section>
+<section id="font-color-darkgreen-we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals">
+<h2><font color='darkgreen'> We want to <em>learn</em> the weights <span class="math notranslate nohighlight">\(\beta_1,\beta_2,...\beta_p\)</span> that minimize the sum of the squared residuals:<a class="headerlink" href="#font-color-darkgreen-we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals" title="Permalink to this headline">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\large
+\sum\limits_{i=1}^{n}\left(y_i-\sum\limits_{j=1}^{p}X_{i,j}\cdot\beta_j\right)^2
+ = \sum\limits_{i=1}^{n}\left(y_i-X_{i,1}\beta_1-X_{i,2}\beta_2 - ...X_{i,p}\beta_p\right)^2 \]</div>
+</font>
+</section>
+<section id="font-color-red-how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals-font">
+<h2><font color='red'> How do we know we are on the right track after we perform the minimization of the square residuals? <font><a class="headerlink" href="#font-color-red-how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals-font" title="Permalink to this headline">#</a></h2>
+<p>##<font color='blue'>  Ordinary Least Squares Regression (OLS)</font></p>
+<p>First, we assume the simplest case: data has only one input feature that is continuous.</p>
+<p>The main idea of linear regression is the expected value of the output is a linear function of the input variable(s).</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}(Y|X=x)\approx m\cdot x + b\]</div>
+<p>To determine the line of best fit the goal is to minimize the sum of squared residuals:</p>
+<font color='navy'>
+$$
+\min_{m,b} \sum\limits_{i=1}^{n}(y_i-mx_i-b)^2
+$$
+</font>
+<p>So the sum of the squared residuals is</p>
+<div class="math notranslate nohighlight">
+\[
+\sum\limits_{i=1}^{n}(y_i-mx_i-b)^2
+\]</div>
+<p>If <span class="math notranslate nohighlight">\(N\)</span> represents the number of observations (the number of rows in the data) then the cost function may be defined
+<font color='red'>
+$<span class="math notranslate nohighlight">\(
+L(m,b) = \frac{1}{N} \sum\limits_{i=1}^{N}(y_i-mx_i-b)^2
+\)</span>$</font></p>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\hat{y_i} = m\cdot x_i +b.\]</div>
+<p>If we get our predictions <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> then we have that the Mean Squared Error is</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{N} \sum\limits_{i=1}^{N}(y_i-\hat{y}_i)^2
+\]</div>
+<p><font color='forestgreen'> Critical Thinking: at the optimal values <span class="math notranslate nohighlight">\((m,b)\)</span> the partial derivatives of the cost function <span class="math notranslate nohighlight">\(L\)</span> are equal to 0.</font></p>
+<p>The <font color='deepskyblue'><em>gradient descent algorithm</em></font> is based on this idea.</p>
+<p>Thus, the equation of the best fit line is $<span class="math notranslate nohighlight">\(y = mx + b.\)</span>$</p>
+<p><font color='red'> CRITICAL THINKING: How <em>exactly</em> are we obtaining the slope and the intercept?</font></p>
+<p><font color='forestgreen'>ANSWER: One way to obtain the slope and the intercept is by applying the <em>Ordinary Least Squares</em> method.</font></p>
+<p>We determine the values of <font color='blue'><span class="math notranslate nohighlight">\(m\)</span></font> and <font color='red'><span class="math notranslate nohighlight">\(b\)</span></font> such that the sum of the square distances between the points and the line is <em>minimal</em>.</font></p>
+<figure>
+<center>
+<img src='https://drive.google.com/uc?id=16s5RAyNsFB17nut3jJMqPsPxmbLC_wP2'
+width='600px' />
+<figcaption>Source: Simple Linear Regression (Tobias Roeschl)</figcaption></center>
+</figure>
+<p>###<font color='blue'>  Diagnostics for Regression
+####<font color='blue'>   The Coefficient of Determination</p>
+<div class="math notranslate nohighlight">
+\[\large R^2:=1-\frac{\sum (residual_i)^2}{\sum(y_i-\bar{y})^2}\]</div>
+<p>We know we make a good job when R2 is very close to 1. We make a very poor job if R2 is close to 0 or even negative.</p>
+<p>###<font color='blue'>   Tests for Normality</p>
+<p>We believe that, if the residuals are normally distributed, then the average of the errors is a meaningful estimator for the model’s performance.</p>
+<p>####<font color='blue'> What is a Normality Test? </font></p>
+<p>Assume we have a univariate set of values ( we have a sample from a univariate distribution.) We are checking, based on some calculations with the sample data, if the univariate distribution is a normal one.</p>
+<p><strong>Main Idea</strong>: We are measuring the nonlinear correlation between the empirical density function of the data vs the theoretical density of a standard normal distribution.</p>
+<p>We want to recast this matching procedure onto the backdrop of a linear correlation situation; this means we want to compare the two cumulative distribution functions. To explain, we want the empirical percentiles to correlate linearly with the theoretical percentiles of a standard normal distribution.</p>
+<p>###<font color='blue'> The Kolmogorov-Smirnov test</p>
+<p>The Kolmogorov-Smirnov test uses the concept of cummulative distribution functions:</p>
+<div class="math notranslate nohighlight">
+\[CDF(x):= P(X&lt;x) = \int_{-∞}^{x}f(t)dt\]</div>
+<p>The concept is useful in applications where we want to check if a random variable follows a certain distribution.</p>
+<p>IMPORTANT: In most cases we standardize the values of the random variable, e.g we compute z-scores.</p>
+<p>The test is defined as:</p>
+<p><strong>H0 (the null hypothesis):</strong>	The data follow a specified distribution.</p>
+<p><strong>H1 (the alternative hypothesis):</strong> The data do not follow the specified distribution</p>
+<p>The main idea is that we focus on how much the empirical cummulative distribution function is different from the theoretical cummulative distribution function, and we may consider:</p>
+<div class="math notranslate nohighlight">
+\[\sup_{x} |ECDF(x) - CDF(x)|\]</div>
+<p>where <span class="math notranslate nohighlight">\(ECDF(x)\)</span> means the emprirical cummulative distribution function:</p>
+<div class="math notranslate nohighlight">
+\[ECDF(x):= \frac{1}{n}\sum \mathbb{1}(t)_{t&lt;x}\]</div>
+<p>and, <span class="math notranslate nohighlight">\(CDF\)</span> stands for the cummulative distribution function:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}CDF(x):= \int_{-\infty}^{x}f(t)dt.$$  Here $f$ is the probability density function.\\If we order the observations, such as $x_i\leq x_j$ when $i\leq j$, then the test statistic is formally defined by:\\$$D:=\max_{1\leq i\leq n}\left\{CDF(x_i)-\frac{i-1}{n},\frac{i}{n}-CDF(x_i)\right\}\end{aligned}\end{align} \]</div>
+<p>The mathematical notation means that we add <span class="math notranslate nohighlight">\(1\)</span> for each <span class="math notranslate nohighlight">\(t\)</span> less than <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(n\)</span> represents the sample size.</p>
+<p>If the p-value is high (much greater then 5%) we do not reject the null hypethesis which means that the normality assumption is not violated.</p>
+</section>
+<section id="font-color-blue-the-anderson-darling-test-font">
+<h2><font color='blue'> The Anderson-Darling Test</font><a class="headerlink" href="#font-color-blue-the-anderson-darling-test-font" title="Permalink to this headline">#</a></h2>
+<p>The test is defined as:</p>
+<p><strong>H0 (the null hypothesis)</strong>:	The data follow a specified distribution.</p>
+<p><strong>H1 (the alternative hypothesis)</strong>: The data do not follow the specified distribution</p>
+<p>The test statistic is defined as:</p>
+<div class="math notranslate nohighlight">
+\[\large AD := -n - \sum_{i=1}^{n} \frac{2i-1}{n}\left[\ln(CDF(x_i))+\ln(1-CDF(x_{n+1-i})\right] \]</div>
+<p>The critical values for the Anderson-Darling test are dependent on the specific distribution that is being tested.</p>
+</section>
+<section id="font-color-blue-error-metrics">
+<h2><font color='blue'> Error Metrics<a class="headerlink" href="#font-color-blue-error-metrics" title="Permalink to this headline">#</a></h2>
+<section id="font-color-blue-mse">
+<h3><font color='blue'> MSE<a class="headerlink" href="#font-color-blue-mse" title="Permalink to this headline">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\text{MSE}:=\frac{1}{n}\sum_{i=1}^{n}(y_i-x_i\cdot\vec{\beta})^2\]</div>
+<p>here the i-th observation has multiple features:</p>
+<div class="math notranslate nohighlight">
+\[x_i = \left(x_{i1},x_{i2},...x_{ip}\right)\]</div>
+<p>where the “dot” product is defined as</p>
+<div class="math notranslate nohighlight">
+\[x_i\cdot\vec{\beta} = \sum_{j=1}^{p} x_{ij}\beta_j\]</div>
+</section>
+<section id="font-color-blue-rmse">
+<h3><font color='blue'> RMSE<a class="headerlink" href="#font-color-blue-rmse" title="Permalink to this headline">#</a></h3>
+<p>Root mean squared error:</p>
+<div class="math notranslate nohighlight">
+\[\text{RMSE}:=\left(\frac{1}{n}\sum_{i=1}^{n}(y_i-x_i\cdot\vec{\beta})^2\right)^{1/2}\]</div>
+</section>
+<section id="font-color-blue-size-5pt-mae">
+<h3><font color='blue' size=5pt> MAE<a class="headerlink" href="#font-color-blue-size-5pt-mae" title="Permalink to this headline">#</a></h3>
+<p>Mean absolute error:</p>
+<div class="math notranslate nohighlight">
+\[\text{MAE}:=\frac{1}{n}\sum_{i=1}^{n}\left|y_i-x_i\cdot\vec{\beta}\right|\]</div>
+<p>###<font color='blue' size=5pt> Code Applications</p>
+<hr class="docutils" />
+<p>In the following example we learn how to write a code in Python for determining the line of best fit given one dependent variable and one input feature. That is to say we are going to determine a slope  𝑚  and an intercept  𝑛 , the equation of the best fit line being  𝑦=𝑚𝑥+𝑏.</p>
+<p>We are going to analyze a real data set that was extracted from the 1974 Motor Trend US magazine and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-1974 models).</p>
+</section>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>import os
+if &#39;google.colab&#39; in str(get_ipython()):
+  print(&#39;Running on CoLab&#39;)
+  from google.colab import drive
+  drive.mount(&#39;/content/drive&#39;)
+  os.chdir(&#39;/content/drive/My Drive/Data Sets&#39;)
+  !pip install -q pygam
+else:
+  print(&#39;Running locally&#39;)
+  os.chdir(&#39;../Data&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Library Setup</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="o">%</span><span class="n">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s1">&#39;retina&#39;</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ksone</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-import">
+<h2>Data Import<a class="headerlink" href="#data-import" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># data</span>
+<span class="n">cars</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;mtcars.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cars</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+  <div id="df-882f07c1-0c67-4251-b433-6ccb0460ba8c">
+    <div class="colab-df-container">
+      <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>model</th>
+      <th>mpg</th>
+      <th>cyl</th>
+      <th>disp</th>
+      <th>hp</th>
+      <th>drat</th>
+      <th>wt</th>
+      <th>qsec</th>
+      <th>vs</th>
+      <th>am</th>
+      <th>gear</th>
+      <th>carb</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Mazda RX4</td>
+      <td>21.0</td>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.90</td>
+      <td>2.620</td>
+      <td>16.46</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mazda RX4 Wag</td>
+      <td>21.0</td>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.90</td>
+      <td>2.875</td>
+      <td>17.02</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Datsun 710</td>
+      <td>22.8</td>
+      <td>4</td>
+      <td>108.0</td>
+      <td>93</td>
+      <td>3.85</td>
+      <td>2.320</td>
+      <td>18.61</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Hornet 4 Drive</td>
+      <td>21.4</td>
+      <td>6</td>
+      <td>258.0</td>
+      <td>110</td>
+      <td>3.08</td>
+      <td>3.215</td>
+      <td>19.44</td>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Hornet Sportabout</td>
+      <td>18.7</td>
+      <td>8</td>
+      <td>360.0</td>
+      <td>175</td>
+      <td>3.15</td>
+      <td>3.440</td>
+      <td>17.02</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Valiant</td>
+      <td>18.1</td>
+      <td>6</td>
+      <td>225.0</td>
+      <td>105</td>
+      <td>2.76</td>
+      <td>3.460</td>
+      <td>20.22</td>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Duster 360</td>
+      <td>14.3</td>
+      <td>8</td>
+      <td>360.0</td>
+      <td>245</td>
+      <td>3.21</td>
+      <td>3.570</td>
+      <td>15.84</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Merc 240D</td>
+      <td>24.4</td>
+      <td>4</td>
+      <td>146.7</td>
+      <td>62</td>
+      <td>3.69</td>
+      <td>3.190</td>
+      <td>20.00</td>
+      <td>1</td>
+      <td>0</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Merc 230</td>
+      <td>22.8</td>
+      <td>4</td>
+      <td>140.8</td>
+      <td>95</td>
+      <td>3.92</td>
+      <td>3.150</td>
+      <td>22.90</td>
+      <td>1</td>
+      <td>0</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Merc 280</td>
+      <td>19.2</td>
+      <td>6</td>
+      <td>167.6</td>
+      <td>123</td>
+      <td>3.92</td>
+      <td>3.440</td>
+      <td>18.30</td>
+      <td>1</td>
+      <td>0</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Merc 280C</td>
+      <td>17.8</td>
+      <td>6</td>
+      <td>167.6</td>
+      <td>123</td>
+      <td>3.92</td>
+      <td>3.440</td>
+      <td>18.90</td>
+      <td>1</td>
+      <td>0</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Merc 450SE</td>
+      <td>16.4</td>
+      <td>8</td>
+      <td>275.8</td>
+      <td>180</td>
+      <td>3.07</td>
+      <td>4.070</td>
+      <td>17.40</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Merc 450SL</td>
+      <td>17.3</td>
+      <td>8</td>
+      <td>275.8</td>
+      <td>180</td>
+      <td>3.07</td>
+      <td>3.730</td>
+      <td>17.60</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Merc 450SLC</td>
+      <td>15.2</td>
+      <td>8</td>
+      <td>275.8</td>
+      <td>180</td>
+      <td>3.07</td>
+      <td>3.780</td>
+      <td>18.00</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>Cadillac Fleetwood</td>
+      <td>10.4</td>
+      <td>8</td>
+      <td>472.0</td>
+      <td>205</td>
+      <td>2.93</td>
+      <td>5.250</td>
+      <td>17.98</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Lincoln Continental</td>
+      <td>10.4</td>
+      <td>8</td>
+      <td>460.0</td>
+      <td>215</td>
+      <td>3.00</td>
+      <td>5.424</td>
+      <td>17.82</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>Chrysler Imperial</td>
+      <td>14.7</td>
+      <td>8</td>
+      <td>440.0</td>
+      <td>230</td>
+      <td>3.23</td>
+      <td>5.345</td>
+      <td>17.42</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Fiat 128</td>
+      <td>32.4</td>
+      <td>4</td>
+      <td>78.7</td>
+      <td>66</td>
+      <td>4.08</td>
+      <td>2.200</td>
+      <td>19.47</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Honda Civic</td>
+      <td>30.4</td>
+      <td>4</td>
+      <td>75.7</td>
+      <td>52</td>
+      <td>4.93</td>
+      <td>1.615</td>
+      <td>18.52</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>Toyota Corolla</td>
+      <td>33.9</td>
+      <td>4</td>
+      <td>71.1</td>
+      <td>65</td>
+      <td>4.22</td>
+      <td>1.835</td>
+      <td>19.90</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Toyota Corona</td>
+      <td>21.5</td>
+      <td>4</td>
+      <td>120.1</td>
+      <td>97</td>
+      <td>3.70</td>
+      <td>2.465</td>
+      <td>20.01</td>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Dodge Challenger</td>
+      <td>15.5</td>
+      <td>8</td>
+      <td>318.0</td>
+      <td>150</td>
+      <td>2.76</td>
+      <td>3.520</td>
+      <td>16.87</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>AMC Javelin</td>
+      <td>15.2</td>
+      <td>8</td>
+      <td>304.0</td>
+      <td>150</td>
+      <td>3.15</td>
+      <td>3.435</td>
+      <td>17.30</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Camaro Z28</td>
+      <td>13.3</td>
+      <td>8</td>
+      <td>350.0</td>
+      <td>245</td>
+      <td>3.73</td>
+      <td>3.840</td>
+      <td>15.41</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Pontiac Firebird</td>
+      <td>19.2</td>
+      <td>8</td>
+      <td>400.0</td>
+      <td>175</td>
+      <td>3.08</td>
+      <td>3.845</td>
+      <td>17.05</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Fiat X1-9</td>
+      <td>27.3</td>
+      <td>4</td>
+      <td>79.0</td>
+      <td>66</td>
+      <td>4.08</td>
+      <td>1.935</td>
+      <td>18.90</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Porsche 914-2</td>
+      <td>26.0</td>
+      <td>4</td>
+      <td>120.3</td>
+      <td>91</td>
+      <td>4.43</td>
+      <td>2.140</td>
+      <td>16.70</td>
+      <td>0</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>Lotus Europa</td>
+      <td>30.4</td>
+      <td>4</td>
+      <td>95.1</td>
+      <td>113</td>
+      <td>3.77</td>
+      <td>1.513</td>
+      <td>16.90</td>
+      <td>1</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Ford Pantera L</td>
+      <td>15.8</td>
+      <td>8</td>
+      <td>351.0</td>
+      <td>264</td>
+      <td>4.22</td>
+      <td>3.170</td>
+      <td>14.50</td>
+      <td>0</td>
+      <td>1</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Ferrari Dino</td>
+      <td>19.7</td>
+      <td>6</td>
+      <td>145.0</td>
+      <td>175</td>
+      <td>3.62</td>
+      <td>2.770</td>
+      <td>15.50</td>
+      <td>0</td>
+      <td>1</td>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>Maserati Bora</td>
+      <td>15.0</td>
+      <td>8</td>
+      <td>301.0</td>
+      <td>335</td>
+      <td>3.54</td>
+      <td>3.570</td>
+      <td>14.60</td>
+      <td>0</td>
+      <td>1</td>
+      <td>5</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>Volvo 142E</td>
+      <td>21.4</td>
+      <td>4</td>
+      <td>121.0</td>
+      <td>109</td>
+      <td>4.11</td>
+      <td>2.780</td>
+      <td>18.60</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+      <button class="colab-df-convert" onclick="convertToInteractive('df-882f07c1-0c67-4251-b433-6ccb0460ba8c')"
+              title="Convert this dataframe to an interactive table."
+              style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
+  </svg>
+      </button>
+
+  <style>
+    .colab-df-container {
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+
+      <script>
+        const buttonEl =
+          document.querySelector('#df-882f07c1-0c67-4251-b433-6ccb0460ba8c button.colab-df-convert');
+        buttonEl.style.display =
+          google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+        async function convertToInteractive(key) {
+          const element = document.querySelector('#df-882f07c1-0c67-4251-b433-6ccb0460ba8c');
+          const dataTable =
+            await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                     [key], {});
+          if (!dataTable) return;
+
+          const docLinkHtml = 'Like what you see? Visit the ' +
+            '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+            + ' to learn more about interactive tables.';
+          element.innerHTML = '';
+          dataTable['output_type'] = 'display_data';
+          await google.colab.output.renderOutput(dataTable, element);
+          const docLink = document.createElement('div');
+          docLink.innerHTML = docLinkHtml;
+          element.appendChild(docLink);
+        }
+      </script>
+    </div>
+  </div>
+</div></div>
+</div>
+<p><strong>Objective 1</strong>: We want to to know if there is any association between the weight of the car and the mileage.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cars</span><span class="p">[</span><span class="s1">&#39;mpg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([21. , 21. , 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19.2, 17.8,
+       16.4, 17.3, 15.2, 10.4, 10.4, 14.7, 32.4, 30.4, 33.9, 21.5, 15.5,
+       15.2, 13.3, 19.2, 27.3, 26. , 30.4, 15.8, 19.7, 15. , 21.4])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="n">mpg</span><span class="o">.</span><span class="n">values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="n">wt</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">LinearRegression</label><div class="sk-toggleable__content"><pre>LinearRegression()</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-5.34447157])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="relationship-between-x-and-y">
+<h2>Relationship between x and y<a class="headerlink" href="#relationship-between-x-and-y" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[</span><span class="s1">&#39;mpg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[</span><span class="s1">&#39;wt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xb</span><span class="p">,</span> <span class="n">yb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="c1"># here we compute the center of mass</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xb</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.21725
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Weight of the car in 1000lbs&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Miles Per Gallon&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xb</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">yb</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># here we make x a column vector or a matrix</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#technical</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">LinearRegression</label><div class="sk-toggleable__content"><pre>LinearRegression()</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The Slope is :&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">),</span><span class="s1">&#39; and the intercept is :&#39;</span> <span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The Slope is :[-5.34447157]  and the intercept is :37.28512616734204
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">pearsonr</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># we have to &quot;ravel&quot; back the x</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span><span class="p">,</span> <span class="n">pval</span> <span class="o">=</span> <span class="n">pearsonr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The correlation coefficient is :&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;  and the pvalue for significance is :&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pval</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The correlation coefficient is :-0.8676593765172278  and the pvalue for significance is :1.293958701350513e-10
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The slope of the trend is :&#39;</span> <span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The slope of the trend is :-5.344471572722676
+</pre></div>
+</div>
+</div>
+</div>
+<p>The equation of the line passing through the center of mass and that captires the trend is:
+$<span class="math notranslate nohighlight">\(y-\bar{y} = m\cdot(x-\bar{x})\)</span>$</p>
+<p>In short, $<span class="math notranslate nohighlight">\(y=m\cdot x + b\)</span><span class="math notranslate nohighlight">\( where \)</span>b = \bar{y} -m\cdot\bar{x}$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">yb</span><span class="o">-</span><span class="n">m</span><span class="o">*</span><span class="n">xb</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;In our case the intercept is: &#39;</span> <span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">))</span> <span class="c1"># what is the meaning of the intercept?</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In our case the intercept is: 37.285126167342035
+</pre></div>
+</div>
+</div>
+</div>
+<p>###<font color='blue' size=5pt> OLS Equivalence </font></p>
+<p>The main idea is that in 1-D the OLS estimation is equivalence with the calculation of the slope via the Pearson correlation coefficient.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span> <span class="c1"># this is also called &quot;loss&quot; function</span>
+    <span class="n">total_cost</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># number of datapoints in training data</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="c1"># Compute sum of squared errors</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">total_cost</span> <span class="o">+=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="c1"># Return average of squared error</span>
+    <span class="k">return</span> <span class="n">total_cost</span><span class="o">/</span><span class="n">N</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># this is the actual gradient descent</span>
+<span class="k">def</span> <span class="nf">step_gradient</span><span class="p">(</span><span class="n">b_current</span><span class="p">,</span> <span class="n">m_current</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;takes one step down towards the minima</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        b_current (float): current value of b</span>
+<span class="sd">        m_current (float): current value of m</span>
+<span class="sd">        data (np.array): array containing the training data (x,y)</span>
+<span class="sd">        alpha (float): learning rate / step size</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: (b,m) new values of b,m</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">m_gradient</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">b_gradient</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="c1"># Calculate Gradient - assuming you know partial derivatives</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">m_gradient</span> <span class="o">+=</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="n">m_current</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b_current</span><span class="p">))</span> <span class="c1"># is the partial derivative with respect to m</span>
+        <span class="n">b_gradient</span> <span class="o">+=</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="n">m_current</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">b_current</span><span class="p">))</span> <span class="c1"># is the partial derivative with respect to b</span>
+
+    <span class="c1"># Update current m and b, alpha stands for learning rate</span>
+    <span class="c1"># we proceed in the direction of the negative gradient</span>
+    <span class="n">m_updated</span> <span class="o">=</span> <span class="n">m_current</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">m_gradient</span>
+    <span class="n">b_updated</span> <span class="o">=</span> <span class="n">b_current</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">b_gradient</span>
+
+    <span class="c1">#Return updated parameters</span>
+    <span class="k">return</span> <span class="n">b_updated</span><span class="p">,</span> <span class="n">m_updated</span>
+
+<span class="k">def</span> <span class="nf">gradient_descent</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">starting_b</span><span class="p">,</span> <span class="n">starting_m</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">num_iterations</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;runs gradient descent</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (np.array): training data, containing x,y</span>
+<span class="sd">        starting_b (float): initial value of b (random)</span>
+<span class="sd">        starting_m (float): initial value of m (random)</span>
+<span class="sd">        learning_rate (float): hyperparameter to adjust the step size during descent</span>
+<span class="sd">        num_iterations (int): hyperparameter, decides the number of iterations for which gradient descent would run</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list : the first and second item are b, m respectively at which the best fit curve is obtained, the third and fourth items are two lists, which store the value of b,m as gradient descent proceeded.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># initial values</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">starting_b</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">starting_m</span>
+
+    <span class="c1"># to store the cost after each iteration</span>
+    <span class="n">cost_graph</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># to store the value of b -&gt; bias unit, m-&gt; slope of line after each iteration (pred = m*x + b)</span>
+    <span class="n">b_progress</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">m_progress</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># For every iteration, optimize b, m and compute its cost</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iterations</span><span class="p">):</span>
+        <span class="n">cost_graph</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
+        <span class="n">b</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">step_gradient</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">)</span>
+        <span class="n">b_progress</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">m_progress</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">cost_graph</span><span class="p">,</span><span class="n">b_progress</span><span class="p">,</span><span class="n">m_progress</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#hyperparamters</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">initial_b</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">initial_m</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">num_iterations</span> <span class="o">=</span> <span class="mi">50000</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">cost_graph</span><span class="p">,</span><span class="n">b_progress</span><span class="p">,</span><span class="n">m_progress</span> <span class="o">=</span> <span class="n">gradient_descent</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">initial_b</span><span class="p">,</span> <span class="n">initial_m</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">num_iterations</span><span class="p">)</span>
+
+<span class="c1">#Print optimized parameters</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Optimized b:&#39;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Optimized m:&#39;</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+
+<span class="c1">#Print error with optimized parameters</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;Minimized cost:&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimized b: 37.27234604666433
+Optimized m: -5.340801130745784
+Minimized cost: 8.697573986717137
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cost_graph</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;No. of iterations&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Cost&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cost per iteration&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;forestgreen&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;forestgreen&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Supervised_Learning_Linear_Regression_48_0.png" src="_images/Supervised_Learning_Linear_Regression_48_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># what is the shape of x?</span>
+<span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(32,)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>LinearRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">LinearRegression</label><div class="sk-toggleable__content"><pre>LinearRegression()</pre></div></div></div></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span> <span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span> <span class="c1"># this is what the has learned</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([-5.34447157]), 37.28512616734204)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_range</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Plot dataset</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span><span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="c1">#Predict y values</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span> <span class="o">*</span> <span class="n">x_range</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span>
+<span class="c1">#Plot predictions as line of best fit</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Independent Variable $X$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Dependent Variable $Y$&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xb</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">yb</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;navy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Line of best fit&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Data&#39;</span><span class="p">,</span><span class="s1">&#39;Trend&#39;</span><span class="p">,</span><span class="s1">&#39;Mean of $X$&#39;</span><span class="p">,</span><span class="s1">&#39;Mean of $Y$&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;lineacorrelation.png&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7528327936582646
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.7528327936582647
+</pre></div>
+</div>
+</div>
+</div>
+<p>###<font color='blue' size=5pt>Test the Residuals for Goodness of fit</font></p>
+<p>We investigate the distribution of the residuals, plot a histogram and apply a normality test</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">residuals</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># import uniform distribution</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax1</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span>
+
+                  <span class="n">bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                  <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;deepskyblue&#39;</span><span class="p">,</span>
+                  <span class="n">hist_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;ec&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">},</span>
+                  <span class="n">fit</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span>
+                  <span class="n">fit_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">})</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Residuals&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/dist-packages/seaborn/distributions.py:2619: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+</pre></div>
+</div>
+<img alt="_images/Supervised_Learning_Linear_Regression_60_1.png" src="_images/Supervised_Learning_Linear_Regression_60_1.png" />
+</div>
+</div>
+</section>
+<section id="message-the-histogram-does-not-quite-look-like-a-normal-distribution-we-can-also-consider-a-q-q-plot">
+<h2>Message: The histogram does not quite look like a normal distribution. We can also consider a Q-Q Plot:<a class="headerlink" href="#message-the-histogram-does-not-quite-look-like-a-normal-distribution-we-can-also-consider-a-q-q-plot" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">qqplot</span><span class="p">(</span><span class="n">residuals</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">residuals</span><span class="p">),</span> <span class="n">loc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/dist-packages/ipykernel_launcher.py:5: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  &quot;&quot;&quot;
+</pre></div>
+</div>
+<img alt="_images/Supervised_Learning_Linear_Regression_62_1.png" src="_images/Supervised_Learning_Linear_Regression_62_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="s1">&#39;norm&#39;</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-8.215650382226158e-15, 2.949162685955028)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># here we apply the test</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">kstest</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="s2">&quot;norm&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KstestResult(statistic=0.08217402470387336, pvalue=0.9821261392158506)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-conclusion-in-our-case-is-that-the-normality-assumption-is-not-violated">
+<h2>The conclusion, in our case, is that the normality assumption is not violated.<a class="headerlink" href="#the-conclusion-in-our-case-is-that-the-normality-assumption-is-not-violated" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for your convenience, this is the table with the critical values for the</span>
+<span class="c1"># Kolmogorov-Smirnov test</span>
+
+<span class="k">def</span> <span class="nf">ks_critical_value</span><span class="p">(</span><span class="n">n_trials</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ksone</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_trials</span><span class="p">)</span>
+
+<span class="n">trials</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]</span>
+
+<span class="c1"># Print table headers</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:&lt;6}</span><span class="s1">|</span><span class="si">{:&lt;6}</span><span class="s1"> Level of significance, alpha&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:&lt;6}</span><span class="s1">|</span><span class="si">{:&gt;8}</span><span class="s1"> </span><span class="si">{:&gt;8}</span><span class="s1"> </span><span class="si">{:&gt;8}</span><span class="s1"> </span><span class="si">{:&gt;8}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="s1">&#39;Trials&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">alphas</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">42</span><span class="p">)</span>
+<span class="c1"># Print critical values for each n_trials x alpha combination</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trials</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:6d}</span><span class="s1">|</span><span class="si">{:&gt;8.5f}</span><span class="s1"> </span><span class="si">{:&gt;8.5f}</span><span class="s1"> </span><span class="si">{:&gt;8.5f}</span><span class="s1"> </span><span class="si">{:&gt;8.5f}</span><span class="s1">&#39;</span>
+          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">ks_critical_value</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alphas</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">t</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ks_critical_value</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.15594527177147208
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="a-different-normality-test-indicates-the-same-thing">
+<h2>A different normality test indicates the same thing<a class="headerlink" href="#a-different-normality-test-indicates-the-same-thing" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span><span class="o">.</span><span class="n">anderson</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span><span class="n">dist</span><span class="o">=</span><span class="s1">&#39;norm&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AndersonResult(statistic=0.46842144463906266, critical_values=array([0.523, 0.596, 0.715, 0.834, 0.992]), significance_level=array([15. , 10. ,  5. ,  2.5,  1. ]))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span><span class="o">.</span><span class="n">shapiro</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.9450768828392029, 0.10438867658376694)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">cars</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cyl</th>
+      <th>disp</th>
+      <th>hp</th>
+      <th>drat</th>
+      <th>wt</th>
+      <th>qsec</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.90</td>
+      <td>2.620</td>
+      <td>16.46</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.90</td>
+      <td>2.875</td>
+      <td>17.02</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>108.0</td>
+      <td>93</td>
+      <td>3.85</td>
+      <td>2.320</td>
+      <td>18.61</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6</td>
+      <td>258.0</td>
+      <td>110</td>
+      <td>3.08</td>
+      <td>3.215</td>
+      <td>19.44</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>8</td>
+      <td>360.0</td>
+      <td>175</td>
+      <td>3.15</td>
+      <td>3.440</td>
+      <td>17.02</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>225.0</td>
+      <td>105</td>
+      <td>2.76</td>
+      <td>3.460</td>
+      <td>20.22</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>8</td>
+      <td>360.0</td>
+      <td>245</td>
+      <td>3.21</td>
+      <td>3.570</td>
+      <td>15.84</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>4</td>
+      <td>146.7</td>
+      <td>62</td>
+      <td>3.69</td>
+      <td>3.190</td>
+      <td>20.00</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>4</td>
+      <td>140.8</td>
+      <td>95</td>
+      <td>3.92</td>
+      <td>3.150</td>
+      <td>22.90</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>6</td>
+      <td>167.6</td>
+      <td>123</td>
+      <td>3.92</td>
+      <td>3.440</td>
+      <td>18.30</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>6</td>
+      <td>167.6</td>
+      <td>123</td>
+      <td>3.92</td>
+      <td>3.440</td>
+      <td>18.90</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>8</td>
+      <td>275.8</td>
+      <td>180</td>
+      <td>3.07</td>
+      <td>4.070</td>
+      <td>17.40</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>8</td>
+      <td>275.8</td>
+      <td>180</td>
+      <td>3.07</td>
+      <td>3.730</td>
+      <td>17.60</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>8</td>
+      <td>275.8</td>
+      <td>180</td>
+      <td>3.07</td>
+      <td>3.780</td>
+      <td>18.00</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>8</td>
+      <td>472.0</td>
+      <td>205</td>
+      <td>2.93</td>
+      <td>5.250</td>
+      <td>17.98</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>8</td>
+      <td>460.0</td>
+      <td>215</td>
+      <td>3.00</td>
+      <td>5.424</td>
+      <td>17.82</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>8</td>
+      <td>440.0</td>
+      <td>230</td>
+      <td>3.23</td>
+      <td>5.345</td>
+      <td>17.42</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>4</td>
+      <td>78.7</td>
+      <td>66</td>
+      <td>4.08</td>
+      <td>2.200</td>
+      <td>19.47</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>4</td>
+      <td>75.7</td>
+      <td>52</td>
+      <td>4.93</td>
+      <td>1.615</td>
+      <td>18.52</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>4</td>
+      <td>71.1</td>
+      <td>65</td>
+      <td>4.22</td>
+      <td>1.835</td>
+      <td>19.90</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>4</td>
+      <td>120.1</td>
+      <td>97</td>
+      <td>3.70</td>
+      <td>2.465</td>
+      <td>20.01</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>8</td>
+      <td>318.0</td>
+      <td>150</td>
+      <td>2.76</td>
+      <td>3.520</td>
+      <td>16.87</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>8</td>
+      <td>304.0</td>
+      <td>150</td>
+      <td>3.15</td>
+      <td>3.435</td>
+      <td>17.30</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>8</td>
+      <td>350.0</td>
+      <td>245</td>
+      <td>3.73</td>
+      <td>3.840</td>
+      <td>15.41</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>8</td>
+      <td>400.0</td>
+      <td>175</td>
+      <td>3.08</td>
+      <td>3.845</td>
+      <td>17.05</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>4</td>
+      <td>79.0</td>
+      <td>66</td>
+      <td>4.08</td>
+      <td>1.935</td>
+      <td>18.90</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>4</td>
+      <td>120.3</td>
+      <td>91</td>
+      <td>4.43</td>
+      <td>2.140</td>
+      <td>16.70</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>4</td>
+      <td>95.1</td>
+      <td>113</td>
+      <td>3.77</td>
+      <td>1.513</td>
+      <td>16.90</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>8</td>
+      <td>351.0</td>
+      <td>264</td>
+      <td>4.22</td>
+      <td>3.170</td>
+      <td>14.50</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>6</td>
+      <td>145.0</td>
+      <td>175</td>
+      <td>3.62</td>
+      <td>2.770</td>
+      <td>15.50</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>8</td>
+      <td>301.0</td>
+      <td>335</td>
+      <td>3.54</td>
+      <td>3.570</td>
+      <td>14.60</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>4</td>
+      <td>121.0</td>
+      <td>109</td>
+      <td>4.11</td>
+      <td>2.780</td>
+      <td>18.60</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.8548224115848234
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">residuals</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span>
+                  <span class="n">bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                  <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;deepskyblue&#39;</span><span class="p">,</span>
+                  <span class="n">hist_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="s1">&#39;ec&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">},</span>
+                  <span class="n">fit</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span>
+                  <span class="n">fit_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;color&quot;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.7/dist-packages/seaborn/distributions.py:2619: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+</pre></div>
+</div>
+<img alt="_images/Supervised_Learning_Linear_Regression_78_1.png" src="_images/Supervised_Learning_Linear_Regression_78_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dist</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="s1">&#39;norm&#39;</span><span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">residuals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># here we apply the Kolmogorov-Smirnov test</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">kstest</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span> <span class="s2">&quot;norm&quot;</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="c1"># the confidence has increased compared to the case of using only one input feature.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KstestResult(statistic=0.15722261669146254, pvalue=0.37091468826166857)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "ai4fusion-wmschool/summer2024",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="lecturers.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Lecturers</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Nonparametric_Methods_GAMs.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Nonparamatric Methods </font></p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Open-Fair-Fusion for Machine Learning Applications<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
