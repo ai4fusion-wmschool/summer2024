@@ -1,0 +1,1229 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Regularization and Cross-Validations &#8212; AI for Fusion Energy Summer School (2024)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="_static/wm_vertical_single_line_full_color.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Supervised Learning - Logistic Regression" href="Supervised_Learning_Logistic_Regression.html" />
+    <link rel="prev" title="Supervised Machine Learning: Linear Regression" href="Supervised_Learning_Linear_Regression.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/wm_vertical_single_line_full_color.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">AI for Fusion Energy Summer School (2024)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI/ML for Fusion Summer School 2024
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Information on the Summer School
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="schedule.html">
+   Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecturers.html">
+   Lecturers
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Data Science (Lectures and Notebooks)
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">
+   (6/3/2024) - Intro to Data Science (get started, variance/bias) (slides)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Supervised_Learning_Linear_Regression.html">
+   (6/3/2024) Supervised Learning, Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   (6/4/2024) Regularization, Model Selection, Cross-Validation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Supervised_Learning_Logistic_Regression.html">
+   (6/4/2024) Supervised Learning - Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Nonparametric_Methods_GAMs.html">
+   (6/5/2024) Nonparametric Methods, GAMs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Anomaly_Detection_HDBScan.html">
+   (6/6/2024)  Anomaly Detection, clustering with HDBScan
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">
+   (6/6/2024) Dimensionality Reduction, Unsupervised Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">
+   (6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Intro_to_Deep_Learning_Multilayer_Perceptron.html">
+   (6/7/2024) Intro to Deep_Learning, Multilayer_Perceptron
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">
+   (6/11/2024) - Intro to Normalizing Flows (slides)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="NFlows_BasicExample_new.html">
+   (6/11/2024) Normalizing Flows - Basic Example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">
+   (6/11/2024) Normalizing Flows - GlueX BCAL Example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_BO.html">
+   (6/13/2024) Single-Objective Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_MOBO.html">
+   (6/13/2024) Multi-Objective Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_MOEA.html">
+   (6/13/2024) Multi-Objective Genetic Algorithm
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Fusion Lectures
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://docs.google.com/presentation/u/1/d/1_dJtr18LfwCR4Nfwt3bX5_0U_g5N3Bw4/edit?usp=drive_web&amp;ouid=113195593718692427789&amp;rtpof=true">
+   (6/3/2024) W&amp;M and Fusion (S. Mordijck)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://drive.google.com/file/d/1XbhZegEIBQEl0Hs6Gl4qbhuIoGo7g9v9/view?usp=share_link">
+   (6/3/2024) Nuclear Fusion Power - A solution to the world’s energy problem? (S. Mordijck, A. Dominguez)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/4/2024) [Link will be updated] Overview of plasma diagnostics and measurements (E. Kostadinova)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/5/2024) [Link will be updated] Alcator C-Mod  (A. Saperstein, J. Stillerman)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/6/2024) [Link will be updated] HDF (A. Jelenak)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/7/2024) [Link will be updated] Fusion Pilot (S. Diem)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/10/2024) [Link will be updated] Making plasma science open (N. Murphy)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/11/2024) [Link will be updated] Managing Data - Why it matters, when it is important, and how to do it (N. Cummings)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/12/2024) [Link will be updated] DIII-D ML/AI perspective (B. Sammuli)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/13/2024) [Link will be updated] Data-mining the tokamak density limit (A. Maris)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">
+   Nuclear Fusion Data (Classification)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">
+   Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">
+   The updated ITPA global H-mode confinement database; description and analysis (Regression)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Additional resources
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="referencesmd.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=lab/tree/notebooks/Regularization_Model_Selection_and_Cross_Validations.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://jupyterhub.wm.edu/hub/user-redirect/git-pull?repo=https://github.com/ai4fusion-wmschool/summer2024&urlpath=lab/tree/summer2024/notebooks/Regularization_Model_Selection_and_Cross_Validations.ipynb&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Regularization_Model_Selection_and_Cross_Validations.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FRegularization_Model_Selection_and_Cross_Validations.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/Regularization_Model_Selection_and_Cross_Validations.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-when-linear-regression-fails-font">
+   <font color="blue">
+    When Linear Regression Fails
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-what-does-rank-deficiency-mean-and-why-we-need-regularization-font">
+   <font color="blue">
+    What does Rank Deficiency mean, and why we need Regularization?
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#important-when-the-matrix-x-tx-is-not-invertible-we-cannot-apply-this-method-to-get-mathbb-e-beta-in-this-case-if-we-minimize-the-sum-of-the-squared-residuals-the-algorithm-cannot-find-just-one-best-solution">
+   IMPORTANT: When the matrix
+   <span class="math notranslate nohighlight">
+    \(X^tX\)
+   </span>
+   is not invertible we cannot apply this method to get
+   <span class="math notranslate nohighlight">
+    \(\mathbb{E}(\beta)\)
+   </span>
+   . In this case if we minimize the sum of the squared residuals the algorithm cannot find just
+   <em>
+    one
+   </em>
+   best solution.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-a-solution-for-rank-defficient-multiple-linear-regression-l2-ridge-regularization-font">
+   <font color="blue">
+    A solution for rank defficient Multiple Linear Regression: L2 (Ridge) Regularization
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-red-main-idea-minimize-the-sum-of-the-square-residuals-plus-a-constraint-on-the-vector-of-weights-font">
+     <font color="red">
+      Main Idea: minimize the sum of the square residuals plus a constraint on the vector of weights
+     </font>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-l1-lasso-regularization-font">
+   <font color="blue">
+    L1 (Lasso) Regularization
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-the-difference-between-l1-and-l2-norms-font">
+   <font color="blue">
+    The difference between L1 and L2 norms
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-geometric-comparison-in-2d-between-l1-and-l2-norms">
+   <font color="blue">
+    Geometric comparison in 2D between L1 and L2 norms
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-elastic-net-regularization-font">
+   <font color="blue">
+    Elastic Net Regularization
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-model-validation-via-k-fold-cross-validations-font">
+   <font color="blue">
+    Model Validation via k-Fold Cross-Validations
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-coding-applications-font">
+   <font color="blue">
+    Coding Applications
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#setup">
+     Setup
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-import">
+   Data Import
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coefficient-paths">
+   Coefficient Paths
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Regularization and Cross-Validations</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-when-linear-regression-fails-font">
+   <font color="blue">
+    When Linear Regression Fails
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-what-does-rank-deficiency-mean-and-why-we-need-regularization-font">
+   <font color="blue">
+    What does Rank Deficiency mean, and why we need Regularization?
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#important-when-the-matrix-x-tx-is-not-invertible-we-cannot-apply-this-method-to-get-mathbb-e-beta-in-this-case-if-we-minimize-the-sum-of-the-squared-residuals-the-algorithm-cannot-find-just-one-best-solution">
+   IMPORTANT: When the matrix
+   <span class="math notranslate nohighlight">
+    \(X^tX\)
+   </span>
+   is not invertible we cannot apply this method to get
+   <span class="math notranslate nohighlight">
+    \(\mathbb{E}(\beta)\)
+   </span>
+   . In this case if we minimize the sum of the squared residuals the algorithm cannot find just
+   <em>
+    one
+   </em>
+   best solution.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-a-solution-for-rank-defficient-multiple-linear-regression-l2-ridge-regularization-font">
+   <font color="blue">
+    A solution for rank defficient Multiple Linear Regression: L2 (Ridge) Regularization
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-red-main-idea-minimize-the-sum-of-the-square-residuals-plus-a-constraint-on-the-vector-of-weights-font">
+     <font color="red">
+      Main Idea: minimize the sum of the square residuals plus a constraint on the vector of weights
+     </font>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-l1-lasso-regularization-font">
+   <font color="blue">
+    L1 (Lasso) Regularization
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-the-difference-between-l1-and-l2-norms-font">
+   <font color="blue">
+    The difference between L1 and L2 norms
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-geometric-comparison-in-2d-between-l1-and-l2-norms">
+   <font color="blue">
+    Geometric comparison in 2D between L1 and L2 norms
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-elastic-net-regularization-font">
+   <font color="blue">
+    Elastic Net Regularization
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-model-validation-via-k-fold-cross-validations-font">
+   <font color="blue">
+    Model Validation via k-Fold Cross-Validations
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-coding-applications-font">
+   <font color="blue">
+    Coding Applications
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#setup">
+     Setup
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-import">
+   Data Import
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coefficient-paths">
+   Coefficient Paths
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="regularization-and-cross-validations">
+<h1>Regularization and Cross-Validations<a class="headerlink" href="#regularization-and-cross-validations" title="Permalink to this headline">#</a></h1>
+<section id="font-color-blue-when-linear-regression-fails-font">
+<h2><font color='blue'> When Linear Regression Fails </font><a class="headerlink" href="#font-color-blue-when-linear-regression-fails-font" title="Permalink to this headline">#</a></h2>
+<p>In this context <em>fails</em> means that OLS is unable to provide a unique solution, such as a unique set of coefficients for the input variables.</p>
+<p>Plain <em>vanilla</em> multiple linear regression (OLS) fails if the number of observations is smaller than the number of features.</p>
+<p><strong>Example:</strong> If the dependent variable is the Sales Price, we cannot uniquely determine the weights for the features if we have only 4 observations.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:right head"><p>Dist. to School</p></th>
+<th class="text-align:right head"><p>Prop. Area</p></th>
+<th class="text-align:right head"><p>Housing Area</p></th>
+<th class="text-align:right head"><p>Value</p></th>
+<th class="text-align:right head"><p>Prop. Tax</p></th>
+<th class="text-align:right head"><p>Bathrooms</p></th>
+<th class="text-align:right head"><p>Sales Price</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:right"><p>7</p></td>
+<td class="text-align:right"><p>0.4</p></td>
+<td class="text-align:right"><p>1800</p></td>
+<td class="text-align:right"><p>234</p></td>
+<td class="text-align:right"><p>9.8</p></td>
+<td class="text-align:right"><p>2</p></td>
+<td class="text-align:right"><p>267.5</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:right"><p>2.3</p></td>
+<td class="text-align:right"><p>0.8</p></td>
+<td class="text-align:right"><p>1980</p></td>
+<td class="text-align:right"><p>244</p></td>
+<td class="text-align:right"><p>10.5</p></td>
+<td class="text-align:right"><p>2.5</p></td>
+<td class="text-align:right"><p>278.2</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:right"><p>4.3</p></td>
+<td class="text-align:right"><p>1.1</p></td>
+<td class="text-align:right"><p>2120</p></td>
+<td class="text-align:right"><p>252</p></td>
+<td class="text-align:right"><p>16.2</p></td>
+<td class="text-align:right"><p>3</p></td>
+<td class="text-align:right"><p>284.5</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:right"><p>3.8</p></td>
+<td class="text-align:right"><p>0.6</p></td>
+<td class="text-align:right"><p>2500</p></td>
+<td class="text-align:right"><p>280</p></td>
+<td class="text-align:right"><p>18.4</p></td>
+<td class="text-align:right"><p>3.5</p></td>
+<td class="text-align:right"><p>310.4</p></td>
+</tr>
+</tbody>
+</table>
+<p>Suppose we want to predict the “Sales Price” by using a <font color='red'>linear combination</font> of the feature variables, such as “Distance to School”, “Property Area”, etc.</p>
+<div class="math notranslate nohighlight">
+\[\large M\cdot \vec{\beta} = \beta_1\cdot col_1(M)+\beta_2\cdot col_2(M)+...+\beta_p\cdot col_p(M)\]</div>
+<p>The Ordinary Least Squares (OLS) method aims at finding the coefficients <span class="math notranslate nohighlight">\(\beta\)</span> such that the the sum or squared errors is minimal, i.e.</p>
+<div class="math notranslate nohighlight">
+\[\large \underset{\beta}{\operatorname{argmin}}\|\text{Sales Price}- M\cdot \vec{\beta}\|^2\]</div>
+<p><strong>Important Question</strong>: Why does OLS fail in this case? Hint: the problem to solve is ill-posed, in the sense that it allows many perfect solutions.</p>
+</section>
+<section id="font-color-blue-what-does-rank-deficiency-mean-and-why-we-need-regularization-font">
+<h2><font color= 'blue'> What does Rank Deficiency mean, and why we need Regularization?</font><a class="headerlink" href="#font-color-blue-what-does-rank-deficiency-mean-and-why-we-need-regularization-font" title="Permalink to this headline">#</a></h2>
+<p>The assumption for multiple linear regression is</p>
+<div class="math notranslate nohighlight">
+\[\large
+Y = X\beta + \sigma \epsilon
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviatin of the noise. Further, we assume that the “noise” <span class="math notranslate nohighlight">\(\epsilon\)</span> is independent and identically distributed with a zero mean.</p>
+<p>We believe that the output is a linear combination of the input features.</p>
+<p>Thus, if we would like to solve for the “weights” <span class="math notranslate nohighlight">\(\beta\)</span> we may consider</p>
+<div class="math notranslate nohighlight">
+\[\large
+X^tY = X^tX\beta+\sigma X^t\epsilon
+\]</div>
+<p>And if the matrix <span class="math notranslate nohighlight">\(X^tX\)</span> is invertible then we can solve for expected value of <span class="math notranslate nohighlight">\(\beta\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\large
+\mathbb{E}(\beta) = (X^tX)^{-1}X^t Y
+\]</div>
+<p>We can show by using <em>Linear Algebra</em> that the OLS solution obtained form minimizing the sum of the square residuals is equivalent.</p>
+<p>We can test whether the matrix <span class="math notranslate nohighlight">\(X^tX\)</span> is invertible by simply computing its determinant and checking that it is not zero.</p>
+</section>
+<section id="important-when-the-matrix-x-tx-is-not-invertible-we-cannot-apply-this-method-to-get-mathbb-e-beta-in-this-case-if-we-minimize-the-sum-of-the-squared-residuals-the-algorithm-cannot-find-just-one-best-solution">
+<h2>IMPORTANT: When the matrix <span class="math notranslate nohighlight">\(X^tX\)</span> is not invertible we cannot apply this method to get <span class="math notranslate nohighlight">\(\mathbb{E}(\beta)\)</span>. In this case if we minimize the sum of the squared residuals the algorithm cannot find just <em>one</em> best solution.<a class="headerlink" href="#important-when-the-matrix-x-tx-is-not-invertible-we-cannot-apply-this-method-to-get-mathbb-e-beta-in-this-case-if-we-minimize-the-sum-of-the-squared-residuals-the-algorithm-cannot-find-just-one-best-solution" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="font-color-blue-a-solution-for-rank-defficient-multiple-linear-regression-l2-ridge-regularization-font">
+<h2><font color='blue'>A solution for rank defficient Multiple Linear Regression: L2 (Ridge) Regularization</font><a class="headerlink" href="#font-color-blue-a-solution-for-rank-defficient-multiple-linear-regression-l2-ridge-regularization-font" title="Permalink to this headline">#</a></h2>
+<section id="font-color-red-main-idea-minimize-the-sum-of-the-square-residuals-plus-a-constraint-on-the-vector-of-weights-font">
+<h3><font color='red'> Main Idea: minimize the sum of the square residuals plus a constraint on the vector of weights</font><a class="headerlink" href="#font-color-red-main-idea-minimize-the-sum-of-the-square-residuals-plus-a-constraint-on-the-vector-of-weights-font" title="Permalink to this headline">#</a></h3>
+<p>The L2 norm is</p>
+<div class="math notranslate nohighlight">
+\[
+\|\beta\|_2:=\left(\sum_{j=1}^{p}\beta_j^2\right)^{1/2}
+\]</div>
+<p>The Ridge model (also known as the <em>Tikhonov regularization</em>) consists of <em>learning</em> the weights by the following optimization:</p>
+<div class="math notranslate nohighlight">
+\[\text{minimize} \frac{1}{n}\sum_{i=1}^{n}\left(\text{Residual}_i\right)^2 + \alpha \sum\limits_{j=1}^{p}\beta_j^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha\)</span> is a constant that can be adjusted based on a feedback loop so it is a hyperparameter (“tunning” parameter).</p>
+<p>This optimization is equivalent to minimizing the sum of the square residuals with a constraint on the sum of the squared weights</p>
+<div class="math notranslate nohighlight">
+\[\text{minimize} \frac{1}{n}\sum_{i=1}^{n}\left(\text{Residual}_i\right)^2\]</div>
+<p>subject to</p>
+<div class="math notranslate nohighlight">
+\[
+ \sum\limits_{j=1}^{p}\beta_j^2 &lt; M
+\]</div>
+<p><strong>Important</strong>: What happens with the solution <span class="math notranslate nohighlight">\(\beta\)</span> when the hyperparameter <span class="math notranslate nohighlight">\(\alpha\)</span> grows arbitrarily large? Hint: generate a mapping and plot the coefficient paths.</p>
+</section>
+</section>
+<section id="font-color-blue-l1-lasso-regularization-font">
+<h2><font color= 'blue'> L1 (Lasso) Regularization</font><a class="headerlink" href="#font-color-blue-l1-lasso-regularization-font" title="Permalink to this headline">#</a></h2>
+<p>The L1 norm is</p>
+<div class="math notranslate nohighlight">
+\[
+\|\beta\|_1:=\sum_{j=1}^{p}|\beta_j|
+\]</div>
+<p>The Lasso model  consists of <em>learning</em> the weights by the following optimization:</p>
+<div class="math notranslate nohighlight">
+\[\text{minimize} \frac{1}{n}\sum_{i=1}^{n}\left(\text{Residual}_i\right)^2 + \alpha \|\beta\|_1\]</div>
+<p>where <span class="math notranslate nohighlight">\(alpha\)</span> is a constant that can be adjusted based on a feedback loop so it is a hyperparameter.</p>
+<p>This optimization is equivalent to minimizing the sum of the square residuals with a constraint on the sum of the squared weights</p>
+<div class="math notranslate nohighlight">
+\[\text{minimize} \frac{1}{n}\sum_{i=1}^{n}\left(\text{Residual}_i\right)^2\]</div>
+<p>subject to</p>
+<div class="math notranslate nohighlight">
+\[
+ \sum\limits_{j=1}^{p}|\beta_j| &lt; M
+\]</div>
+</section>
+<section id="font-color-blue-the-difference-between-l1-and-l2-norms-font">
+<h2><font color='blue'> The difference between L1 and L2 norms </font><a class="headerlink" href="#font-color-blue-the-difference-between-l1-and-l2-norms-font" title="Permalink to this headline">#</a></h2>
+<p>In the following example the L2 norm of the vector <span class="math notranslate nohighlight">\(\vec{AB}\)</span> is 5 and the L1 norm is <span class="math notranslate nohighlight">\(4+3=7\)</span>.</p>
+<figure>
+<center>
+<img src='https://i.imgur.com/J8Mda3S.png'
+width='550px' />
+<figcaption>The difference between the L1 and L2 norms</figcaption></center>
+</figure>
+</section>
+<section id="font-color-blue-geometric-comparison-in-2d-between-l1-and-l2-norms">
+<h2><font color='blue'> Geometric comparison in 2D between L1 and L2 norms<a class="headerlink" href="#font-color-blue-geometric-comparison-in-2d-between-l1-and-l2-norms" title="Permalink to this headline">#</a></h2>
+<figure>
+<center>
+<img src='https://i.imgur.com/e9EEJL7.png'
+width='700px' />
+<figcaption>Difference between L1 and L2</figcaption></center>
+</figure>
+</section>
+<section id="font-color-blue-elastic-net-regularization-font">
+<h2><font color= 'blue'> Elastic Net Regularization </font><a class="headerlink" href="#font-color-blue-elastic-net-regularization-font" title="Permalink to this headline">#</a></h2>
+<p>Tha main idea is to combine the L2 and L1 regularizations in a <em>weighted</em> way, such as:</p>
+<div class="math notranslate nohighlight">
+\[
+\lambda\cdot \sum\limits_{j=1}^{p}|\beta_j| + 0.5\cdot (1-\lambda)\cdot\sum\limits_{j=1}^{p}\beta_j^2
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\(0\leq\lambda\leq1\)</span> is called the L1_ratio.</p>
+<p>The Elstic Net regularization consists of <em>learning</em> the weights by solving the following optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[\text{minimize} \frac{1}{n}\sum_{i=1}^{n}\left(\text{Residual}_i\right)^2 + \alpha\left( \lambda\cdot \sum\limits_{j=1}^{p}|\beta_j| + 0.5\cdot (1-\lambda)\cdot\sum\limits_{j=1}^{p}\beta_j^2\right)\]</div>
+<p>So with this rgularization approach we have two hyperparameters that we need to decide on.</p>
+</section>
+<section id="font-color-blue-model-validation-via-k-fold-cross-validations-font">
+<h2><font color= 'blue'> Model Validation via k-Fold Cross-Validations</font><a class="headerlink" href="#font-color-blue-model-validation-via-k-fold-cross-validations-font" title="Permalink to this headline">#</a></h2>
+<p>In general: how do we know that the predictions made are good?</p>
+<p>For many applications you can think of a data set representing both “present” and “future.”</p>
+<p><a href="https://imgur.com/sWRVXjk"><img src="https://i.imgur.com/sWRVXjk.png" title="Train-Test Split" /></a></p>
+<p>In order to compare the predictive power of different models we use K-fold cross-validation.</p>
+<p>How do we get unbiased estimates of errors?</p>
+<p><a href="https://imgur.com/LCNRuF3"><img src="https://i.imgur.com/LCNRuF3.png" title="CV" /></a></p>
+<p>Example schematic of 5-fold cross-validation:</p>
+<figure>
+<center>
+<img src='https://i.imgur.com/SzeE4st.png'
+width='550px' />
+<figcaption>Step 1 in the 5-fold cross-validation</figcaption></center>
+</figure>
+</section>
+<section id="font-color-blue-coding-applications-font">
+<h2><font color='blue'> Coding Applications </font><a class="headerlink" href="#font-color-blue-coding-applications-font" title="Permalink to this headline">#</a></h2>
+<hr class="docutils" />
+<section id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running on CoLab&#39;</span><span class="p">)</span>
+  <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+  <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+  <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;/content/drive/My Drive/Data Sets&#39;</span><span class="p">)</span>
+  <span class="o">!</span>pip install -q pygam
+<span class="k">else</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running locally&#39;</span><span class="p">)</span>
+  <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;../Data&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">RepeatedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span> <span class="k">as</span> <span class="n">tts</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span> <span class="k">as</span> <span class="n">mse</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">ElasticNet</span><span class="p">,</span> <span class="n">Ridge</span><span class="p">,</span> <span class="n">Lasso</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-import">
+<h2>Data Import<a class="headerlink" href="#data-import" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_housing</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../Data/housing.csv&#39;</span><span class="p">)</span>
+<span class="n">data_concrete</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../Data/concrete.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="coefficient-paths">
+<h2>Coefficient Paths<a class="headerlink" href="#coefficient-paths" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feats</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;crime&#39;</span><span class="p">,</span><span class="s1">&#39;residential&#39;</span><span class="p">,</span><span class="s1">&#39;industrial&#39;</span><span class="p">,</span><span class="s1">&#39;nox&#39;</span><span class="p">,</span><span class="s1">&#39;rooms&#39;</span><span class="p">,</span><span class="s1">&#39;older&#39;</span><span class="p">,</span><span class="s1">&#39;distance&#39;</span><span class="p">,</span><span class="s1">&#39;highway&#39;</span><span class="p">,</span><span class="s1">&#39;tax&#39;</span><span class="p">,</span><span class="s1">&#39;ptratio&#39;</span><span class="p">,</span><span class="s1">&#39;lstat&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data_housing</span><span class="p">[</span><span class="n">feats</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data_housing</span><span class="p">[</span><span class="s1">&#39;cmedv&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scale</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">Xs</span> <span class="o">=</span> <span class="n">scale</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># generate the coefficients for Ridge regression and many values of alpha</span>
+<span class="n">n_alphas</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="n">n_alphas</span><span class="p">)</span>
+
+<span class="n">coefs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alphas</span><span class="p">:</span>
+    <span class="n">ridge</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ridge</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">coefs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ridge</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+
+<span class="c1"># Display coefficient paths Ridge</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">coefs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;weights&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Ridge coefficients as a function of $</span><span class="se">\\</span><span class="s1">alpha$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">feats</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Regularization_Model_Selection_and_Cross_Validations_17_0.png" src="_images/Regularization_Model_Selection_and_Cross_Validations_17_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># generate the coefficients for Ridge regression and many values of alpha</span>
+<span class="n">n_alphas</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="n">n_alphas</span><span class="p">)</span>
+
+<span class="n">coefs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alphas</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">coefs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+
+<span class="c1"># Display coefficient paths Ridge</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">coefs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;weights&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Lasso coefficients as a function of $</span><span class="se">\\</span><span class="s1">alpha$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">feats</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Regularization_Model_Selection_and_Cross_Validations_18_0.png" src="_images/Regularization_Model_Selection_and_Cross_Validations_18_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># generate the coefficients for Ridge regression and many values of alpha</span>
+<span class="n">n_alphas</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="n">n_alphas</span><span class="p">)</span>
+
+<span class="n">coefs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alphas</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ElasticNet</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">coefs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span><span class="c1"># generate the coefficients for Ridge regression and many values of alpha</span>
+<span class="n">n_alphas</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">n_alphas</span><span class="p">)</span>
+
+<span class="n">coefs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alphas</span><span class="p">:</span>
+    <span class="n">ridge</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ridge</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">coefs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ridge</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+
+<span class="c1"># Display coefficient paths Ridge</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">coefs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;weights&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Elastic Net coefficients as a function of $</span><span class="se">\\</span><span class="s1">alpha$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">feats</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Regularization_Model_Selection_and_Cross_Validations_19_0.png" src="_images/Regularization_Model_Selection_and_Cross_Validations_19_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "ai4fusion-wmschool/summer2024",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="Supervised_Learning_Linear_Regression.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Supervised Machine Learning: Linear Regression</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Supervised_Learning_Logistic_Regression.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Supervised Learning - Logistic Regression</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Open-Fair-Fusion for Machine Learning Applications<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,1109 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to Anomaly Detection &#8212; AI for Fusion Energy Summer School (2024)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="_static/wm_vertical_single_line_full_color.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dimensionality Reduction and Unsupervised Learning (K-Means)" href="Dimensionality_Reduction_Unsupervised_Learning.html" />
+    <link rel="prev" title="Nonparamatric Methods" href="Nonparametric_Methods_GAMs.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/wm_vertical_single_line_full_color.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">AI for Fusion Energy Summer School (2024)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI/ML for Fusion Summer School 2024
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Information on the Summer School
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="schedule.html">
+   Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecturers.html">
+   Lecturers
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Data Science (Lectures and Notebooks)
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">
+   (6/3/2024) - Intro to Data Science (get started, variance/bias) (slides)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Supervised_Learning_Linear_Regression.html">
+   (6/3/2024) Supervised Learning, Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Regularization_Model_Selection_and_Cross-Validations.html">
+   Regularization and Cross-Validations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Supervised_Learning-Logistic_Regression.html">
+   Supervised Learning - Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Nonparametric_Methods_GAMs.html">
+   (6/5/2024) Nonparametric Methods, GAMs
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   (6/6/2024)  Anomaly Detection, clustering with HDBScan
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">
+   (6/6/2024) Dimensionality Reduction, Unsupervised Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">
+   (6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Intro_to_Deep_Learning_Multilayer_Perceptron.html">
+   (6/7/2024) Intro to Deep_Learning, Multilayer_Perceptron
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">
+   (6/11/2024) - Intro to Normalizing Flows (slides)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="NFlows_BasicExample_new.html">
+   (6/11/2024) Normalizing Flows - Basic Example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">
+   (6/11/2024) Normalizing Flows - GlueX BCAL Example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_BO.html">
+   (6/13/2024) Single-Objective Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_MOBO.html">
+   (6/13/2024) Multi-Objective Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_MOEA.html">
+   (6/13/2024) Multi-Objective Genetic Algorithm
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Fusion Lectures
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://docs.google.com/presentation/u/1/d/1_dJtr18LfwCR4Nfwt3bX5_0U_g5N3Bw4/edit?usp=drive_web&amp;ouid=113195593718692427789&amp;rtpof=true">
+   (6/3/2024) W&amp;M and Fusion (S. Mordijck)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://drive.google.com/file/d/1XbhZegEIBQEl0Hs6Gl4qbhuIoGo7g9v9/view?usp=share_link">
+   (6/3/2024) Nuclear Fusion Power - A solution to the world’s energy problem? (S. Mordijck, A. Dominguez)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/4/2024) [Link will be updated] Overview of plasma diagnostics and measurements (E. Kostadinova)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/5/2024) [Link will be updated] Alcator C-Mod  (A. Saperstein, J. Stillerman)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/6/2024) [Link will be updated] HDF (A. Jelenak)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/7/2024) [Link will be updated] Fusion Pilot (S. Diem)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/10/2024) [Link will be updated] Making plasma science open (N. Murphy)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/11/2024) [Link will be updated] Managing Data - Why it matters, when it is important, and how to do it (N. Cummings)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/12/2024) [Link will be updated] DIII-D ML/AI perspective (B. Sammuli)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/13/2024) [Link will be updated] Data-mining the tokamak density limit (A. Maris)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">
+   Nuclear Fusion Data (Classification)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">
+   Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">
+   The updated ITPA global H-mode confinement database; description and analysis (Regression)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Additional resources
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="referencesmd.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=lab/tree/notebooks/Anomaly_Detection-HDBScan.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://jupyterhub.wm.edu/hub/user-redirect/git-pull?repo=https://github.com/ai4fusion-wmschool/summer2024&urlpath=lab/tree/summer2024/notebooks/Anomaly_Detection-HDBScan.ipynb&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Anomaly_Detection-HDBScan.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FAnomaly_Detection-HDBScan.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/Anomaly_Detection-HDBScan.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-types-of-anomalies-font">
+   <font color="blue">
+    Types of Anomalies
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-anomaly-detection-methods-font">
+   <font color="blue">
+    Anomaly Detection Methods
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-hdbscan-for-anomaly-detection-font">
+   <font color="blue">
+    HDBSCAN for Anomaly Detection
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-key-concepts-font">
+   <font color="blue">
+    Key Concepts
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-steps-in-hdbscan-anomaly-detection-font">
+   <font color="blue">
+    Steps in HDBSCAN Anomaly Detection
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-advantages-of-hdbscan-font">
+   <font color="blue">
+    Advantages of HDBSCAN
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-isolation-forest-font">
+   <font color="blue">
+    Isolation Forest
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-key-concepts-of-isolation-forest-font">
+   <font color="blue">
+    Key Concepts of Isolation Forest
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-how-isolation-forest-works-font">
+   <font color="blue">
+    How Isolation Forest Works
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#building-isolation-trees">
+     1. Building Isolation Trees
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#path-length-calculation">
+     2. Path Length Calculation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#anomaly-score-computation">
+     3. Anomaly Score Computation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#thresholding">
+     4. Thresholding
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-takeaways-font">
+   <font color="blue">
+    Takeaways
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code-applications">
+   Code Applications
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1><font color='blue'> Introduction to Anomaly Detection </font></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-types-of-anomalies-font">
+   <font color="blue">
+    Types of Anomalies
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-anomaly-detection-methods-font">
+   <font color="blue">
+    Anomaly Detection Methods
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-hdbscan-for-anomaly-detection-font">
+   <font color="blue">
+    HDBSCAN for Anomaly Detection
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-key-concepts-font">
+   <font color="blue">
+    Key Concepts
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-steps-in-hdbscan-anomaly-detection-font">
+   <font color="blue">
+    Steps in HDBSCAN Anomaly Detection
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-advantages-of-hdbscan-font">
+   <font color="blue">
+    Advantages of HDBSCAN
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-isolation-forest-font">
+   <font color="blue">
+    Isolation Forest
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-key-concepts-of-isolation-forest-font">
+   <font color="blue">
+    Key Concepts of Isolation Forest
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-how-isolation-forest-works-font">
+   <font color="blue">
+    How Isolation Forest Works
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#building-isolation-trees">
+     1. Building Isolation Trees
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#path-length-calculation">
+     2. Path Length Calculation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#anomaly-score-computation">
+     3. Anomaly Score Computation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#thresholding">
+     4. Thresholding
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-takeaways-font">
+   <font color="blue">
+    Takeaways
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code-applications">
+   Code Applications
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="font-color-blue-introduction-to-anomaly-detection-font">
+<h1><font color='blue'> Introduction to Anomaly Detection </font><a class="headerlink" href="#font-color-blue-introduction-to-anomaly-detection-font" title="Permalink to this headline">#</a></h1>
+<p><strong>Anomaly Detection</strong> is a critical component in various fields such as cybersecurity, fraud detection, fault detection, and more. It involves identifying rare items, events, or observations which raise suspicions by differing significantly from the majority of the data. These rare items are often referred to as anomalies, outliers, exceptions, or aberrations.</p>
+<section id="font-color-blue-types-of-anomalies-font">
+<h2><font color='blue'> Types of Anomalies </font><a class="headerlink" href="#font-color-blue-types-of-anomalies-font" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p><strong>Point Anomalies</strong>: An individual data point is considered anomalous with respect to the rest of the data.</p></li>
+<li><p><strong>Contextual Anomalies</strong>: A data point is anomalous in a specific context but not otherwise.</p></li>
+<li><p><strong>Collective Anomalies</strong>: A collection of related data points is anomalous with respect to the entire dataset.</p></li>
+</ol>
+</section>
+<section id="font-color-blue-anomaly-detection-methods-font">
+<h2><font color='blue'> Anomaly Detection Methods </font><a class="headerlink" href="#font-color-blue-anomaly-detection-methods-font" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p><strong>Statistical Methods</strong>:</p>
+<ul class="simple">
+<li><p><strong>Z-Score</strong>: Measures how many standard deviations an element is from the mean.</p></li>
+<li><p><strong>IQR (Interquartile Range)</strong>: Identifies outliers by measuring the spread of the middle 50% of the data.</p></li>
+</ul>
+</li>
+<li><p><strong>Distance-Based Methods</strong>:</p>
+<ul class="simple">
+<li><p><strong>k-Nearest Neighbors (k-NN)</strong>: Anomalies are detected based on the distance to their k-nearest neighbors.</p></li>
+<li><p><strong>Local Outlier Factor (LOF)</strong>: Measures the local density deviation of a data point compared to its neighbors.</p></li>
+</ul>
+</li>
+<li><p><strong>Density-Based Methods</strong>:</p>
+<ul class="simple">
+<li><p><strong>DBSCAN (Density-Based Spatial Clustering of Applications with Noise)</strong>: Detects anomalies by finding regions of high density separated by regions of low density.</p></li>
+</ul>
+</li>
+<li><p><strong>Cluster-Based Methods</strong>:</p>
+<ul class="simple">
+<li><p><strong>k-Means Clustering</strong>: Points that do not belong to any cluster or are far from the centroid are considered anomalies.</p></li>
+<li><p><strong>HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise)</strong>: An extension of DBSCAN that can find clusters of varying densities.</p></li>
+</ul>
+</li>
+<li><p><strong>Classification-Based Methods</strong>:</p>
+<ul class="simple">
+<li><p><strong>One-Class SVM</strong>: Trains on normal data to create a boundary that can identify anomalies.</p></li>
+<li><p><strong>Isolation Forest</strong>: Isolates observations by randomly selecting a feature and splitting the data.</p></li>
+</ul>
+</li>
+<li><p><strong>Reconstruction-Based Methods</strong>:</p>
+<ul class="simple">
+<li><p><strong>Autoencoders</strong>: Neural networks trained to reconstruct input data, with high reconstruction error indicating anomalies.</p></li>
+<li><p><strong>PCA (Principal Component Analysis)</strong>: Projects data into a lower-dimensional space, with points far from the principal components being anomalies.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="font-color-blue-hdbscan-for-anomaly-detection-font">
+<h2><font color='blue'> HDBSCAN for Anomaly Detection </font><a class="headerlink" href="#font-color-blue-hdbscan-for-anomaly-detection-font" title="Permalink to this headline">#</a></h2>
+<p><strong>HDBSCAN</strong> is an extension of DBSCAN that finds clusters of varying densities, making it particularly useful for anomaly detection in complex datasets.</p>
+</section>
+<section id="font-color-blue-key-concepts-font">
+<h2><font color='blue'> Key Concepts </font><a class="headerlink" href="#font-color-blue-key-concepts-font" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p><strong>Hierarchical Clustering</strong>: Builds a hierarchy of clusters.</p></li>
+<li><p><strong>Density-Based Clustering</strong>: Identifies clusters based on the density of data points.</p></li>
+<li><p><strong>Minimum Spanning Tree</strong>: Constructs a tree from the data points to represent their connectivity.</p></li>
+</ol>
+</section>
+<section id="font-color-blue-steps-in-hdbscan-anomaly-detection-font">
+<h2><font color='blue'> Steps in HDBSCAN Anomaly Detection </font><a class="headerlink" href="#font-color-blue-steps-in-hdbscan-anomaly-detection-font" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p><strong>Construct the Minimum Spanning Tree (MST)</strong>: Represents the data points and their mutual reachability distances.</p></li>
+<li><p><strong>Condense the Tree</strong>: Simplifies the MST to find clusters by collapsing edges that fall below a certain density threshold.</p></li>
+<li><p><strong>Extract Clusters</strong>: Identifies clusters by finding regions of higher density.</p></li>
+<li><p><strong>Label Noise Points</strong>: Points not belonging to any cluster are labeled as noise (anomalies).</p></li>
+</ol>
+</section>
+<section id="font-color-blue-advantages-of-hdbscan-font">
+<h2><font color='blue'> Advantages of HDBSCAN </font><a class="headerlink" href="#font-color-blue-advantages-of-hdbscan-font" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><strong>Automatic Selection of Clusters</strong>: No need to specify the number of clusters.</p></li>
+<li><p><strong>Handling of Varying Densities</strong>: Can detect clusters of different densities.</p></li>
+<li><p><strong>Robustness</strong>: Effective in noisy data.</p></li>
+</ul>
+</section>
+<section id="font-color-blue-isolation-forest-font">
+<h2><font color='blue'> Isolation Forest </font><a class="headerlink" href="#font-color-blue-isolation-forest-font" title="Permalink to this headline">#</a></h2>
+<p><strong>Isolation Forest</strong> is an anomaly detection algorithm that isolates observations by randomly selecting a feature and then randomly selecting a split value between the maximum and minimum values of the selected feature. This process of isolation is performed recursively until the point is isolated. It is particularly effective for high-dimensional datasets and works well when the anomalies are few and different from the majority of the data.</p>
+</section>
+<section id="font-color-blue-key-concepts-of-isolation-forest-font">
+<h2><font color='blue'> Key Concepts of Isolation Forest </font><a class="headerlink" href="#font-color-blue-key-concepts-of-isolation-forest-font" title="Permalink to this headline">#</a></h2>
+<ol class="simple">
+<li><p><strong>Isolation Principle</strong>: Anomalies are few and different, and therefore easier to isolate.</p></li>
+<li><p><strong>Tree Structure</strong>: The process of isolating an observation can be represented using a tree structure where anomalies tend to have shorter paths from the root to the leaf.</p></li>
+<li><p><strong>Anomaly Score</strong>: The average path length from the root to a point is used to compute an anomaly score, with shorter average path lengths indicating potential anomalies.</p></li>
+</ol>
+</section>
+<section id="font-color-blue-how-isolation-forest-works-font">
+<h2><font color='blue'> How Isolation Forest Works </font><a class="headerlink" href="#font-color-blue-how-isolation-forest-works-font" title="Permalink to this headline">#</a></h2>
+<section id="building-isolation-trees">
+<h3>1. Building Isolation Trees<a class="headerlink" href="#building-isolation-trees" title="Permalink to this headline">#</a></h3>
+<p>An Isolation Forest consists of multiple trees, each constructed using a subset of the data. Here’s how each tree is built:</p>
+<ul class="simple">
+<li><p><strong>Random Feature Selection</strong>: Select a feature randomly from the dataset.</p></li>
+<li><p><strong>Random Split Value</strong>: Choose a random split value between the minimum and maximum values of the selected feature.</p></li>
+<li><p><strong>Partitioning</strong>: Split the data into two parts based on the chosen split value.</p></li>
+<li><p><strong>Recursive Partitioning</strong>: Repeat the process recursively for each partition until each partition contains a single observation or all observations in a partition have the same values.</p></li>
+</ul>
+<p>This recursive process creates a binary tree structure, known as an isolation tree, where the depth of the tree represents the number of splits required to isolate a point.</p>
+</section>
+<section id="path-length-calculation">
+<h3>2. Path Length Calculation<a class="headerlink" href="#path-length-calculation" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p><strong>Path Length</strong>: The path length of a point is the number of edges (splits) required to isolate the point in the tree.</p></li>
+<li><p><strong>Average Path Length</strong>: The average path length is computed by averaging the path lengths across all trees in the forest.</p></li>
+</ul>
+</section>
+<section id="anomaly-score-computation">
+<h3>3. Anomaly Score Computation<a class="headerlink" href="#anomaly-score-computation" title="Permalink to this headline">#</a></h3>
+<p>The anomaly score is calculated based on the path length:</p>
+<ul class="simple">
+<li><p><strong>Short Path Length</strong>: Indicates that the point is easily isolated and likely an anomaly.</p></li>
+<li><p><strong>Long Path Length</strong>: Indicates that the point is deeply nested within the data and likely normal.</p></li>
+</ul>
+<p>The anomaly score for a data point is given by:</p>
+<div class="math notranslate nohighlight">
+\[ s(x, n) = 2^{-\frac{E(h(x))}{c(n)}} \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( s(x, n) \)</span> is the anomaly score of point <span class="math notranslate nohighlight">\( x \)</span> with <span class="math notranslate nohighlight">\( n \)</span> observations.</p></li>
+<li><p><span class="math notranslate nohighlight">\( E(h(x)) \)</span> is the average path length of <span class="math notranslate nohighlight">\( x \)</span> over all trees.</p></li>
+<li><p><span class="math notranslate nohighlight">\( c(n) \)</span> is the average path length of unsuccessful searches in a Binary Search Tree, used to normalize the path length.</p></li>
+</ul>
+</section>
+<section id="thresholding">
+<h3>4. Thresholding<a class="headerlink" href="#thresholding" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p><strong>Score Interpretation</strong>: An anomaly score close to 1 indicates a high likelihood of the point being an anomaly, while a score close to 0 indicates a normal point.</p></li>
+<li><p><strong>Threshold Setting</strong>: A threshold can be set to classify points as anomalies or normal based on their anomaly scores.</p></li>
+</ul>
+</section>
+</section>
+<section id="font-color-blue-takeaways-font">
+<h2><font color='blue'> Takeaways </font><a class="headerlink" href="#font-color-blue-takeaways-font" title="Permalink to this headline">#</a></h2>
+<p>Anomaly detection encompasses various methods, each suited for different types of data and anomalies. HDBSCAN, with its ability to detect clusters of varying densities and robustness to noise, is a powerful tool in this domain. Understanding the underlying principles and appropriate contexts for each method ensures effective anomaly detection in diverse applications.</p>
+</section>
+<section id="code-applications">
+<h2>Code Applications<a class="headerlink" href="#code-applications" title="Permalink to this headline">#</a></h2>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>!pip install -q hdbscan
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting hdbscan
+  Downloading hdbscan-0.8.33.tar.gz (5.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">5.2/5.2 MB</span> <span class=" -Color -Color-Red">9.8 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h  Installing build dependencies ... ?25l?25hdone
+  Getting requirements to build wheel ... ?25l?25hdone
+  Preparing metadata (pyproject.toml) ... ?25l?25hdone
+Collecting cython&lt;3,&gt;=0.27 (from hdbscan)
+  Using cached Cython-0.29.37-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl (1.9 MB)
+Requirement already satisfied: numpy&gt;=1.20 in /usr/local/lib/python3.10/dist-packages (from hdbscan) (1.25.2)
+Requirement already satisfied: scipy&gt;=1.0 in /usr/local/lib/python3.10/dist-packages (from hdbscan) (1.11.4)
+Requirement already satisfied: scikit-learn&gt;=0.20 in /usr/local/lib/python3.10/dist-packages (from hdbscan) (1.2.2)
+Requirement already satisfied: joblib&gt;=1.0 in /usr/local/lib/python3.10/dist-packages (from hdbscan) (1.4.2)
+Requirement already satisfied: threadpoolctl&gt;=2.0.0 in /usr/local/lib/python3.10/dist-packages (from scikit-learn&gt;=0.20-&gt;hdbscan) (3.5.0)
+Building wheels for collected packages: hdbscan
+  Building wheel for hdbscan (pyproject.toml) ... ?25l?25hdone
+  Created wheel for hdbscan: filename=hdbscan-0.8.33-cp310-cp310-linux_x86_64.whl size=3039294 sha256=08aad88be70af612b66bd50d776b34dff5eb92f7cc14b3fe2e3f21f7b69ef72b
+  Stored in directory: /root/.cache/pip/wheels/75/0b/3b/dc4f60b7cc455efaefb62883a7483e76f09d06ca81cf87d610
+Successfully built hdbscan
+Installing collected packages: cython, hdbscan
+  Attempting uninstall: cython
+    Found existing installation: Cython 3.0.10
+    Uninstalling Cython-3.0.10:
+      Successfully uninstalled Cython-3.0.10
+Successfully installed cython-0.29.37 hdbscan-0.8.33
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hdbscan</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="o">%</span><span class="n">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s1">&#39;retina&#39;</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">IsolationForest</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="c1"># Generate sample data</span>
+<span class="n">data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]],</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="c1"># Add some random noise points</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mi">5</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">))])</span>
+
+<span class="c1"># Fit HDBSCAN</span>
+<span class="n">clusterer</span> <span class="o">=</span> <span class="n">hdbscan</span><span class="o">.</span><span class="n">HDBSCAN</span><span class="p">(</span><span class="n">min_cluster_size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">cluster_labels</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Identify anomalies (noise points)</span>
+<span class="n">anomalies</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">cluster_labels</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Plotting the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">cluster_labels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">anomalies</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">anomalies</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Anomalies&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Anomaly_Detection-HDBScan_4_0.png" src="_images/Anomaly_Detection-HDBScan_4_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit the Isolation Forest</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">IsolationForest</span><span class="p">(</span><span class="n">contamination</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Separate normal data points and anomalies</span>
+<span class="n">normal</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">anomalies</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Plotting the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">normal</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">normal</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Normal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">anomalies</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">anomalies</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Anomalies&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Isolation Forest for Anomaly Detection&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Anomaly_Detection-HDBScan_6_0.png" src="_images/Anomaly_Detection-HDBScan_6_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "ai4fusion-wmschool/summer2024",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="Nonparametric_Methods_GAMs.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Nonparamatric Methods </font></p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Dimensionality_Reduction_Unsupervised_Learning.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Dimensionality Reduction and Unsupervised Learning (K-Means)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Open-Fair-Fusion for Machine Learning Applications<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

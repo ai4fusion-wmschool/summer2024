@@ -1,5 +1,5 @@
-# Lecturers
+# Lecturers and Speakers
 
-- **Data Science:** Prof. C. Fanelli (W&M), Prof. D. Vasiliu (W&M), J. Giroux (W&M)
+- **Data Science:** Cristiano Fanelli (W&M), Daniel Vasiliu (W&M), James Giroux (W&M)
 
-- **Fusion:**
+- **Fusion:** Saskia Mordijck (William & Mary), Evdokiya Kostadinova (Auburn U.), Alex Saperstein (MIT), John Stillerman (MIT), Stephanie Diem (U. Wisconsin), Nick Murphy (Harvard), Nathan Cummings (UK Atomic energy Authority), Andrew Maris (MIT)

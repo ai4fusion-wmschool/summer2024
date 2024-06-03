@@ -1,0 +1,1862 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction, Bias Variance Tradeoff and Gradient Descent &#8212; AI for Fusion Energy Summer School (2024)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="_static/wm_vertical_single_line_full_color.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Supervised Machine Learning: Linear Regression" href="Supervised_Learning_Linear_Regression.html" />
+    <link rel="prev" title="Lecturers and Speakers" href="lecturers.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/wm_vertical_single_line_full_color.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">AI for Fusion Energy Summer School (2024)</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI/ML for Fusion Summer School 2024
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Information on the Summer School
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="schedule.html">
+   Schedule
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="lecturers.html">
+   Lecturers
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Data Science (Lectures and Notebooks)
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">
+   (6/3/2024) - Intro to Data Science (get started, variance/bias) (slides)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   (6/3/20224) - Intro to Data Science, Python Programming, Bias-Variance Tradeoff and the Gradient Descent Algorithm
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Supervised_Learning_Linear_Regression.html">
+   (6/3/2024) Supervised Learning, Linear Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Regularization_Model_Selection_and_Cross_Validations.html">
+   (6/4/2024) Regularization, Model Selection, Cross-Validation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Supervised_Learning_Logistic_Regression.html">
+   (6/4/2024) Supervised Learning - Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Nonparametric_Methods_GAMs.html">
+   (6/5/2024) Nonparametric Methods, GAMs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Anomaly_Detection_HDBScan.html">
+   (6/6/2024)  Anomaly Detection, clustering with HDBScan
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">
+   (6/6/2024) Dimensionality Reduction, Unsupervised Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">
+   (6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Intro_to_Deep_Learning_Multilayer_Perceptron.html">
+   (6/7/2024) Intro to Deep_Learning, Multilayer_Perceptron
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">
+   (6/11/2024) - Intro to Normalizing Flows (slides)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="NFlows_BasicExample_new.html">
+   (6/11/2024) Normalizing Flows - Basic Example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">
+   (6/11/2024) Normalizing Flows - GlueX BCAL Example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_BO.html">
+   (6/13/2024) Single-Objective Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_MOBO.html">
+   (6/13/2024) Multi-Objective Bayesian Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Design_MOEA.html">
+   (6/13/2024) Multi-Objective Genetic Algorithm
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Fusion Lectures
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://docs.google.com/presentation/u/1/d/1_dJtr18LfwCR4Nfwt3bX5_0U_g5N3Bw4/edit?usp=drive_web&amp;ouid=113195593718692427789&amp;rtpof=true">
+   (6/3/2024) W&amp;M and Fusion (S. Mordijck)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://drive.google.com/file/d/1XbhZegEIBQEl0Hs6Gl4qbhuIoGo7g9v9/view?usp=share_link">
+   (6/3/2024) Nuclear Fusion Power - A solution to the world’s energy problem? (S. Mordijck, A. Dominguez)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/4/2024) [Link will be updated] Overview of plasma diagnostics and measurements (E. Kostadinova)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/5/2024) [Link will be updated] Alcator C-Mod  (A. Saperstein, J. Stillerman)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/6/2024) [Link will be updated] HDF (A. Jelenak)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/7/2024) [Link will be updated] Fusion Pilot (S. Diem)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/10/2024) [Link will be updated] Making plasma science open (N. Murphy)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/11/2024) [Link will be updated] Managing Data - Why it matters, when it is important, and how to do it (N. Cummings)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/12/2024) [Link will be updated] DIII-D ML/AI perspective (B. Sammuli)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
+   (6/13/2024) [Link will be updated] Data-mining the tokamak density limit (A. Maris)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">
+   Nuclear Fusion Data (Classification)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">
+   Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">
+   The updated ITPA global H-mode confinement database; description and analysis (Regression)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Additional resources
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="referencesmd.html">
+   References
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=lab/tree/notebooks/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://jupyterhub.wm.edu/hub/user-redirect/git-pull?repo=https://github.com/ai4fusion-wmschool/summer2024&urlpath=lab/tree/summer2024/notebooks/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.ipynb&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FIntro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-data-science-font">
+   <font color="blue">
+    Data Science
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-machine-learning-font">
+   <font color="blue">
+    Machine Learning
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#suggested-references">
+     Suggested References:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#who-said-machine-learning">
+     Who said “machine-learning?”
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-types-of-data-font">
+   <font color="blue">
+    Types of Data
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-types-of-data-example-font">
+   <font color="blue">
+    Types of Data - Example
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   <font color="blue">
+    Machine Learning
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-programming-language-python-font">
+   <font color="blue">
+    Programming Language: Python
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-functions-font">
+   <font color="blue">
+    Functions
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-object-oriented-programming-font">
+   <font color="blue">
+    Object Oriented Programming
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introduction-to-classes-in-python">
+     Introduction to Classes in Python
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#key-concepts">
+     Key Concepts
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-a-class">
+     Creating a Class
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#explanation">
+     Explanation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inheritance">
+     Inheritance
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Explanation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#encapsulation-and-access-modifiers">
+     Encapsulation and Access Modifiers
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conclusion">
+     Conclusion
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-the-law-of-probable-errors-font">
+   <font color="blue">
+    The Law of Probable Errors
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-bias-and-variance-font">
+   <font color="blue">
+    Bias and Variance
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bias">
+     <strong>
+      Bias
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#variance">
+     <strong>
+      Variance
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-bias-variance-tradeoff-font">
+   <font color="blue">
+    Bias-Variance Tradeoff
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#total-error">
+     <strong>
+      Total Error
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualization">
+     <strong>
+      Visualization
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interpretation">
+     <strong>
+      Interpretation
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-mean-squared-error-font">
+   <font color="blue">
+    Mean Squared Error
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-the-gradient-descent-in-2-d-font">
+   <font color="blue">
+    The Gradient Descent in 2-D
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-the-loss-function-sse-and-its-gradient-for-n-observations-font">
+   <font color="blue">
+    The Loss Function (SSE) and its Gradient for n Observations
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-code-applications-font">
+   <font color="blue">
+    Code Applications
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-with-functions-and-classes">
+     Example with Functions and Classes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#an-example-of-gradient-descent-with-contour-plots">
+     An Example of Gradient Descent with Contour Plots
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#code-for-plotting-the-bias-variance-tradeoff">
+     Code for Plotting the Bias - Variance Tradeoff
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Introduction, Bias Variance Tradeoff and Gradient Descent</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-data-science-font">
+   <font color="blue">
+    Data Science
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-machine-learning-font">
+   <font color="blue">
+    Machine Learning
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#suggested-references">
+     Suggested References:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#who-said-machine-learning">
+     Who said “machine-learning?”
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-types-of-data-font">
+   <font color="blue">
+    Types of Data
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-types-of-data-example-font">
+   <font color="blue">
+    Types of Data - Example
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   <font color="blue">
+    Machine Learning
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-programming-language-python-font">
+   <font color="blue">
+    Programming Language: Python
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-functions-font">
+   <font color="blue">
+    Functions
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-object-oriented-programming-font">
+   <font color="blue">
+    Object Oriented Programming
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introduction-to-classes-in-python">
+     Introduction to Classes in Python
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#key-concepts">
+     Key Concepts
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-a-class">
+     Creating a Class
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#explanation">
+     Explanation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inheritance">
+     Inheritance
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Explanation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#encapsulation-and-access-modifiers">
+     Encapsulation and Access Modifiers
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conclusion">
+     Conclusion
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-the-law-of-probable-errors-font">
+   <font color="blue">
+    The Law of Probable Errors
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-bias-and-variance-font">
+   <font color="blue">
+    Bias and Variance
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bias">
+     <strong>
+      Bias
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#variance">
+     <strong>
+      Variance
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-bias-variance-tradeoff-font">
+   <font color="blue">
+    Bias-Variance Tradeoff
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#total-error">
+     <strong>
+      Total Error
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualization">
+     <strong>
+      Visualization
+     </strong>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interpretation">
+     <strong>
+      Interpretation
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-mean-squared-error-font">
+   <font color="blue">
+    Mean Squared Error
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-the-gradient-descent-in-2-d-font">
+   <font color="blue">
+    The Gradient Descent in 2-D
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-the-loss-function-sse-and-its-gradient-for-n-observations-font">
+   <font color="blue">
+    The Loss Function (SSE) and its Gradient for n Observations
+   </font>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-code-applications-font">
+   <font color="blue">
+    Code Applications
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-with-functions-and-classes">
+     Example with Functions and Classes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#an-example-of-gradient-descent-with-contour-plots">
+     An Example of Gradient Descent with Contour Plots
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#code-for-plotting-the-bias-variance-tradeoff">
+     Code for Plotting the Bias - Variance Tradeoff
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section id="introduction-bias-variance-tradeoff-and-gradient-descent">
+<h1>Introduction, Bias Variance Tradeoff and Gradient Descent<a class="headerlink" href="#introduction-bias-variance-tradeoff-and-gradient-descent" title="Permalink to this headline">#</a></h1>
+<section id="font-color-blue-data-science-font">
+<h2><font color='blue'>Data Science</font><a class="headerlink" href="#font-color-blue-data-science-font" title="Permalink to this headline">#</a></h2>
+<style> #margins > p { margin-top: -50px; } </style>
+<ul class="simple">
+<li><p>Data is information, a perception of our own existence and everything surrounding us.</p></li>
+<li><p>The amount of data that we can record nowadays exceeds anything accomplished before.</p></li>
+<li><p>1 bit  = 0 or 1.</p></li>
+<li><p>letter = 1 byte = 8 bits, such as for example <span class="math notranslate nohighlight">\((0,1,1,0,0,1,1,0).\)</span></p></li>
+</ul>
+<p><font color='red'>Critical Thinking:</font> We need many “letters” to encode information! <strong>How many different “letters” do we have?</strong>
+<font color='red'>Hint:</font> Use the multiplication principle.</p>
+<ul class="simple">
+<li><p>1000 letters = 1kbyte = <span class="math notranslate nohighlight">\(10^3\)</span> bytes.</p></li>
+<li><p>1 mil. letters = 1 mbyte = <span class="math notranslate nohighlight">\(10^3\)</span> kbytes.</p></li>
+<li><p>1 gbyte = 1 bil. letters = <span class="math notranslate nohighlight">\(10^3\)</span> mbytes.</p></li>
+<li><p>1 tbyte = <span class="math notranslate nohighlight">\(10^3\)</span> gbytes, (tbyte means terabyte).</p></li>
+<li><p>1 pbyte = <span class="math notranslate nohighlight">\(10^3\)</span> tbytes, (pbyte means petabyte).</p></li>
+<li><p>1 ebyte = <span class="math notranslate nohighlight">\(10^3\)</span> pbytes, (ebyte means exabyte).</p></li>
+</ul>
+</section>
+<section id="font-color-blue-machine-learning-font">
+<h2><font color='blue'> Machine Learning </font><a class="headerlink" href="#font-color-blue-machine-learning-font" title="Permalink to this headline">#</a></h2>
+<section id="suggested-references">
+<h3>Suggested References:<a class="headerlink" href="#suggested-references" title="Permalink to this headline">#</a></h3>
+<table><tr>
+<td> <img src='https://m.media-amazon.com/images/I/411CpImAaAL._SX404_BO1,204,203,200_.jpg 'width='300px'/><figcaption><a href="https://www.amazon.com/Hundred-Page-Machine-Learning-Book-ebook/dp/B09Q15C9CQ/ref=sr_1_2?crid=1M3F100NG6OM9&keywords=andrii+burkov&qid=1693420556&sprefix=andrii+burkov+%2Caps%2C789&sr=8-2" target="_blank">The Hundred-Page Book of Machine Learning</a></figcaption> </td>
+<td> <img src='https://m.media-amazon.com/images/I/41xowcRDX9L._SX424_BO1,204,203,200_.jpg'width='315px'/>
+<figcaption><a href="https://probml.github.io/pml-book/book1.html" target="_blank">Probabilistic Machine Learning - An Introduction </a></figcaption> </td>
+</tr></table>
+</section>
+<section id="who-said-machine-learning">
+<h3>Who said “machine-learning?”<a class="headerlink" href="#who-said-machine-learning" title="Permalink to this headline">#</a></h3>
+<p><a class="reference external" href="https://www.ibm.com/cloud/learn/machine-learning">https://www.ibm.com/cloud/learn/machine-learning</a></p>
+<p>In a few words, it is the science of automating and improving decisions and inferences based on data.</p>
+</section>
+</section>
+<section id="font-color-blue-types-of-data-font">
+<h2><font color='blue'> Types of Data </font><a class="headerlink" href="#font-color-blue-types-of-data-font" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Data could be classified based on the levels of measurement, such as nominal, ordinal, interval and ratio.</p></li>
+<li><p>Nominal data: unique identifiers but order does not matter for example, peoples’ names, names of flowers, colors etc.</p></li>
+<li><p>Ordinal data: unique indentifiers and order matters, such as in letter grades, military or administration ranks, etc.</p></li>
+<li><p>Continuous data: Interval level of measurement: numerical values where differences make sense in the context of using them but ratios or proportions could be meaningless, such as temperatures, heights of people, days in the calendar.</p></li>
+<li><p>Continuous data: Ratio level of measurement: numerical values, that are at the interval level of measurement and also the ratio and proportions make sense in the context of using them, such as salaries, weights, distances, forces, etc.</p></li>
+</ul>
+</section>
+<section id="font-color-blue-types-of-data-example-font">
+<h2><font color='blue'> Types of Data - Example </font><a class="headerlink" href="#font-color-blue-types-of-data-example-font" title="Permalink to this headline">#</a></h2>
+<p>Independent vs Dependent variables:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Country</p></th>
+<th class="text-align:right head"><p>Age</p></th>
+<th class="text-align:right head"><p>Salary</p></th>
+<th class="text-align:right head"><p>Purchased</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>France</p></td>
+<td class="text-align:right"><p>44</p></td>
+<td class="text-align:right"><p>72000</p></td>
+<td class="text-align:right"><p>No</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Spain</p></td>
+<td class="text-align:right"><p>29</p></td>
+<td class="text-align:right"><p>51000</p></td>
+<td class="text-align:right"><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Germany</p></td>
+<td class="text-align:right"><p>32</p></td>
+<td class="text-align:right"><p>63000</p></td>
+<td class="text-align:right"><p>No</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Japan</p></td>
+<td class="text-align:right"><p>53</p></td>
+<td class="text-align:right"><p>81000</p></td>
+<td class="text-align:right"><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Portugal</p></td>
+<td class="text-align:right"><p>48</p></td>
+<td class="text-align:right"><p>73000</p></td>
+<td class="text-align:right"><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Italy</p></td>
+<td class="text-align:right"><p>43</p></td>
+<td class="text-align:right"><p>67500</p></td>
+<td class="text-align:right"><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<p>In this example, the variables “Country”, “Age” and “Salary” are independent whereas “Purchased” is a dependent variable.</p>
+<p>Quite often in the Data Science community nominal variables are referred as “discrete”.</p>
+<p>CRITICAL THINKING: the context and the implied usage is very important for determining the level of measurement.</p>
+<figure>
+<center>
+<img src='https://i.imgur.com/afKyWNP.png'width='300px'/>
+<figcaption>Levels of Measurement</figcaption></center>
+</figure>
+</section>
+<section id="id1">
+<h2><font color='blue'> Machine Learning </font><a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Machine learning is the science of programming computers for using data with the goal of automating <strong>predictions</strong> and analyses.</p></li>
+<li><p>In all, it consists of input-output algorithms for supervised and/or unsupervised learning.</p></li>
+<li><p>We learn how to apply machine learing algorithms implemented in Python in order to analyze and make predictions by using real data sets.</p></li>
+<li><p>Pyhton is a very popular and friendly to use interpreted programming language that has currently emerged with prominence in the Data Science commumity.</p></li>
+</ul>
+</section>
+<section id="font-color-blue-programming-language-python-font">
+<h2><font color='blue'> Programming Language: Python </font><a class="headerlink" href="#font-color-blue-programming-language-python-font" title="Permalink to this headline">#</a></h2>
+<p>For using Python you can access <a class="reference external" href="http://colab.research.google.com">http://colab.research.google.com</a> via an internet browser such as Chrome.</p>
+<p>It is a scripting language that uses libraries of functions which must to be imported before using the specific functions needed.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This means that <span class="math notranslate nohighlight">\(a=\sin(\frac{\pi}{3})=\frac{\sqrt{3}}{2}\)</span></p>
+</section>
+<section id="font-color-blue-functions-font">
+<h2><font color='blue'> Functions </font><a class="headerlink" href="#font-color-blue-functions-font" title="Permalink to this headline">#</a></h2>
+<p>Functions are a building block in Machine Learning. Every solution to a data problem is articulated in terms of functions.</p>
+<p>A function is a mapping, a rule of correspondence such that an input is assigned exacly one output.</p>
+<p><font color='green'><em>Crtical Thinking: Functions and Set Theory represent the building blocks of modern mathematics.</em></font></p>
+<figure>
+<center>
+<img src='https://i.imgur.com/boVL9B5.png'width='300px'/>
+<figcaption>Example of a Function by Arrow Diagram</figcaption></center>
+</figure>
+<p>The important elements of a function are</p>
+<blockquote>
+<div><p>i. the <font color='magenta'><em>domain</em></font> of the function<br />
+ii. the <font color='magenta'><em>range (co-domain)</em></font> of the function<br />
+iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
+</div></blockquote>
+</section>
+<section id="font-color-blue-object-oriented-programming-font">
+<h2><font color='blue'> Object Oriented Programming </font><a class="headerlink" href="#font-color-blue-object-oriented-programming-font" title="Permalink to this headline">#</a></h2>
+<section id="introduction-to-classes-in-python">
+<h3>Introduction to Classes in Python<a class="headerlink" href="#introduction-to-classes-in-python" title="Permalink to this headline">#</a></h3>
+<p>In Python, a class is a blueprint for creating objects. Objects are instances of classes, and classes define the properties (attributes) and behaviors (methods) that the objects created from the class can have. Classes are a fundamental concept in object-oriented programming (OOP) and allow for the creation of complex data structures and models.</p>
+</section>
+<section id="key-concepts">
+<h3>Key Concepts<a class="headerlink" href="#key-concepts" title="Permalink to this headline">#</a></h3>
+<ol class="simple">
+<li><p><strong>Class</strong>: A blueprint for creating objects. It defines a set of attributes and methods that the created objects can have.</p></li>
+<li><p><strong>Object</strong>: An instance of a class. Each object can have unique values for the attributes defined in the class.</p></li>
+<li><p><strong>Attributes</strong>: Variables that belong to a class or an instance of a class. They represent the properties or state of an object.</p></li>
+<li><p><strong>Methods</strong>: Functions defined within a class that describe the behaviors of the objects created from the class.</p></li>
+<li><p><strong>Inheritance</strong>: A way to form new classes using classes that have already been defined. It allows for the creation of a class that is a modified version of an existing class.</p></li>
+<li><p><strong>Encapsulation</strong>: The practice of keeping the details of the implementation hidden, only exposing the necessary parts of the code.</p></li>
+<li><p><strong>Polymorphism</strong>: The ability to present the same interface for different underlying data types.</p></li>
+</ol>
+</section>
+<section id="creating-a-class">
+<h3>Creating a Class<a class="headerlink" href="#creating-a-class" title="Permalink to this headline">#</a></h3>
+<p>To create a class in Python, use the <code class="docutils literal notranslate"><span class="pre">class</span></code> keyword followed by the class name and a colon. Inside the class, you can define attributes and methods.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+    <span class="c1"># Class attribute</span>
+    <span class="n">class_attribute</span> <span class="o">=</span> <span class="s2">&quot;I am a class attribute&quot;</span>
+
+    <span class="c1"># Initializer / Instance attributes</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance_attribute</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instance_attribute</span> <span class="o">=</span> <span class="n">instance_attribute</span>
+
+    <span class="c1"># Method</span>
+    <span class="k">def</span> <span class="nf">display_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Class Attribute: </span><span class="si">{</span><span class="n">MyClass</span><span class="o">.</span><span class="n">class_attribute</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Instance Attribute: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">instance_attribute</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Creating an instance of MyClass</span>
+<span class="n">my_object</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">(</span><span class="s2">&quot;I am an instance attribute&quot;</span><span class="p">)</span>
+
+<span class="c1"># Accessing attributes and methods</span>
+<span class="n">my_object</span><span class="o">.</span><span class="n">display_attributes</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="explanation">
+<h3>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p><strong>Class Definition</strong>: The <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">MyClass:</span></code> line defines a new class named <code class="docutils literal notranslate"><span class="pre">MyClass</span></code>.</p></li>
+<li><p><strong>Class Attribute</strong>: <code class="docutils literal notranslate"><span class="pre">class_attribute</span></code> is a class attribute shared by all instances of the class.</p></li>
+<li><p><strong>Initializer Method</strong>: The <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method is a special method called a constructor. It is called when an object is created from the class and allows the class to initialize the attributes of the object.</p></li>
+<li><p><strong>Instance Attribute</strong>: <code class="docutils literal notranslate"><span class="pre">self.instance_attribute</span></code> is an instance attribute, unique to each instance of the class.</p></li>
+<li><p><strong>Method</strong>: The <code class="docutils literal notranslate"><span class="pre">display_attributes</span></code> method is a function defined within the class that can be called on instances of the class.</p></li>
+<li><p><strong>Creating an Instance</strong>: <code class="docutils literal notranslate"><span class="pre">my_object</span> <span class="pre">=</span> <span class="pre">MyClass(&quot;I</span> <span class="pre">am</span> <span class="pre">an</span> <span class="pre">instance</span> <span class="pre">attribute&quot;)</span></code> creates an instance of <code class="docutils literal notranslate"><span class="pre">MyClass</span></code> with a unique instance attribute.</p></li>
+<li><p><strong>Accessing Methods and Attributes</strong>: <code class="docutils literal notranslate"><span class="pre">my_object.display_attributes()</span></code> calls the <code class="docutils literal notranslate"><span class="pre">display_attributes</span></code> method, which prints the class and instance attributes.</p></li>
+</ul>
+</section>
+<section id="inheritance">
+<h3>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">#</a></h3>
+<p>Inheritance allows a class (child class) to inherit attributes and methods from another class (parent class).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ParentClass</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span> <span class="o">=</span> <span class="n">attribute</span>
+
+    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attribute: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">attribute</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ChildClass</span><span class="p">(</span><span class="n">ParentClass</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">child_attribute</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>  <span class="c1"># Call the parent class constructor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">child_attribute</span> <span class="o">=</span> <span class="n">child_attribute</span>
+
+    <span class="k">def</span> <span class="nf">display_child</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Child Attribute: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">child_attribute</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Creating an instance of ChildClass</span>
+<span class="n">child_object</span> <span class="o">=</span> <span class="n">ChildClass</span><span class="p">(</span><span class="s2">&quot;Parent attribute&quot;</span><span class="p">,</span> <span class="s2">&quot;Child attribute&quot;</span><span class="p">)</span>
+
+<span class="c1"># Accessing methods from both ParentClass and ChildClass</span>
+<span class="n">child_object</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+<span class="n">child_object</span><span class="o">.</span><span class="n">display_child</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Explanation<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p><strong>ParentClass</strong>: A base class with an initializer and a display method.</p></li>
+<li><p><strong>ChildClass</strong>: A derived class that inherits from <code class="docutils literal notranslate"><span class="pre">ParentClass</span></code> and adds an additional attribute and method.</p></li>
+<li><p><strong>super()</strong>: The <code class="docutils literal notranslate"><span class="pre">super()</span></code> function is used to call the constructor of the parent class.</p></li>
+</ul>
+</section>
+<section id="encapsulation-and-access-modifiers">
+<h3>Encapsulation and Access Modifiers<a class="headerlink" href="#encapsulation-and-access-modifiers" title="Permalink to this headline">#</a></h3>
+<p>Python does not have strict access modifiers like <code class="docutils literal notranslate"><span class="pre">private</span></code>, <code class="docutils literal notranslate"><span class="pre">protected</span></code>, and <code class="docutils literal notranslate"><span class="pre">public</span></code>. However, there are naming conventions to indicate the intended visibility of attributes and methods:</p>
+<ul class="simple">
+<li><p><strong>Public</strong>: Attributes and methods that can be accessed from outside the class. (No underscores)</p></li>
+<li><p><strong>Protected</strong>: Attributes and methods intended for use within the class and its subclasses. (Single underscore <code class="docutils literal notranslate"><span class="pre">_</span></code>)</p></li>
+<li><p><strong>Private</strong>: Attributes and methods intended for use only within the class. (Double underscore <code class="docutils literal notranslate"><span class="pre">__</span></code>)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">public</span> <span class="o">=</span> <span class="s2">&quot;Public&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_protected</span> <span class="o">=</span> <span class="s2">&quot;Protected&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__private</span> <span class="o">=</span> <span class="s2">&quot;Private&quot;</span>
+
+    <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Public: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">public</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Protected: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_protected</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Private: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__private</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Creating an instance of MyClass</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+
+<span class="c1"># Accessing attributes</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">public</span><span class="p">)</span>  <span class="c1"># Public</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">_protected</span><span class="p">)</span>  <span class="c1"># Protected (by convention, should be treated as non-public)</span>
+<span class="c1"># print(obj.__private)  # AttributeError: &#39;MyClass&#39; object has no attribute &#39;__private&#39;</span>
+<span class="n">obj</span><span class="o">.</span><span class="n">display</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="conclusion">
+<h3>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h3>
+<p>Classes in Python provide a way to encapsulate data and functionality together. Understanding the concepts of attributes, methods, inheritance, encapsulation, and polymorphism allows for the creation of complex and reusable code structures. By using classes, you can model real-world entities and their interactions, leading to cleaner and more maintainable code.</p>
+</section>
+</section>
+<section id="font-color-blue-the-law-of-probable-errors-font">
+<h2><font color='blue'> The Law of Probable Errors </font><a class="headerlink" href="#font-color-blue-the-law-of-probable-errors-font" title="Permalink to this headline">#</a></h2>
+<p>The story began when in 1801 an italian astonomer, Giuseppe Piazzi, discovered a new object in our solar system, the dwarf planet (asteroid) Ceres:</p>
+<p><a class="reference external" href="https://www.jpl.nasa.gov/news/ceres-keeping-well-guarded-secrets-for-215-years">https://www.jpl.nasa.gov/news/ceres-keeping-well-guarded-secrets-for-215-years</a></p>
+<p>A german mathematician, Carl Friedrich Gauss, helped relocate the position of Ceres and confirmed the discovery.</p>
+<p>“… <em>for it is now clearly shown that the orbit of a heavenly body may be determined quite nearly from good observations embracing only a few days; and this without any hypothetical assumption</em>.” - Carl Friedrich Gauss</p>
+<p>Gauss proposed the <em>law of probable errors:</em></p>
+<ol class="simple">
+<li><p>Small errors are more likely than large errors;</p></li>
+<li><p>The likelihood of errors of the same magnitude but different signs, such as  x and -x, are equal (the distribution is symmetrical);</p></li>
+<li><p>When several measurements are taken of the same quantity, the average (arithmetic mean) is the most likely value.</p></li>
+</ol>
+<p>References:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/">https://www.actuaries.digital/2021/03/31/gauss-least-squares-and-the-missing-planet/</a></p></li>
+<li><p><a class="reference external" href="https://solarsystem.nasa.gov/solar-system/our-solar-system/overview/">https://solarsystem.nasa.gov/solar-system/our-solar-system/overview/</a></p></li>
+</ul>
+</section>
+<section id="font-color-blue-bias-and-variance-font">
+<h2><font color='blue'> Bias and Variance </font><a class="headerlink" href="#font-color-blue-bias-and-variance-font" title="Permalink to this headline">#</a></h2>
+<p>The variance-bias tradeoff is a fundamental concept in machine learning and statistics that describes the balance between two sources of error that affect the performance of predictive models: bias and variance. Understanding this tradeoff is crucial for developing models that generalize well to new data.</p>
+<section id="bias">
+<h3><strong>Bias</strong><a class="headerlink" href="#bias" title="Permalink to this headline">#</a></h3>
+<p>Bias refers to the error introduced by approximating a real-world problem, which may be complex, by a simplified model. High bias can cause an algorithm to miss relevant relations between features and target outputs (underfitting).</p>
+<ul class="simple">
+<li><p><strong>High Bias:</strong> Assumptions in the model are too strong, making it overly simplistic.</p></li>
+<li><p><strong>Low Bias:</strong> The model captures the true relationship more accurately.</p></li>
+</ul>
+</section>
+<section id="variance">
+<h3><strong>Variance</strong><a class="headerlink" href="#variance" title="Permalink to this headline">#</a></h3>
+<p>Variance refers to the error introduced by the model’s sensitivity to the fluctuations in the training data. High variance can cause an algorithm to model the random noise in the training data, rather than the intended outputs (overfitting).</p>
+<ul class="simple">
+<li><p><strong>High Variance:</strong> The model is too complex, capturing noise along with the underlying pattern.</p></li>
+<li><p><strong>Low Variance:</strong> The model’s predictions are stable across different training sets.</p></li>
+</ul>
+</section>
+</section>
+<section id="font-color-blue-bias-variance-tradeoff-font">
+<h2><font color='blue'> Bias-Variance Tradeoff </font><a class="headerlink" href="#font-color-blue-bias-variance-tradeoff-font" title="Permalink to this headline">#</a></h2>
+<p>The tradeoff is the balance between these two sources of error. Increasing model complexity typically decreases bias but increases variance, and vice versa. The goal is to find the right balance to minimize the total error.</p>
+<section id="total-error">
+<h3><strong>Total Error</strong><a class="headerlink" href="#total-error" title="Permalink to this headline">#</a></h3>
+<p>The total error in a model can be expressed as the sum of bias squared, variance, and irreducible error (noise):</p>
+<div class="math notranslate nohighlight">
+\[ \text{Total Error} = (\text{Bias}^2) + \text{Variance} + \text{Irreducible Error} \]</div>
+<p>The irreducible error is due to noise in the data itself and cannot be reduced by any model.</p>
+</section>
+<section id="visualization">
+<h3><strong>Visualization</strong><a class="headerlink" href="#visualization" title="Permalink to this headline">#</a></h3>
+<p>To illustrate the bias-variance tradeoff, we can use a visual representation. Here, we’ll plot the training error and test error as functions of model complexity. Typically, as model complexity increases, the training error decreases, while the test error first decreases and then increases, forming a U-shaped curve.</p>
+<p>Graphs include:</p>
+<ol class="simple">
+<li><p><strong>Model Complexity vs. Error:</strong></p>
+<ul class="simple">
+<li><p>Plot training error and test error against model complexity.</p></li>
+</ul>
+</li>
+<li><p><strong>Bias-Variance Decomposition:</strong></p>
+<ul class="simple">
+<li><p>Plot bias squared, variance, and total error against model complexity.</p></li>
+</ul>
+</li>
+</ol>
+<p><a href="https://imgur.com/jtNMGca"><img src="https://i.imgur.com/jtNMGca.png" title="Bias - Variance Tradeoff" /></a></p>
+</section>
+<section id="interpretation">
+<h3><strong>Interpretation</strong><a class="headerlink" href="#interpretation" title="Permalink to this headline">#</a></h3>
+<ol class="simple">
+<li><p><strong>Model Complexity vs. Error:</strong></p>
+<ul class="simple">
+<li><p>The training error decreases as model complexity increases because the model can better fit the training data.</p></li>
+<li><p>The test error decreases initially but starts to increase after a certain point, indicating overfitting. The test error curve shows a local minimum, reflecting the optimal model complexity where the tradeoff between bias and variance is balanced.</p></li>
+</ul>
+</li>
+<li><p><strong>Bias-Variance Decomposition:</strong></p>
+<ul class="simple">
+<li><p>Bias squared decreases with increasing model complexity, as the model becomes more capable of capturing the underlying patterns.</p></li>
+<li><p>Variance increases with model complexity, as the model starts to fit the noise in the training data.</p></li>
+<li><p>The total error curve shows a local minimum at an optimal model complexity, balancing bias and variance. This minimum is marked with a vertical green dashed line.</p></li>
+<li><p>The intersection point of the bias and variance curves is not necessarily the point of minimum total error.</p></li>
+</ul>
+</li>
+</ol>
+<p>In summary, the optimal model complexity is where the total error is minimized, which takes into account the contributions of bias, variance, and irreducible error. This point is typically where the model has the best balance between underfitting and overfitting.</p>
+</section>
+</section>
+<section id="font-color-blue-mean-squared-error-font">
+<h2><font color='blue'> Mean Squared Error </font><a class="headerlink" href="#font-color-blue-mean-squared-error-font" title="Permalink to this headline">#</a></h2>
+<p>From many <em>independent</em> imperfect measurements we can easily derive a better one. Here the accent goes on the concept of independence. We say that two events, <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, are independent if</p>
+<div class="math notranslate nohighlight">
+\[ \text{P}\left(A\cap B\right) = \text{P}\left(A\right)\cdot\text{P}\left(B\right)\]</div>
+<p>Observation: While the above statement is correct, it is also deceivingly simple, and it’s typically hard to use in practice.</p>
+<p>Now, assume we have <span class="math notranslate nohighlight">\(n\)</span> independent imperfect, however unbiased, measurements of an object labeled as</p>
+<div class="math notranslate nohighlight">
+\[ x_1, x_2, \dots x_n\]</div>
+<p>and we assume that there is an ideal mesurement <span class="math notranslate nohighlight">\(x^*\)</span> and we want to find it. Gauss’ idea is to create an objective function that weighs more heavily larger errors. This can be formalized by assuming that we want to compute a value <span class="math notranslate nohighlight">\(x\)</span> that minimizes the sum of the squared errors/deviances:</p>
+<div class="math notranslate nohighlight">
+\[\text{SSE}\left(x\right)\overset{\Delta}{=} (x-x_1)^2 + (x-x_2)^2 +\dots (x-x_n)^2\]</div>
+<p>If we divide by the number of observations, <span class="math notranslate nohighlight">\(n\)</span>, we get</p>
+<div class="math notranslate nohighlight">
+\[\text{MSE}\left(x\right)\overset{\Delta}{=} \frac{(x-x_1)^2 + (x-x_2)^2 +\dots (x-x_n)^2}{n}\]</div>
+<p><strong>Important:</strong> When the number of observations is fixed, <span class="math notranslate nohighlight">\(n\)</span> is just a constant.</p>
+<p>So, in this case, we want to determine</p>
+<div class="math notranslate nohighlight">
+\[ \underset{x\,\in\, \mathbb{R}}{\operatorname{argmin}}  \text{SSE}(x)\]</div>
+<p>that is to say we want the value of <span class="math notranslate nohighlight">\(x\)</span> that yields the minimum of MSE.</p>
+<p>To solve the problem, we take the derivative of the MSE with respect to <span class="math notranslate nohighlight">\(x\)</span> and set it equal to zero:</p>
+<div class="math notranslate nohighlight">
+\[ 2(x-x_1) + 2(x-x_2) + \dots 2(x-x_n)=0.\]</div>
+<p>When you solve this equation, you get that</p>
+<div class="math notranslate nohighlight">
+\[ x = \frac{x_1+x_2+\dots x_n}{n}\]</div>
+<p>This highlights the idea that the average is the best representative of a sample.</p>
+</section>
+<section id="font-color-blue-the-gradient-descent-in-2-d-font">
+<h2><font color='blue'> The Gradient Descent in 2-D </font><a class="headerlink" href="#font-color-blue-the-gradient-descent-in-2-d-font" title="Permalink to this headline">#</a></h2>
+<p>We want to minimize a cost function that depends on some coefficients. An example in 2-D is</p>
+<div class="math notranslate nohighlight">
+\[L(w_1,w_2): = \frac{1}{n}\sum (y_i - w_1\cdot x_{i1} - w_2\cdot x_{i2})^2\]</div>
+<p>Here we have a vector $<span class="math notranslate nohighlight">\(\vec{w}:=(w_1,w_2)\)</span>$</p>
+<p>We can think of the vector <span class="math notranslate nohighlight">\(\vec{w}\)</span> having (in this case) two components and a perturbation of <span class="math notranslate nohighlight">\(\vec{w}\)</span> in some direction such as <span class="math notranslate nohighlight">\(\vec{v}.\)</span></p>
+<p>We consider the function <span class="math notranslate nohighlight">\(g(t):=L(\vec{w}+t\cdot \vec{v})\)</span> we get some important ideas:</p>
+<p>i. if <span class="math notranslate nohighlight">\(\vec{w}\)</span> is ideal for the cost then <span class="math notranslate nohighlight">\(t=0\)</span> is min of the function <span class="math notranslate nohighlight">\(g\)</span> and so <span class="math notranslate nohighlight">\(g'(0)=0.\)</span></p>
+<p>ii. if <span class="math notranslate nohighlight">\(\vec{w}\)</span> is not minimizing the cost then we want to decrease the function <span class="math notranslate nohighlight">\(g\)</span></p>
+<p>Here we have that $<span class="math notranslate nohighlight">\(g'(t):= \nabla L \cdot \vec{v}\)</span><span class="math notranslate nohighlight">\( should be negative (because we want to decrease \)</span>g$) and we get a good outcome if</p>
+<div class="math notranslate nohighlight">
+\[\vec{v}:= - \nabla L\]</div>
+<p>This means that the coefficients should be updated in the negative direction of the gradient, such as:</p>
+<div class="math notranslate nohighlight">
+\[ w_{new} := \vec{w}_{old} - \text{lr}\cdot\nabla L\]</div>
+<p>where “lr” stands for “learning rate.”</p>
+<p><a href="https://imgur.com/KzUuU3q"><img src="https://i.imgur.com/KzUuU3q.gif" title="Gradient Descent Animation" /></a></p>
+</section>
+<section id="font-color-blue-the-loss-function-sse-and-its-gradient-for-n-observations-font">
+<h2><font color='blue'> The Loss Function (SSE) and its Gradient for n Observations </font><a class="headerlink" href="#font-color-blue-the-loss-function-sse-and-its-gradient-for-n-observations-font" title="Permalink to this headline">#</a></h2>
+<div class="math notranslate nohighlight">
+\[L(w_1,w_2):=\sum_{i=1}^{n}(y_i-w_1\cdot x_{i1} -w_2\cdot x_{i2})^2\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial{L}}{\partial w_1}=\sum_{i=1}^{n} 2\cdot (y_i-w_1\cdot x_{i1} -w_2\cdot x_{i2})\cdot (-x_{i1})\]</div>
+<p>###<font color='blue'> A 2D Example with Partial Derivatives and One Observation </font></p>
+<p>If</p>
+<div class="math notranslate nohighlight">
+\[L(w_1,w_2) = (y-w_1\cdot x_1-w_2\cdot x_2)^2\]</div>
+<p>What are the partial derivatives of <span class="math notranslate nohighlight">\(L\)</span> with respect to <span class="math notranslate nohighlight">\(w_1\)</span> and <span class="math notranslate nohighlight">\(w_2\)</span>?</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial{L}}{\partial{w_1}}= 2\cdot(y-w_1\cdot x_1-w_2\cdot x_2)\cdot (-x_1)\]</div>
+<div class="math notranslate nohighlight">
+\[\frac{\partial{L}}{\partial{w_2}}= 2\cdot(y-w_1\cdot x_1-w_2\cdot x_2)\cdot (-x_2)\]</div>
+</section>
+<section id="font-color-blue-code-applications-font">
+<h2><font color='blue'> Code Applications </font><a class="headerlink" href="#font-color-blue-code-applications-font" title="Permalink to this headline">#</a></h2>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>import os
+if &#39;google.colab&#39; in str(get_ipython()):
+  print(&#39;Running on CoLab&#39;)
+  from google.colab import drive
+  drive.mount(&#39;/content/drive&#39;)
+  os.chdir(&#39;/content/drive/My Drive/Data Sets&#39;)
+  !pip install -q pygam
+else:
+  print(&#39;Running locally&#39;)
+  os.chdir(&#39;../Data&#39;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Running on CoLab
+Mounted at /content/drive
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">522.0/522.0 kB</span> <span class=" -Color -Color-Red">7.6 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Setup Libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="o">%</span><span class="n">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s1">&#39;retina&#39;</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="example-with-functions-and-classes">
+<h3>Example with Functions and Classes<a class="headerlink" href="#example-with-functions-and-classes" title="Permalink to this headline">#</a></h3>
+<p>Let’s create some examples in Python:</p>
+<p><font color='deepskyblue'><strong>Example 1</strong></font> Create a function whose graph intersects the line <span class="math notranslate nohighlight">\(y=0.5\)</span> exactly three times.</p>
+<p><em>Solution:</em> We think of a simple possible design that accomodates the requirement such as the construct of a third degree polynomial:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = (x-1)\cdot(x-2)\cdot(x-3)+0.5
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">myfunction</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mf">0.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">myfunction</span><span class="p">(</span><span class="mf">2.7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.14300000000000007
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">myfunction</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><font color='deepskyblue'><strong>Example 2</strong></font> Create a piecewise defined function with three different cases.</p>
+<p><em>Solution:</em> Again, we can think of a simple example such as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+f(x) = \begin{cases}
+x &amp;\text{if}\,\,\,0&lt;x&lt;1\\
+\sqrt{x} &amp; \text{if}\,\,\,1\leq x&lt;2\\
+\sin(x) &amp; \text{if}\,\,\,2\leq x \,\,\text{or}\,\, x\leq0
+\end{cases}
+\end{split}\]</div>
+<p>Hint: for Python programming consider <font color='magenta'><em>if</em>, <em>elif</em></font> and <font color='magenta'><em>else</em></font> statements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="k">if</span> <span class="mi">0</span><span class="o">&lt;</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">x</span>
+  <span class="k">elif</span> <span class="mi">1</span><span class="o">&lt;=</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="p">([</span><span class="mf">3.4</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">2.6</span><span class="p">,</span><span class="mf">0.3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-0.2555411 ,  1.09544512,  0.51550137,  0.3       ])
+</pre></div>
+</div>
+</div>
+</div>
+<p><font color='deepskyblue'><strong>Example 3</strong></font> A simple class.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># a very simple example</span>
+<span class="k">class</span> <span class="nc">Honda</span><span class="p">:</span>
+  <span class="n">mileage</span> <span class="o">=</span> <span class="mi">37</span>
+  <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+  <span class="n">year</span> <span class="o">=</span> <span class="mi">2019</span>
+  <span class="n">model</span> <span class="o">=</span> <span class="s1">&#39;Civic&#39;</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">color</span><span class="p">,</span><span class="n">year</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">mileage</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mileage</span> <span class="o">=</span> <span class="n">mileage</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><font color='deepskyblue'><strong>Example 4</strong></font> A Fibonacci sequence.</p>
+<p>Iterative approach to generating the Fibonacci sequence, i.e. the sequence <span class="math notranslate nohighlight">\((f_n)\)</span> of integers such that $<span class="math notranslate nohighlight">\(f_0=0,\,\, f_1=1\,\,\, \text{and}\,\, f_{n+1}=f_n+f_{n-1}\)</span><span class="math notranslate nohighlight">\( for all \)</span>n\geq 1.$</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Fib</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+  <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">myfib</span><span class="o">=</span><span class="n">Fib</span><span class="p">(</span><span class="n">a</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">myfib</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="n">myfib</span><span class="o">.</span><span class="n">current</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">FibNumbers</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+  <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">myclass</span> <span class="o">=</span> <span class="n">FibNumbers</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">iter</span><span class="p">(</span><span class="n">myclass</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;__main__.FibNumbers at 0x7a1ead26e410&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">next</span><span class="p">(</span><span class="n">myclass</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>21
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="an-example-of-gradient-descent-with-contour-plots">
+<h3>An Example of Gradient Descent with Contour Plots<a class="headerlink" href="#an-example-of-gradient-descent-with-contour-plots" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># here we generate many equally spaced points</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+<span class="c1"># here we make an objective function</span>
+<span class="n">X1</span><span class="p">,</span> <span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">X1</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">9</span> <span class="o">+</span> <span class="n">X2</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we have the function:</p>
+<div class="math notranslate nohighlight">
+\[F(x_1,x_2):=\sqrt{\frac{x_1^2}{9}+\frac{x_2^2}{4}}\]</div>
+<p>What shape is implied by the equation</p>
+<div class="math notranslate nohighlight">
+\[\frac{x_1^2}{9}+\frac{x_2^2}{4}=k\]</div>
+<p>Here the function is $<span class="math notranslate nohighlight">\(f(x_1,x_2):=\frac{(x_1)^2}{9}+\frac{(x_2)^2}{4}\)</span>$</p>
+<p>The level curve is the geometric locus of points <span class="math notranslate nohighlight">\((x_1,x_2)\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[f(x_1,x_2)=l\]</div>
+<p>The gradient of <span class="math notranslate nohighlight">\(f\)</span> is labeled by <span class="math notranslate nohighlight">\(\nabla(f)\)</span> and is the vector of partial derivatives with respect to <span class="math notranslate nohighlight">\(x1\)</span> and <span class="math notranslate nohighlight">\(x2\)</span></p>
+<div class="math notranslate nohighlight">
+\[\nabla(f):=\left(\frac{\partial{f}}{\partial{x1}},\frac{\partial{f}}{\partial{x2}}\right)=\left(\frac{2x1}{9},\frac{x2}{2}\right)\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span> <span class="c1">#you first need to get the axis handle</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colormaps</span><span class="p">[</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_36_0.png" src="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_36_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span> <span class="c1">#you first need to get the axis handle</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">levels</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="mf">3.25</span><span class="p">]</span>
+<span class="n">cp</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span><span class="n">levels</span><span class="p">)</span> <span class="c1"># here we show some of the level curves</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">cp</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_37_0.png" src="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_37_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span> <span class="c1">#you first need to get the axis handle</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cp</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="n">cp</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">cp</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;X2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_38_0.png" src="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_38_0.png" />
+</div>
+</div>
+</section>
+<section id="code-for-plotting-the-bias-variance-tradeoff">
+<h3>Code for Plotting the Bias - Variance Tradeoff<a class="headerlink" href="#code-for-plotting-the-bias-variance-tradeoff" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate example data</span>
+<span class="n">model_complexity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">bias_squared</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">model_complexity</span>
+<span class="n">variance</span> <span class="o">=</span> <span class="n">model_complexity</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">50</span>
+<span class="n">irreducible_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">model_complexity</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">total_error</span> <span class="o">=</span> <span class="n">bias_squared</span> <span class="o">+</span> <span class="n">variance</span> <span class="o">+</span> <span class="n">irreducible_error</span>
+
+<span class="c1"># Find the index of the minimum total error</span>
+<span class="n">min_total_error_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">total_error</span><span class="p">)</span>
+
+<span class="c1"># Plotting Model Complexity vs. Error</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Subplot 1: Training and Test Error vs. Model Complexity</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">train_error</span> <span class="o">=</span> <span class="n">bias_squared</span> <span class="o">+</span> <span class="n">variance</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># Hypothetical training error</span>
+<span class="n">test_error</span> <span class="o">=</span> <span class="n">total_error</span>  <span class="c1"># Hypothetical test error</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model_complexity</span><span class="p">,</span> <span class="n">train_error</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model_complexity</span><span class="p">,</span> <span class="n">test_error</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model Complexity&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Model Complexity vs. Error&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Subplot 2: Bias-Variance Decomposition</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model_complexity</span><span class="p">,</span> <span class="n">bias_squared</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bias^2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model_complexity</span><span class="p">,</span> <span class="n">variance</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Variance&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model_complexity</span><span class="p">,</span> <span class="n">total_error</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Total Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Irreducible Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">model_complexity</span><span class="p">[</span><span class="n">min_total_error_index</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Optimal Complexity&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model Complexity&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Bias-Variance Tradeoff&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;bias_variance_tradeoff.png&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_42_0.png" src="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_42_0.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "ai4fusion-wmschool/summer2024",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="lecturers.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Lecturers and Speakers</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Supervised_Learning_Linear_Regression.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Supervised Machine Learning: Linear Regression</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Open-Fair-Fusion for Machine Learning Applications<br/>
+  
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
