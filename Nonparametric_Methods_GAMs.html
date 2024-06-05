@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Introduction to Anomaly Detection" href="Anomaly_Detection_HDBScan.html" />
-    <link rel="prev" title="Supervised Learning - Logistic Regression" href="Supervised_Learning_Logistic_Regression.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="Active_Coding_June4.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -166,12 +166,14 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   (6/5/2024) Nonparametric Methods, GAMs
+   <font color="blue">
+    Nonparamatric Methods
+   </font>
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Anomaly_Detection_HDBScan.html">
-   (6/6/2024)  Anomaly Detection, clustering with HDBScan
+   (6/6/2024) Anomaly Detection, clustering with HDBScan
   </a>
  </li>
  <li class="toctree-l1">
@@ -237,13 +239,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
-   (6/4/2024) [Link will be updated] Overview of plasma diagnostics and measurements (E. Kostadinova)
+  <a class="reference external" href="https://docs.google.com/presentation/d/14mtA2TOsMw9p_IYrTzvmxqqjSnSvjRgy/edit?usp=share_link&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">
+   (6/4/2024) Overview of plasma diagnostics and measurements (E. Kostadinova)
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
-   (6/5/2024) [Link will be updated] Alcator C-Mod  (A. Saperstein, J. Stillerman)
+  <a class="reference external" href="https://drive.google.com/file/d/1LcPFuDB-Ka2b4GbG-4wUwXmY8J45tflS/view?usp=share_link">
+   (6/5/2024) Alcator C-Mod  (A. Saperstein, J. Stillerman)
   </a>
  </li>
  <li class="toctree-l1">
@@ -369,7 +371,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=lab/tree/Nonparametric_Methods_GAMs.ipynb"
+        <a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=lab/tree/notebooks/Nonparametric_Methods_GAMs.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -387,7 +389,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://jupyterhub.wm.edu/hub/user-redirect/git-pull?repo=https://github.com/ai4fusion-wmschool/summer2024&urlpath=lab/tree/summer2024/Nonparametric_Methods_GAMs.ipynb&branch=main"
+        <a href="https://jupyterhub.wm.edu/hub/user-redirect/git-pull?repo=https://github.com/ai4fusion-wmschool/summer2024&urlpath=lab/tree/summer2024/notebooks/Nonparametric_Methods_GAMs.ipynb&branch=main"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -405,7 +407,7 @@ title="Launch on JupyterHub"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/Nonparametric_Methods_GAMs.ipynb"
+        <a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Nonparametric_Methods_GAMs.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -570,53 +572,98 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-size-5px-the-nadaraya-watson-regressor-font">
-   <font color="blue" size="5px">
-    The Nadaraya-Watson Regressor
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   <font color="blue">
+    Nonparamatric Methods
    </font>
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-size-6pt-functional-data-analysis-gams-font">
-   <font color="blue" size="6pt">
-    Functional Data Analysis - GAMs
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cubic-splines">
-   Cubic Splines
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#generalized-additive-modeling">
-   Generalized Additive Modeling
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#model-complexity">
-   Model Complexity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#code-applications">
-   Code Applications
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#setup">
-     Setup
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-blue-locally-weighted-linear-regression-font">
+     <font color="blue">
+      Locally Weighted Linear Regression
+     </font>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#linear-regression-review">
+       Linear Regression Review
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#locally-weighted-regression">
+       Locally Weighted Regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#visual-intuition">
+       Visual Intuition
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-framework-based-on-linear-regression">
+       A Framework Based on Linear Regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#kernels">
+       Kernels
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-blue-the-nadaraya-watson-regressor-font">
+     <font color="blue">
+      The Nadaraya-Watson Regressor
+     </font>
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#synthetic-data-applications">
-   Synthetic Data Applications
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-functional-data-analysis-gams-font">
+   <font color="blue">
+    Functional Data Analysis - GAMs
+   </font>
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cubic-splines">
+   Cubic Splines
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generalized-additive-modeling">
+   Generalized Additive Modeling
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-complexity">
+   Model Complexity
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#code-applications">
+     Code Applications
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#setup">
+       Setup
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#synthetic-data-applications">
+       Synthetic Data Applications
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#applications-with-real-data">
    Applications with Real Data
   </a>
@@ -630,7 +677,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Nonparamatric Methods </font></h1>
+                <h1><font color='blue'>  Nonparamatric Methods </font></h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -640,53 +687,98 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-size-5px-the-nadaraya-watson-regressor-font">
-   <font color="blue" size="5px">
-    The Nadaraya-Watson Regressor
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   <font color="blue">
+    Nonparamatric Methods
    </font>
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-size-6pt-functional-data-analysis-gams-font">
-   <font color="blue" size="6pt">
-    Functional Data Analysis - GAMs
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cubic-splines">
-   Cubic Splines
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#generalized-additive-modeling">
-   Generalized Additive Modeling
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#model-complexity">
-   Model Complexity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#code-applications">
-   Code Applications
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#setup">
-     Setup
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-blue-locally-weighted-linear-regression-font">
+     <font color="blue">
+      Locally Weighted Linear Regression
+     </font>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#linear-regression-review">
+       Linear Regression Review
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#locally-weighted-regression">
+       Locally Weighted Regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#visual-intuition">
+       Visual Intuition
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-framework-based-on-linear-regression">
+       A Framework Based on Linear Regression
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#kernels">
+       Kernels
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#font-color-blue-the-nadaraya-watson-regressor-font">
+     <font color="blue">
+      The Nadaraya-Watson Regressor
+     </font>
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#synthetic-data-applications">
-   Synthetic Data Applications
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-functional-data-analysis-gams-font">
+   <font color="blue">
+    Functional Data Analysis - GAMs
+   </font>
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cubic-splines">
+   Cubic Splines
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generalized-additive-modeling">
+   Generalized Additive Modeling
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-complexity">
+   Model Complexity
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#code-applications">
+     Code Applications
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#setup">
+       Setup
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#synthetic-data-applications">
+       Synthetic Data Applications
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#applications-with-real-data">
    Applications with Real Data
   </a>
@@ -701,10 +793,128 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="nonparamatric-methods-font">
-<h1>Nonparamatric Methods </font><a class="headerlink" href="#nonparamatric-methods-font" title="Permalink to this headline">#</a></h1>
-<section id="font-color-blue-size-5px-the-nadaraya-watson-regressor-font">
-<h2><font color='blue' size=5px> The Nadaraya-Watson Regressor </font><a class="headerlink" href="#font-color-blue-size-5px-the-nadaraya-watson-regressor-font" title="Permalink to this headline">#</a></h2>
+  <section id="font-color-blue-nonparamatric-methods-font">
+<h1><font color='blue'>  Nonparamatric Methods </font><a class="headerlink" href="#font-color-blue-nonparamatric-methods-font" title="Permalink to this headline">#</a></h1>
+<section id="font-color-blue-locally-weighted-linear-regression-font">
+<h2><font color='blue'> Locally Weighted Linear Regression </font><a class="headerlink" href="#font-color-blue-locally-weighted-linear-regression-font" title="Permalink to this headline">#</a></h2>
+<section id="linear-regression-review">
+<h3>Linear Regression Review<a class="headerlink" href="#linear-regression-review" title="Permalink to this headline">#</a></h3>
+<p>The main idea of linear regression is the assumption that:</p>
+<div class="math notranslate nohighlight">
+\[\large y = X\cdot\beta +\sigma\epsilon \]</div>
+<p><strong>Important aspect</strong>: linear regression can be seen as a linear combination of the observed outputs (values of the dependent variable).</p>
+<p>We have:</p>
+<div class="math notranslate nohighlight">
+\[\large  X^Ty = X^TX\beta +\sigma X^T\epsilon\]</div>
+<p>We solve for <span class="math notranslate nohighlight">\(\beta\)</span> (by assuming that <span class="math notranslate nohighlight">\(X^TX\)</span> is invertible):</p>
+<div class="math notranslate nohighlight">
+\[\large \beta = (X^TX)^{-1}(X^Ty) - \sigma (X^TX)^{-1}X^T\epsilon\]</div>
+<p>We take the expected value of this equation and obtain the expected value of the coeffcients:</p>
+<div class="math notranslate nohighlight">
+\[\large \bar{\beta} = (X^TX)^{-1}(X^Ty)\]</div>
+<p>Therefore the predictions we make are:</p>
+<div class="math notranslate nohighlight">
+\[\large \hat{y} = X(X^TX)^{-1}(X^Ty)\]</div>
+</section>
+<section id="locally-weighted-regression">
+<h3>Locally Weighted Regression<a class="headerlink" href="#locally-weighted-regression" title="Permalink to this headline">#</a></h3>
+<p><strong>Main Idea:</strong> Trends and associations are generally nonlinear; however, <em>locally</em>, trends can be interpreted linearly.</p>
+<p>In this context, local properties are relative to a metric. A metric is a method by which we compute the distance between two observations. Observations contain multiple features, and if they are numeric, we can see them as vectors in a finite-dimensional Euclidean space.</p>
+<p>The independent observations are the rows of the matrix <span class="math notranslate nohighlight">\(X\)</span>. Each row has a number of columns (this is the number of features) and we can denote it by <span class="math notranslate nohighlight">\(p.\)</span> As such, every row is a vector in <span class="math notranslate nohighlight">\(\mathbb{R}^p.\)</span> The distance between two independent observations is the Euclidean distance between the two represented <span class="math notranslate nohighlight">\(p-\)</span>dimensional vectors. The equation is:</p>
+<div class="math notranslate nohighlight">
+\[ dist(\vec{v},\vec{w})=\sqrt{(v_1-w_1)^2+(v_2-w_2)^2+...(v_p-w_p)^2}\]</div>
+<p>We shall have <span class="math notranslate nohighlight">\(n\)</span> different weight vectors because we have <span class="math notranslate nohighlight">\(n\)</span> different observations.</p>
+</section>
+<section id="visual-intuition">
+<h3>Visual Intuition<a class="headerlink" href="#visual-intuition" title="Permalink to this headline">#</a></h3>
+<figure>
+<center>
+<img src="https://i.imgur.com/ycmCaN9.png"
+width='500px' />
+<figcaption>Intuition for Locally Weighted Regression</figcaption></center>
+</figure>
+<p>The following animations are illustrative for how the locally weighted regression works (source: <a class="reference external" href="https://koaning.github.io/scikit-lego/user-guide/linear-models/#lowess">https://koaning.github.io/scikit-lego/user-guide/linear-models/#lowess</a>):</p>
+<figure>
+<center>
+<img src='https://i.imgur.com/fPgCjRq.gif'width='800px'/>
+<figcaption>Example of how weights work</figcaption></center>
+</figure>
+<figure>
+<center>
+<img src='https://imgur.com/HfqUZFb.gif'width='800px'/>
+<figcaption>Example of how locally weighted regression works</figcaption></center>
+</figure>
+<p>The message of this picture is that we are going to use kernels, such as Gaussian or similar shapes, for solving local linear regression problems.</p>
+</section>
+<section id="a-framework-based-on-linear-regression">
+<h3>A Framework Based on Linear Regression<a class="headerlink" href="#a-framework-based-on-linear-regression" title="Permalink to this headline">#</a></h3>
+<p>The main idea of linear regression is the assumption that:</p>
+<div class="math notranslate nohighlight">
+\[\large y = X\cdot\beta +\sigma\epsilon \]</div>
+<p>If we pre-multiply this equation with a matrix of weights (the “weights” of observation <span class="math notranslate nohighlight">\(i\)</span> are on the main diagonal and the rest of the elements are 0) we get:</p>
+<div class="math notranslate nohighlight">
+\[\large \text{diag}(W(i))y = \text{diag}(W(i))X\cdot\beta +\sigma \text{diag}(W(i))\epsilon \]</div>
+<p>The independent observations are the rows of the matrix <span class="math notranslate nohighlight">\(X\)</span>. Each row has a number of columns (this is the number of features) and we can denote it by <span class="math notranslate nohighlight">\(p.\)</span> As such, every row is a vector in <span class="math notranslate nohighlight">\(\mathbb{R}^p.\)</span></p>
+<p>We shall have <span class="math notranslate nohighlight">\(n\)</span> different weight vectors because we have <span class="math notranslate nohighlight">\(n\)</span> different observations.</p>
+<p><strong>Important aspect</strong>: linear regression can be seen as a linear combination of the observed outputs (values of the dependent variable). For convenience we can denote <span class="math notranslate nohighlight">\(\text{diag}(W(i))\)</span> by just <span class="math notranslate nohighlight">\(W.\)</span></p>
+<p>We have:</p>
+<div class="math notranslate nohighlight">
+\[\large  X^TWy = X^TWX\beta +\sigma X^TW\epsilon\]</div>
+<p>We solve for <span class="math notranslate nohighlight">\(\beta\)</span> (by assuming that <span class="math notranslate nohighlight">\(X^TX\)</span> is invertible):</p>
+<div class="math notranslate nohighlight">
+\[\large \beta = (X^TWX)^{-1}(X^TWy) - \sigma (X^TX)^{-1}X^TW\epsilon\]</div>
+<p>We take the expected value of this equation and obtain the expected value of the coeffcients:</p>
+<div class="math notranslate nohighlight">
+\[\large \bar{\beta} = (X^TWX)^{-1}(X^TWy)\]</div>
+<p>Therefore the local predictions we make are:</p>
+<div class="math notranslate nohighlight">
+\[\large \hat{y} = X(X^TWX)^{-1}(X^TWy)\]</div>
+<p>In summary, locally weighted regression we have</p>
+<div class="math notranslate nohighlight">
+\[\large \hat{y} = X(X^TWX)^{-1}(X^TWy)\]</div>
+<p>The Big Idea: the predictions we make are a linear combination of the actual observed values of the dependent variable!</p>
+<p>For locally weighted regression, <span class="math notranslate nohighlight">\(\hat{y}\)</span> is obtained as a different linear combination of the values of y.</p>
+</section>
+<section id="kernels">
+<h3>Kernels<a class="headerlink" href="#kernels" title="Permalink to this headline">#</a></h3>
+<p>Definition of the kernels: <a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_(statistics)">https://en.wikipedia.org/wiki/Kernel_(statistics)</a></p>
+<p>There are many choices of kernels for locally weighted regression. The idea is to have a function with one local maximum that has a compact support.</p>
+<ol class="simple">
+<li><p>The Exponential (Gaussian) Kernel</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[ K(x):= e^{-\frac{\|x\|^2}{2}}\]</div>
+<ol class="simple">
+<li><p>The Tricubic Kernel</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split} K(x):=\begin{cases}
+(1-\|x\|^3)^3 \;\;\;if \;\;\; \|x\|&lt;1 \\
+0 \;\;\; \text{otherwise}
+\end{cases}
+\end{split}\]</div>
+<ol class="simple">
+<li><p>The Epanechnikov Kernel</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split} K(x):=\begin{cases}
+\frac{3}{4}(1-\|x\|^2) \;\;\;if \;\;\; \|x\|&lt;1 \\
+0 \;\;\; \text{otherwise}
+\end{cases}
+\end{split}\]</div>
+<ol class="simple">
+<li><p>The Quartic Kernel</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split} K(x):=\begin{cases}
+\frac{15}{16}(1-\|x\|^2)^2 \;\;\;if \;\;\; \|x\|&lt;1 \\
+0 \;\;\; \text{otherwise}
+\end{cases}
+\end{split}\]</div>
+</section>
+</section>
+<section id="font-color-blue-the-nadaraya-watson-regressor-font">
+<h2><font color='blue'> The Nadaraya-Watson Regressor </font><a class="headerlink" href="#font-color-blue-the-nadaraya-watson-regressor-font" title="Permalink to this headline">#</a></h2>
 <p><font color='red'><strong>Main Idea</strong>: Estimate a conditional mean (expected value) given the input variables.</font></p>
 <div class="math notranslate nohighlight">
 \[\large{
@@ -753,8 +963,9 @@ W_{i}(x):=\frac{K_h(x-x_i)}{\sum_{i=1}^nK_h(x-x_i)}.
 \]</div>
 <p><font color='green'> This is to say that the Nadaraya-Watson estimator is a local mean of <span class="math notranslate nohighlight">\(Y\)</span> around <span class="math notranslate nohighlight">\(X=x_i.\)</span> </font></p>
 </section>
-<section id="font-color-blue-size-6pt-functional-data-analysis-gams-font">
-<h2><font color='blue' size=6pt> Functional Data Analysis - GAMs </font><a class="headerlink" href="#font-color-blue-size-6pt-functional-data-analysis-gams-font" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="font-color-blue-functional-data-analysis-gams-font">
+<h1><font color='blue' > Functional Data Analysis - GAMs </font><a class="headerlink" href="#font-color-blue-functional-data-analysis-gams-font" title="Permalink to this headline">#</a></h1>
 <p>The main idea of generalized additive models (GAMs) is based on the assumption that</p>
 <div class="math notranslate nohighlight">
 \[\large \mathbb{E}\left[Y|X=x_i\right]=\beta_0+f_1(x_{i1})+f_2(x_{i2})+...+f_p(x_{ip})\]</div>
@@ -795,7 +1006,7 @@ I^2(f_j)=\int(f''_j(x))^2dx \,\,\, \text{and}\,\,\,\|f\|^2_n=\frac{1}{n}\sum\lim
 <p>and this is to minimize over a suitable class of functions <span class="math notranslate nohighlight">\(\mathcal{F}.\)</span></p>
 </section>
 <section id="cubic-splines">
-<h2>Cubic Splines<a class="headerlink" href="#cubic-splines" title="Permalink to this headline">#</a></h2>
+<h1>Cubic Splines<a class="headerlink" href="#cubic-splines" title="Permalink to this headline">#</a></h1>
 <p><strong>What we need:</strong></p>
 <ul class="simple">
 <li><p>we need the tools, the building blocks for constructing any <em>nonlinearity</em> we want.</p></li>
@@ -885,7 +1096,7 @@ y_{n-2}-2y_{n-1}+y_{n}
 <p>One easy condition is <span class="math notranslate nohighlight">\(M_1=M_n=0\)</span> and what we get is referred to as <strong>Natural Splines</strong>.</p>
 </section>
 <section id="generalized-additive-modeling">
-<h2>Generalized Additive Modeling<a class="headerlink" href="#generalized-additive-modeling" title="Permalink to this headline">#</a></h2>
+<h1>Generalized Additive Modeling<a class="headerlink" href="#generalized-additive-modeling" title="Permalink to this headline">#</a></h1>
 <p>The assumption is that</p>
 <div class="math notranslate nohighlight">
 \[
@@ -901,13 +1112,12 @@ In this way we can reduce the nonlinear problem to a multiple linear one, howeve
 <p>This is the reson we need very good methods of regularization and variable selection.</p>
 </section>
 <section id="model-complexity">
-<h2>Model Complexity<a class="headerlink" href="#model-complexity" title="Permalink to this headline">#</a></h2>
+<h1>Model Complexity<a class="headerlink" href="#model-complexity" title="Permalink to this headline">#</a></h1>
 <p>Let’s assume that we have N knots. For each feature we fit N cubic splines. This means that we subdivide the range of each feature into N eaqually spaced intervals. On each such interval you have a cubic polynomial. For the same feature the cubic polynomials connect smoothly at the knots.</p>
 <p>Model Complexity: we determine 4 coefficients for each cubic. We have N knots for each feature so in the end we have 4<em>N</em>p coefficients (weights) to determine.</p>
 <p><strong>Number of Splines</strong> If the data has <span class="math notranslate nohighlight">\(n\)</span> observations, we may consider</p>
 <div class="math notranslate nohighlight">
 \[\left\lceil \log_2(n)\right\rceil\]</div>
-</section>
 <section id="code-applications">
 <h2>Code Applications<a class="headerlink" href="#code-applications" title="Permalink to this headline">#</a></h2>
 <hr class="docutils" />
@@ -968,9 +1178,8 @@ Drive already mounted at /content/drive; to attempt to forcibly remount, call dr
 </div>
 </div>
 </section>
-</section>
 <section id="synthetic-data-applications">
-<h2>Synthetic Data Applications<a class="headerlink" href="#synthetic-data-applications" title="Permalink to this headline">#</a></h2>
+<h3>Synthetic Data Applications<a class="headerlink" href="#synthetic-data-applications" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
@@ -1036,7 +1245,7 @@ Drive already mounted at /content/drive; to attempt to forcibly remount, call dr
 	optimal bandwidth found: 10.000
 </pre></div>
 </div>
-<img alt="_images/Nonparametric_Methods_GAMs_9_1.png" src="_images/Nonparametric_Methods_GAMs_9_1.png" />
+<img alt="_images/Nonparametric_Methods_GAMs_10_1.png" src="_images/Nonparametric_Methods_GAMs_10_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1067,12 +1276,14 @@ Drive already mounted at /content/drive; to attempt to forcibly remount, call dr
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Nonparametric_Methods_GAMs_11_0.png" src="_images/Nonparametric_Methods_GAMs_11_0.png" />
+<img alt="_images/Nonparametric_Methods_GAMs_12_0.png" src="_images/Nonparametric_Methods_GAMs_12_0.png" />
 </div>
 </div>
 </section>
+</section>
+</section>
 <section id="applications-with-real-data">
-<h2>Applications with Real Data<a class="headerlink" href="#applications-with-real-data" title="Permalink to this headline">#</a></h2>
+<h1>Applications with Real Data<a class="headerlink" href="#applications-with-real-data" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_concrete</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;concrete.csv&#39;</span><span class="p">)</span>
@@ -1144,7 +1355,7 @@ Drive already mounted at /content/drive; to attempt to forcibly remount, call dr
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Nonparametric_Methods_GAMs_18_0.png" src="_images/Nonparametric_Methods_GAMs_18_0.png" />
+<img alt="_images/Nonparametric_Methods_GAMs_19_0.png" src="_images/Nonparametric_Methods_GAMs_19_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1159,7 +1370,6 @@ Drive already mounted at /content/drive; to attempt to forcibly remount, call dr
 </div>
 </div>
 </div>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1189,11 +1399,11 @@ Drive already mounted at /content/drive; to attempt to forcibly remount, call dr
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Supervised_Learning_Logistic_Regression.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Active_Coding_June4.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Supervised Learning - Logistic Regression</p>
+            <p class="prev-next-title">&lt;no title&gt;</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="Anomaly_Detection_HDBScan.html" title="next page">
