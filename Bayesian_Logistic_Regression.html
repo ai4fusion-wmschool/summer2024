@@ -246,12 +246,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Bayesian_Polynomial_Regression.html">
-   (6/12/2024) Bayesian Linear/Polynomial Regression
+   (6/12/2024) Bayesian Linear/Polynomial Regression - Basic Example
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   (6/12/2024) Bayesian Logistic Regression
+   (6/12/2024) Bayesian Logistic Regression - Basic Example
   </a>
  </li>
  <li class="toctree-l1">
@@ -261,7 +261,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Bayesian_Neural_Network.html">
-   (6/12/2024) Bayesian Neural Network
+   (6/12/2024) Bayesian Neural Network - Basic Example
   </a>
  </li>
  <li class="toctree-l1">
@@ -705,39 +705,40 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytensor in /usr/local/lib/python3.10/dist-packages (2.14.2)
-Requirement already satisfied: pymc in /usr/local/lib/python3.10/dist-packages (5.7.2)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytensor in /usr/local/lib/python3.10/dist-packages (2.18.6)
+Requirement already satisfied: pymc in /usr/local/lib/python3.10/dist-packages (5.10.4)
 Requirement already satisfied: setuptools&gt;=48.0.0 in /usr/local/lib/python3.10/dist-packages (from pytensor) (67.7.2)
 Requirement already satisfied: scipy&gt;=0.14 in /usr/local/lib/python3.10/dist-packages (from pytensor) (1.11.4)
 Requirement already satisfied: numpy&gt;=1.17.0 in /usr/local/lib/python3.10/dist-packages (from pytensor) (1.25.2)
-Requirement already satisfied: filelock in /usr/local/lib/python3.10/dist-packages (from pytensor) (3.13.1)
+Requirement already satisfied: filelock in /usr/local/lib/python3.10/dist-packages (from pytensor) (3.14.0)
 Requirement already satisfied: etuples in /usr/local/lib/python3.10/dist-packages (from pytensor) (0.3.9)
 Requirement already satisfied: logical-unification in /usr/local/lib/python3.10/dist-packages (from pytensor) (0.4.6)
 Requirement already satisfied: miniKanren in /usr/local/lib/python3.10/dist-packages (from pytensor) (1.0.3)
 Requirement already satisfied: cons in /usr/local/lib/python3.10/dist-packages (from pytensor) (0.4.6)
-Requirement already satisfied: typing-extensions in /usr/local/lib/python3.10/dist-packages (from pytensor) (4.9.0)
+Requirement already satisfied: typing-extensions in /usr/local/lib/python3.10/dist-packages (from pytensor) (4.12.1)
 Requirement already satisfied: arviz&gt;=0.13.0 in /usr/local/lib/python3.10/dist-packages (from pymc) (0.15.1)
-Requirement already satisfied: cachetools&gt;=4.2.1 in /usr/local/lib/python3.10/dist-packages (from pymc) (5.3.2)
+Requirement already satisfied: cachetools&gt;=4.2.1 in /usr/local/lib/python3.10/dist-packages (from pymc) (5.3.3)
 Requirement already satisfied: cloudpickle in /usr/local/lib/python3.10/dist-packages (from pymc) (2.2.1)
 Requirement already satisfied: fastprogress&gt;=0.2.0 in /usr/local/lib/python3.10/dist-packages (from pymc) (1.0.3)
-Requirement already satisfied: pandas&gt;=0.24.0 in /usr/local/lib/python3.10/dist-packages (from pymc) (1.5.3)
+Requirement already satisfied: pandas&gt;=0.24.0 in /usr/local/lib/python3.10/dist-packages (from pymc) (2.0.3)
 Requirement already satisfied: matplotlib&gt;=3.2 in /usr/local/lib/python3.10/dist-packages (from arviz&gt;=0.13.0-&gt;pymc) (3.7.1)
-Requirement already satisfied: packaging in /usr/local/lib/python3.10/dist-packages (from arviz&gt;=0.13.0-&gt;pymc) (23.2)
+Requirement already satisfied: packaging in /usr/local/lib/python3.10/dist-packages (from arviz&gt;=0.13.0-&gt;pymc) (24.0)
 Requirement already satisfied: xarray&gt;=0.21.0 in /usr/local/lib/python3.10/dist-packages (from arviz&gt;=0.13.0-&gt;pymc) (2023.7.0)
 Requirement already satisfied: h5netcdf&gt;=1.0.2 in /usr/local/lib/python3.10/dist-packages (from arviz&gt;=0.13.0-&gt;pymc) (1.3.0)
 Requirement already satisfied: xarray-einstats&gt;=0.3 in /usr/local/lib/python3.10/dist-packages (from arviz&gt;=0.13.0-&gt;pymc) (0.7.0)
-Requirement already satisfied: python-dateutil&gt;=2.8.1 in /usr/local/lib/python3.10/dist-packages (from pandas&gt;=0.24.0-&gt;pymc) (2.8.2)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.10/dist-packages (from pandas&gt;=0.24.0-&gt;pymc) (2.8.2)
 Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.10/dist-packages (from pandas&gt;=0.24.0-&gt;pymc) (2023.4)
+Requirement already satisfied: tzdata&gt;=2022.1 in /usr/local/lib/python3.10/dist-packages (from pandas&gt;=0.24.0-&gt;pymc) (2024.1)
 Requirement already satisfied: toolz in /usr/local/lib/python3.10/dist-packages (from logical-unification-&gt;pytensor) (0.12.1)
 Requirement already satisfied: multipledispatch in /usr/local/lib/python3.10/dist-packages (from logical-unification-&gt;pytensor) (1.0.0)
 Requirement already satisfied: h5py in /usr/local/lib/python3.10/dist-packages (from h5netcdf&gt;=1.0.2-&gt;arviz&gt;=0.13.0-&gt;pymc) (3.9.0)
-Requirement already satisfied: contourpy&gt;=1.0.1 in /usr/local/lib/python3.10/dist-packages (from matplotlib&gt;=3.2-&gt;arviz&gt;=0.13.0-&gt;pymc) (1.2.0)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /usr/local/lib/python3.10/dist-packages (from matplotlib&gt;=3.2-&gt;arviz&gt;=0.13.0-&gt;pymc) (1.2.1)
 Requirement already satisfied: cycler&gt;=0.10 in /usr/local/lib/python3.10/dist-packages (from matplotlib&gt;=3.2-&gt;arviz&gt;=0.13.0-&gt;pymc) (0.12.1)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /usr/local/lib/python3.10/dist-packages (from matplotlib&gt;=3.2-&gt;arviz&gt;=0.13.0-&gt;pymc) (4.49.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /usr/local/lib/python3.10/dist-packages (from matplotlib&gt;=3.2-&gt;arviz&gt;=0.13.0-&gt;pymc) (4.53.0)
 Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/local/lib/python3.10/dist-packages (from matplotlib&gt;=3.2-&gt;arviz&gt;=0.13.0-&gt;pymc) (1.4.5)
 Requirement already satisfied: pillow&gt;=6.2.0 in /usr/local/lib/python3.10/dist-packages (from matplotlib&gt;=3.2-&gt;arviz&gt;=0.13.0-&gt;pymc) (9.4.0)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /usr/local/lib/python3.10/dist-packages (from matplotlib&gt;=3.2-&gt;arviz&gt;=0.13.0-&gt;pymc) (3.1.1)
-Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.10/dist-packages (from python-dateutil&gt;=2.8.1-&gt;pandas&gt;=0.24.0-&gt;pymc) (1.16.0)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /usr/local/lib/python3.10/dist-packages (from matplotlib&gt;=3.2-&gt;arviz&gt;=0.13.0-&gt;pymc) (3.1.2)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.10/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=0.24.0-&gt;pymc) (1.16.0)
 </pre></div>
 </div>
 </div>
@@ -796,7 +797,7 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.10/dist-pac
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-6c369c93-039a-41b0-bc40-7c157f151d75" class="colab-df-container">
+  <div id="df-a7690f78-cdd0-4ea6-9963-c330060207bd" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -869,7 +870,7 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.10/dist-pac
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-6c369c93-039a-41b0-bc40-7c157f151d75')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-a7690f78-cdd0-4ea6-9963-c330060207bd')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -921,12 +922,12 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.10/dist-pac
 
     <script>
       const buttonEl =
-        document.querySelector('#df-6c369c93-039a-41b0-bc40-7c157f151d75 button.colab-df-convert');
+        document.querySelector('#df-a7690f78-cdd0-4ea6-9963-c330060207bd button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-6c369c93-039a-41b0-bc40-7c157f151d75');
+        const element = document.querySelector('#df-a7690f78-cdd0-4ea6-9963-c330060207bd');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -946,8 +947,8 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.10/dist-pac
   </div>
 
 
-<div id="df-287df51e-c557-458b-b368-df289bda19a0">
-  <button class="colab-df-quickchart" onclick="quickchart('df-287df51e-c557-458b-b368-df289bda19a0')"
+<div id="df-b6bf1304-501b-4715-b912-93e612189060">
+  <button class="colab-df-quickchart" onclick="quickchart('df-b6bf1304-501b-4715-b912-93e612189060')"
             title="Suggest charts"
             style="display:none;">
 
@@ -1066,19 +1067,20 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.10/dist-pac
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-287df51e-c557-458b-b368-df289bda19a0 button');
+        document.querySelector('#df-b6bf1304-501b-4715-b912-93e612189060 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
+
     </div>
   </div>
 </div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># @title species vs petal_width</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># species vs petal_width</span>
 
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -1090,7 +1092,7 @@ Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.10/dist-pac
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-6-7a5e472054ba&gt;:7: FutureWarning: 
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-9-caa5570effe5&gt;:7: FutureWarning: 
 
 Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
 
@@ -1130,7 +1132,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
   self._figure.tight_layout(*args, **kwargs)
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7eb08ed760b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7a327cda46a0&gt;
 </pre></div>
 </div>
 <img alt="_images/Bayesian_Logistic_Regression_9_2.png" src="_images/Bayesian_Logistic_Regression_9_2.png" />
@@ -1154,7 +1156,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">
-  <div id="df-4a08e0a5-52a4-4c4e-9020-357ed9ca676e" class="colab-df-container">
+  <div id="df-4e135537-f6ee-4a8d-8bde-086639e6981f" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1276,7 +1278,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-4a08e0a5-52a4-4c4e-9020-357ed9ca676e')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-4e135537-f6ee-4a8d-8bde-086639e6981f')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1328,12 +1330,12 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 
     <script>
       const buttonEl =
-        document.querySelector('#df-4a08e0a5-52a4-4c4e-9020-357ed9ca676e button.colab-df-convert');
+        document.querySelector('#df-4e135537-f6ee-4a8d-8bde-086639e6981f button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-4a08e0a5-52a4-4c4e-9020-357ed9ca676e');
+        const element = document.querySelector('#df-4e135537-f6ee-4a8d-8bde-086639e6981f');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1353,8 +1355,8 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
   </div>
 
 
-<div id="df-2213fcf7-e110-46ee-a383-c59e18d871f7">
-  <button class="colab-df-quickchart" onclick="quickchart('df-2213fcf7-e110-46ee-a383-c59e18d871f7')"
+<div id="df-58edae67-8a25-4f7f-85b1-6e6da49f694b">
+  <button class="colab-df-quickchart" onclick="quickchart('df-58edae67-8a25-4f7f-85b1-6e6da49f694b')"
             title="Suggest charts"
             style="display:none;">
 
@@ -1473,12 +1475,68 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-2213fcf7-e110-46ee-a383-c59e18d871f7 button');
+        document.querySelector('#df-58edae67-8a25-4f7f-85b1-6e6da49f694b button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
+
+  <div id="id_498b4ef3-ae6a-4b56-9ee6-88787b8f2df6">
+    <style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+    <button class="colab-df-generate" onclick="generateWithVariable('df')"
+            title="Generate code using this dataframe."
+            style="display:none;">
+
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
+       width="24px">
+    <path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"/>
+  </svg>
+    </button>
+    <script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_498b4ef3-ae6a-4b56-9ee6-88787b8f2df6 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('df');
+      }
+      })();
+    </script>
+  </div>
+
     </div>
   </div>
 </div></div>
@@ -1593,7 +1651,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 </div><div class="output text_html">
 <div>
   <progress value='4000' class='' max='4000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [4000/4000 00:04&lt;00:00 Sampling chain 1, 0 divergences]
+  100.00% [4000/4000 00:03&lt;00:00 Sampling chain 1, 0 divergences]
 </div>
 </div></div>
 </div>
@@ -1612,7 +1670,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 </pre></div>
 </div>
 <div class="output text_html">
-  <div id="df-5f2d9a9a-96cc-4f32-90e2-333153a65cd3" class="colab-df-container">
+  <div id="df-9426c91a-81f4-455e-a93d-e1560a7f2388" class="colab-df-container">
     <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1645,50 +1703,50 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
   <tbody>
     <tr>
       <th>α</th>
-      <td>0.307</td>
-      <td>0.337</td>
-      <td>-0.324</td>
-      <td>0.930</td>
+      <td>0.310</td>
+      <td>0.327</td>
+      <td>-0.295</td>
+      <td>0.919</td>
       <td>0.006</td>
-      <td>0.004</td>
-      <td>3606.0</td>
-      <td>2730.0</td>
+      <td>0.005</td>
+      <td>3204.0</td>
+      <td>2411.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>β</th>
-      <td>5.405</td>
-      <td>1.049</td>
-      <td>3.559</td>
-      <td>7.453</td>
-      <td>0.018</td>
-      <td>0.013</td>
-      <td>3428.0</td>
-      <td>2575.0</td>
+      <td>5.383</td>
+      <td>1.022</td>
+      <td>3.613</td>
+      <td>7.437</td>
+      <td>0.019</td>
+      <td>0.014</td>
+      <td>3075.0</td>
+      <td>2658.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>θ[0]</th>
-      <td>0.163</td>
-      <td>0.059</td>
-      <td>0.067</td>
-      <td>0.280</td>
+      <td>0.165</td>
+      <td>0.058</td>
+      <td>0.068</td>
+      <td>0.281</td>
       <td>0.001</td>
       <td>0.001</td>
-      <td>3901.0</td>
-      <td>2762.0</td>
+      <td>3771.0</td>
+      <td>2816.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>θ[1]</th>
-      <td>0.067</td>
+      <td>0.068</td>
       <td>0.036</td>
-      <td>0.012</td>
-      <td>0.136</td>
+      <td>0.011</td>
+      <td>0.135</td>
       <td>0.001</td>
       <td>0.000</td>
-      <td>3722.0</td>
-      <td>2779.0</td>
+      <td>3734.0</td>
+      <td>2777.0</td>
       <td>1.0</td>
     </tr>
     <tr>
@@ -1699,8 +1757,8 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
       <td>0.064</td>
       <td>0.000</td>
       <td>0.000</td>
-      <td>3630.0</td>
-      <td>2741.0</td>
+      <td>3677.0</td>
+      <td>2759.0</td>
       <td>1.0</td>
     </tr>
     <tr>
@@ -1718,61 +1776,61 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
     <tr>
       <th>θ[96]</th>
       <td>0.815</td>
-      <td>0.066</td>
-      <td>0.698</td>
-      <td>0.937</td>
+      <td>0.063</td>
+      <td>0.691</td>
+      <td>0.924</td>
       <td>0.001</td>
       <td>0.001</td>
-      <td>3295.0</td>
-      <td>2457.0</td>
+      <td>2902.0</td>
+      <td>2330.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>θ[97]</th>
       <td>0.980</td>
-      <td>0.018</td>
-      <td>0.948</td>
+      <td>0.017</td>
+      <td>0.950</td>
       <td>1.000</td>
       <td>0.000</td>
       <td>0.000</td>
-      <td>3249.0</td>
-      <td>2327.0</td>
+      <td>2851.0</td>
+      <td>2658.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>θ[98]</th>
-      <td>0.163</td>
-      <td>0.059</td>
-      <td>0.067</td>
-      <td>0.280</td>
+      <td>0.165</td>
+      <td>0.058</td>
+      <td>0.068</td>
+      <td>0.281</td>
       <td>0.001</td>
       <td>0.001</td>
-      <td>3901.0</td>
-      <td>2762.0</td>
+      <td>3771.0</td>
+      <td>2816.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>θ[99]</th>
       <td>0.815</td>
-      <td>0.066</td>
-      <td>0.698</td>
-      <td>0.937</td>
+      <td>0.063</td>
+      <td>0.691</td>
+      <td>0.924</td>
       <td>0.001</td>
       <td>0.001</td>
-      <td>3295.0</td>
-      <td>2457.0</td>
+      <td>2902.0</td>
+      <td>2330.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>bd</th>
-      <td>-0.056</td>
-      <td>0.062</td>
-      <td>-0.168</td>
-      <td>0.067</td>
+      <td>-0.057</td>
+      <td>0.060</td>
+      <td>-0.171</td>
+      <td>0.057</td>
       <td>0.001</td>
       <td>0.001</td>
-      <td>3462.0</td>
-      <td>2690.0</td>
+      <td>3410.0</td>
+      <td>2825.0</td>
       <td>1.0</td>
     </tr>
   </tbody>
@@ -1782,7 +1840,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
     <div class="colab-df-buttons">
 
   <div class="colab-df-container">
-    <button class="colab-df-convert" onclick="convertToInteractive('df-5f2d9a9a-96cc-4f32-90e2-333153a65cd3')"
+    <button class="colab-df-convert" onclick="convertToInteractive('df-9426c91a-81f4-455e-a93d-e1560a7f2388')"
             title="Convert this dataframe to an interactive table."
             style="display:none;">
 
@@ -1834,12 +1892,12 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 
     <script>
       const buttonEl =
-        document.querySelector('#df-5f2d9a9a-96cc-4f32-90e2-333153a65cd3 button.colab-df-convert');
+        document.querySelector('#df-9426c91a-81f4-455e-a93d-e1560a7f2388 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-5f2d9a9a-96cc-4f32-90e2-333153a65cd3');
+        const element = document.querySelector('#df-9426c91a-81f4-455e-a93d-e1560a7f2388');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -1859,8 +1917,8 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
   </div>
 
 
-<div id="df-af633c72-d867-4685-bc2a-800bc359a514">
-  <button class="colab-df-quickchart" onclick="quickchart('df-af633c72-d867-4685-bc2a-800bc359a514')"
+<div id="df-a717847e-ae52-4f75-9990-7b4777eda73c">
+  <button class="colab-df-quickchart" onclick="quickchart('df-a717847e-ae52-4f75-9990-7b4777eda73c')"
             title="Suggest charts"
             style="display:none;">
 
@@ -1979,12 +2037,13 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-af633c72-d867-4685-bc2a-800bc359a514 button');
+        document.querySelector('#df-a717847e-ae52-4f75-9990-7b4777eda73c button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
+
     </div>
   </div>
 </div></div>
@@ -2016,7 +2075,8 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">idata_logreg</span><span class="o">.</span><span class="n">posterior</span><span class="p">[</span><span class="s1">&#39;bd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
 
 <span class="c1"># ax.hdi will computer a lower and higher value of bd</span>
-<span class="n">bd_hdp</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">hdi</span><span class="p">(</span><span class="n">idata_logreg</span><span class="o">.</span><span class="n">posterior</span><span class="p">[</span><span class="s1">&#39;bd&#39;</span><span class="p">])</span>
+<span class="n">bd_hdp</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">hdi</span><span class="p">(</span><span class="n">idata_logreg</span><span class="o">.</span><span class="n">posterior</span><span class="p">[</span><span class="s1">&#39;bd&#39;</span><span class="p">],</span> <span class="n">hdi_prob</span><span class="o">=</span><span class="mf">0.94</span><span class="p">)</span>
+
 
 <span class="c1"># Fill the area between two vertical curves.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">fill_betweenx</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">bd_hdp</span><span class="o">.</span><span class="n">bd</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">bd_hdp</span><span class="o">.</span><span class="n">bd</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
@@ -2034,18 +2094,19 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <span class="c1"># use original scale for xticks</span>
 <span class="n">locs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">locs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">locs</span> <span class="o">+</span> <span class="n">x_0</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">))</span>
+
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.axis.XTick at 0x7eb046565e10&gt;,
-  &lt;matplotlib.axis.XTick at 0x7eb046565e40&gt;,
-  &lt;matplotlib.axis.XTick at 0x7eb0465270d0&gt;,
-  &lt;matplotlib.axis.XTick at 0x7eb0463d2d40&gt;,
-  &lt;matplotlib.axis.XTick at 0x7eb0463d37f0&gt;,
-  &lt;matplotlib.axis.XTick at 0x7eb0463fc2e0&gt;,
-  &lt;matplotlib.axis.XTick at 0x7eb0463d3160&gt;,
-  &lt;matplotlib.axis.XTick at 0x7eb0463fceb0&gt;],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.axis.XTick at 0x7a3276864550&gt;,
+  &lt;matplotlib.axis.XTick at 0x7a3276864820&gt;,
+  &lt;matplotlib.axis.XTick at 0x7a32769dde10&gt;,
+  &lt;matplotlib.axis.XTick at 0x7a3276b1ae00&gt;,
+  &lt;matplotlib.axis.XTick at 0x7a3276b189d0&gt;,
+  &lt;matplotlib.axis.XTick at 0x7a3276b19450&gt;,
+  &lt;matplotlib.axis.XTick at 0x7a3276b19f90&gt;,
+  &lt;matplotlib.axis.XTick at 0x7a3276b18c10&gt;],
  [Text(-1.5, 0, &#39;4.0&#39;),
   Text(-1.0, 0, &#39;4.5&#39;),
   Text(-0.5, 0, &#39;5.0&#39;),
@@ -2059,6 +2120,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <img alt="_images/Bayesian_Logistic_Regression_19_1.png" src="_images/Bayesian_Logistic_Regression_19_1.png" />
 </div>
 </div>
+<p>What happens if you change your priors?</p>
 </section>
 <section id="multidimensional-feature-space-logistic-regression">
 <h2>Multidimensional (feature space) Logistic Regression<a class="headerlink" href="#multidimensional-feature-space-logistic-regression" title="Permalink to this headline">#</a></h2>
@@ -2145,7 +2207,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 </div><div class="output text_html">
 <div>
   <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:26&lt;00:00 Sampling chain 0, 0 divergences]
+  100.00% [3000/3000 00:29&lt;00:00 Sampling chain 0, 0 divergences]
 </div>
 </div><div class="output text_html">
 <style>
@@ -2166,7 +2228,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 </div><div class="output text_html">
 <div>
   <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:24&lt;00:00 Sampling chain 1, 0 divergences]
+  100.00% [3000/3000 00:31&lt;00:00 Sampling chain 1, 0 divergences]
 </div>
 </div></div>
 </div>
@@ -2178,7 +2240,7 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Logistic_Regression_25_0.png" src="_images/Bayesian_Logistic_Regression_25_0.png" />
+<img alt="_images/Bayesian_Logistic_Regression_26_0.png" src="_images/Bayesian_Logistic_Regression_26_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2208,9 +2270,13 @@ Passing `palette` without assigning `hue` is deprecated and will be removed in v
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal_width&#39;)
 </pre></div>
 </div>
-<img alt="_images/Bayesian_Logistic_Regression_26_1.png" src="_images/Bayesian_Logistic_Regression_26_1.png" />
+<img alt="_images/Bayesian_Logistic_Regression_27_1.png" src="_images/Bayesian_Logistic_Regression_27_1.png" />
 </div>
 </div>
+<ul class="simple">
+<li><p>What happens if you change your priors?</p></li>
+<li><p>What happens if your decision boundary is not linear? (See below)</p></li>
+</ul>
 </section>
 <section id="prediction-on-unseen-data">
 <h2>Prediction on unseen data<a class="headerlink" href="#prediction-on-unseen-data" title="Permalink to this headline">#</a></h2>
@@ -2315,10 +2381,10 @@ data:
  [[5.2 7.  4.5 5.5]
  [2.  2.  5.  3.2]]
 class, probabilities, ranges(94%HDI): 
-class: 1, mean prob. 0.9890, 94% HDI: [0.9652,0.9980]
+class: 1, mean prob. 0.9898, 94% HDI: [0.9666,0.9986]
 class: 1, mean prob. 1.0000, 94% HDI: [1.0000,1.0000]
 class: 0, mean prob. 0.0000, 94% HDI: [0.0000,0.0000]
-class: 0, mean prob. 0.4861, 94% HDI: [0.3234,0.6602]
+class: 0, mean prob. 0.4874, 94% HDI: [0.3275,0.6525]
 =======================================
 </pre></div>
 </div>
@@ -2346,7 +2412,7 @@ class: 0, mean prob. 0.4861, 94% HDI: [0.3234,0.6602]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal_width&#39;)
 </pre></div>
 </div>
-<img alt="_images/Bayesian_Logistic_Regression_34_1.png" src="_images/Bayesian_Logistic_Regression_34_1.png" />
+<img alt="_images/Bayesian_Logistic_Regression_36_1.png" src="_images/Bayesian_Logistic_Regression_36_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4541,7 +4607,7 @@ dl.xr-attrs {
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(100,)
 </pre></div>
 </div>
-<img alt="_images/Bayesian_Logistic_Regression_42_1.png" src="_images/Bayesian_Logistic_Regression_42_1.png" />
+<img alt="_images/Bayesian_Logistic_Regression_44_1.png" src="_images/Bayesian_Logistic_Regression_44_1.png" />
 </div>
 </div>
 </section>
