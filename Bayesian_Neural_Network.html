@@ -244,12 +244,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Bayesian_Polynomial_Regression.html">
-   (6/12/2024) Bayesian Linear/Polynomial Regression
+   (6/12/2024) Bayesian Linear/Polynomial Regression - Basic Example
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Bayesian_Logistic_Regression.html">
-   (6/12/2024) Bayesian Logistic Regression
+   (6/12/2024) Bayesian Logistic Regression - Basic Example
   </a>
  </li>
  <li class="toctree-l1">
@@ -259,7 +259,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   (6/12/2024) Bayesian Neural Network
+   (6/12/2024) Bayesian Neural Network - Basic Example
   </a>
  </li>
  <li class="toctree-l1">
@@ -775,44 +775,6 @@ These developments collectively push the boundaries of what deep learning can ac
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">jax</span>
-<span class="kn">import</span> <span class="nn">jaxlib</span>
-<span class="n">jax</span><span class="o">.</span><span class="n">default_backend</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;gpu&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jax</span><span class="o">.</span><span class="n">devices</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[cuda(id=0)]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">jax</span><span class="o">.</span><span class="n">local_device_count</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s1">&#39;retina&#39;</span> <span class="c1"># used to configure the way matplotlib graphs are displayed in a Jupyter notebook</span>
 <span class="n">floatX</span> <span class="o">=</span> <span class="n">pytensor</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">floatX</span> <span class="c1"># This line sets the variable floatX to the default floating-point data type used by a library</span>
 <span class="n">RANDOM_SEED</span> <span class="o">=</span> <span class="mi">9927</span>
@@ -874,7 +836,7 @@ These developments collectively push the boundaries of what deep learning can ac
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_20_0.png" src="_images/Bayesian_Neural_Network_20_0.png" />
+<img alt="_images/Bayesian_Neural_Network_17_0.png" src="_images/Bayesian_Neural_Network_17_0.png" />
 </div>
 </div>
 </section>
@@ -972,10 +934,10 @@ These developments collectively push the boundaries of what deep learning can ac
 </div><div class="output text_html">
 <div>
   <progress value='30000' class='' max='30000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [30000/30000 00:23&lt;00:00 Average Loss = 122.57]
+  100.00% [30000/30000 00:32&lt;00:00 Average Loss = 109.96]
 </div>
-</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 24.8 s, sys: 217 ms, total: 25 s
-Wall time: 26 s
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 33.7 s, sys: 661 ms, total: 34.4 s
+Wall time: 2min 3s
 </pre></div>
 </div>
 </div>
@@ -996,7 +958,7 @@ Wall time: 26 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_30_0.png" src="_images/Bayesian_Neural_Network_30_0.png" />
+<img alt="_images/Bayesian_Neural_Network_27_0.png" src="_images/Bayesian_Neural_Network_27_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1044,7 +1006,7 @@ Wall time: 26 s
 </div><div class="output text_html">
 <div>
   <progress value='2500' class='' max='2500' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [2500/2500 00:00&lt;00:00]
+  100.00% [2500/2500 00:01&lt;00:00]
 </div>
 </div></div>
 </div>
@@ -1068,7 +1030,7 @@ Wall time: 26 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_37_0.png" src="_images/Bayesian_Neural_Network_37_0.png" />
+<img alt="_images/Bayesian_Neural_Network_34_0.png" src="_images/Bayesian_Neural_Network_34_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1078,7 +1040,7 @@ Wall time: 26 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy = 91.2281%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy = 87.3684%
 </pre></div>
 </div>
 </div>
@@ -1138,7 +1100,7 @@ Wall time: 26 s
 </div><div class="output text_html">
 <div>
   <progress value='2500' class='' max='2500' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [2500/2500 00:09&lt;00:00]
+  100.00% [2500/2500 00:11&lt;00:00]
 </div>
 </div></div>
 </div>
@@ -1168,7 +1130,7 @@ Wall time: 26 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_46_0.png" src="_images/Bayesian_Neural_Network_46_0.png" />
+<img alt="_images/Bayesian_Neural_Network_43_0.png" src="_images/Bayesian_Neural_Network_43_0.png" />
 </div>
 </div>
 </section>
@@ -1191,7 +1153,7 @@ Wall time: 26 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_49_0.png" src="_images/Bayesian_Neural_Network_49_0.png" />
+<img alt="_images/Bayesian_Neural_Network_46_0.png" src="_images/Bayesian_Neural_Network_46_0.png" />
 </div>
 </div>
 <p>We can see that very close to the decision boundary, our uncertainty as to which label to predict is highest. You can imagine that associating predictions with uncertainty is a critical property for many applications like health care. To further maximize accuracy, we might want to train the model primarily on samples from that high-uncertainty region.</p>
@@ -1231,7 +1193,7 @@ Wall time: 26 s
 </div><div class="output text_html">
 <div>
   <progress value='40000' class='' max='40000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [40000/40000 00:33&lt;00:00 Average Loss = 123.72]
+  100.00% [40000/40000 00:41&lt;00:00 Average Loss = 110.62]
 </div>
 </div></div>
 </div>
@@ -1244,19 +1206,30 @@ Wall time: 26 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_55_0.png" src="_images/Bayesian_Neural_Network_55_0.png" />
+<img alt="_images/Bayesian_Neural_Network_52_0.png" src="_images/Bayesian_Neural_Network_52_0.png" />
 </div>
 </div>
 <p>In general, mini-batch ADVI’s running time is lower. It also typically converges faster.</p>
 <p>For fun, we can also look at the trace. The point is that we also get uncertainty of our Neural Network weights.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_mb</span><span class="p">);</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trace_mb</span> <span class="o">=</span> <span class="n">approx_mb</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">draws</span><span class="o">=</span><span class="mi">2500</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_mb</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_57_0.png" src="_images/Bayesian_Neural_Network_57_0.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.10/dist-packages/arviz/utils.py:184: NumbaDeprecationWarning: The &#39;nopython&#39; keyword argument was not supplied to the &#39;numba.jit&#39; decorator. The implicit default value for this argument is currently False, but it will be changed to True in Numba 0.59.0. See https://numba.readthedocs.io/en/stable/reference/deprecation.html#deprecation-of-object-mode-fall-back-behaviour-when-using-jit for details.
+  numba_fn = numba.jit(**self.kwargs)(self.function)
+</pre></div>
+</div>
+<img alt="_images/Bayesian_Neural_Network_55_1.png" src="_images/Bayesian_Neural_Network_55_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1288,7 +1261,7 @@ Wall time: 26 s
 </div><div class="output text_html">
 <div>
   <progress value='2500' class='' max='2500' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [2500/2500 00:02&lt;00:00]
+  100.00% [2500/2500 00:01&lt;00:00]
 </div>
 </div></div>
 </div>
@@ -1306,7 +1279,7 @@ Wall time: 26 s
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy = 91.2281%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy = 87.3684%
 </pre></div>
 </div>
 </div>
