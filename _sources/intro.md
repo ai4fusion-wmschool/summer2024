@@ -5,7 +5,7 @@
 <b> The </b> <b>[Open and Fair Fusion for Machine Learning Applications](https://crea-psfc.github.io/open-fair-fusion/)</b> <b>Project</b>
 
 
-(last update: June 12/2024) v2
+(last update: June 18/2024)
 
 </center>
 
