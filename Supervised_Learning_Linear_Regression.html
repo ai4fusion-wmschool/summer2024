@@ -1,113 +1,179 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="./" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Supervised Machine Learning: Linear Regression &#8212; AI for Fusion Energy Summer School (2024)</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="shortcut icon" href="_static/wm_vertical_single_line_full_color.png"/>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Supervised_Learning_Linear_Regression';</script>
+    <link rel="icon" href="_static/wm_vertical_single_line_full_color.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Regularization and Cross-Validations" href="Regularization_Model_Selection_and_Cross_Validations.html" />
     <link rel="prev" title="Introduction, Bias Variance Tradeoff and Gradient Descent" href="Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/wm_vertical_single_line_full_color.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">AI for Fusion Energy Summer School (2024)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/wm_vertical_single_line_full_color.png" class="logo__image only-light" alt="AI for Fusion Energy Summer School (2024) - Home"/>
+    <script>document.write(`<img src="_static/wm_vertical_single_line_full_color.png" class="logo__image only-dark" alt="AI for Fusion Energy Summer School (2024) - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -116,815 +182,368 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Information on the Summer School
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Information on the Summer School</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="schedule.html">
-   Schedule
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lecturers.html">
-   Lecturers
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecturers.html">Lecturers</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Data Science (Lectures and Notebooks)
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Science (Lectures and Notebooks)</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">
-   (6/3/2024) - Intro to Data Science (get started, variance/bias) (slides, D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html">
-   (6/3/20224) - Intro to Data Science, Python Programming, Bias-Variance Tradeoff and the Gradient Descent Algorithm (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   (6/3/2024) Supervised Learning, Linear Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Regularization_Model_Selection_and_Cross_Validations.html">
-   (6/4/2024) Regularization, Model Selection, Cross-Validation (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Supervised_Learning_Logistic_Regression.html">
-   (6/4/2024) Supervised Learning - Logistic Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Nonparametric_Methods_GAMs__old.html">
-   (6/5/2024) Nonparametric Methods, GAMs (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Coding_Examples_Locally_Weighted_Regression_corr.html">
-   (6/5/2024) Coding Examples Locally Weighted Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Anomaly_Detection_HDBScan.html">
-   (6/6/2024) Anomaly Detection, clustering with HDBScan (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">
-   (6/6/2024) Dimensionality Reduction, Unsupervised Learning (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">
-   (6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Intro_to_Deep_Learning_Multilayer_Perceptron.html">
-   (6/7/2024) Intro to Deep_Learning, Multilayer_Perceptron (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Convolutional_Neural_Networks_ok.html">
-   (6/10/2024) Convolutional Neural Networks (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Graph_Neural_Networks_corr.html">
-   (6/10/2024) Graph Neural Networks (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
-   (6/10/2024) Classification with C-Mod fusion data (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Regression_Fusion.html">
-   (6/10/2024) Regression with C-Mod fusion data (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">
-   (6/11/2024) Intro to Normalizing Flows (J. Giroux, slides)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="NFlows_BasicExample_new.html">
-   (6/11/2024) Normalizing Flows - Basic Example (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">
-   (6/11/2024) Normalizing Flows - GlueX BCAL Example (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1GDRbfTudsAcQES5TTCiFdgBxoH6QIxg0MjndLHmw8eU/edit?usp=sharing">
-   (6/12/2024) A Gentle Introduction to Uncertainty Quantification and Bayes' Rule (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="MCMC_from_scratch_all.html">
-   (6/12/2024) Sampling Techniques from Scratch (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Intro_PyMC_coin.html">
-   (6/12/2024) Introduction to Probabilistic Programming (coin example) (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/14D6R9mpg_x4Mf1OTuLlXeyV0UPZJGhcjP9kabm10Ung/edit?usp=sharing">
-   (6/12/2024) An Introduction to Bayesian Regression (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Bayesian_Polynomial_Regression.html">
-   (6/12/2024) Bayesian Linear/Polynomial Regression - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Bayesian_Logistic_Regression.html">
-   (6/12/2024) Bayesian Logistic Regression - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1BFDSM4vC6Hq_0d6azsNxDa5NMn9VVuxfJv8v6jt1DpU/edit?usp=sharing">
-   (6/12/2024) Introduction to Bayesian Neural Networks (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Bayesian_Neural_Network.html">
-   (6/12/2024) Bayesian Neural Network - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Applications_CNNs.html">
-   (6/12/2024) Hands-on - CNN (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Applications_GNNs.html">
-   (6/12/2024) Hands-on - GNN (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Design_BO.html">
-   (6/13/2024) Single-Objective Bayesian Optimization (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Design_MOBO2.html">
-   (6/13/2024) Multi-Objective Bayesian Optimization (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Design_MOEA.html">
-   (6/13/2024) Multi-Objective Genetic Algorithm (C. Fanelli)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">(6/3/2024) - Intro to Data Science (get started, variance/bias) (slides, D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html">(6/3/20224) - Intro to Data Science, Python Programming, Bias-Variance Tradeoff and the Gradient Descent Algorithm (D. Vasiliu)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">(6/3/2024) Supervised Learning, Linear Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regularization_Model_Selection_and_Cross_Validations.html">(6/4/2024) Regularization, Model Selection, Cross-Validation (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Supervised_Learning_Logistic_Regression.html">(6/4/2024) Supervised Learning - Logistic Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nonparametric_Methods_GAMs__old.html">(6/5/2024) Nonparametric Methods, GAMs (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Coding_Examples_Locally_Weighted_Regression_corr.html">(6/5/2024) Coding Examples Locally Weighted Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Anomaly_Detection_HDBScan.html">(6/6/2024) Anomaly Detection, clustering with HDBScan (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">(6/6/2024) Dimensionality Reduction, Unsupervised Learning (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">(6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro_to_Deep_Learning_Multilayer_Perceptron.html">(6/7/2024) Intro to Deep_Learning, Multilayer_Perceptron (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Convolutional_Neural_Networks_ok.html">(6/10/2024) Convolutional Neural Networks (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Graph_Neural_Networks_corr.html">(6/10/2024) Graph Neural Networks (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">(6/10/2024) Classification with C-Mod fusion data (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regression_Fusion.html">(6/10/2024) Regression with C-Mod fusion data (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">(6/11/2024) Intro to Normalizing Flows (J. Giroux, slides)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFlows_BasicExample_new.html">(6/11/2024) Normalizing Flows - Basic Example (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">(6/11/2024) Normalizing Flows - GlueX BCAL Example (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1GDRbfTudsAcQES5TTCiFdgBxoH6QIxg0MjndLHmw8eU/edit?usp=sharing">(6/12/2024) A Gentle Introduction to Uncertainty Quantification and Bayes' Rule (slides, C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MCMC_from_scratch_all.html">(6/12/2024) Sampling Techniques from Scratch (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro_PyMC_coin.html">(6/12/2024) Introduction to Probabilistic Programming (coin example) (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/14D6R9mpg_x4Mf1OTuLlXeyV0UPZJGhcjP9kabm10Ung/edit?usp=sharing">(6/12/2024) An Introduction to Bayesian Regression (slides, C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bayesian_Polynomial_Regression.html">(6/12/2024) Bayesian Linear/Polynomial Regression - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bayesian_Logistic_Regression.html">(6/12/2024) Bayesian Logistic Regression - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1BFDSM4vC6Hq_0d6azsNxDa5NMn9VVuxfJv8v6jt1DpU/edit?usp=sharing">(6/12/2024) Introduction to Bayesian Neural Networks (slides, C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bayesian_Neural_Network.html">(6/12/2024) Bayesian Neural Network - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Applications_CNNs.html">(6/12/2024) Hands-on - CNN (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Applications_GNNs.html">(6/12/2024) Hands-on - GNN (D. Vasiliu)</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="Design_BO.html">(6/13/2024) Single-Objective Bayesian Optimization (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_MOBO2.html">(6/13/2024) Multi-Objective Bayesian Optimization (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_MOEA.html">(6/13/2024) Multi-Objective Genetic Algorithm (C. Fanelli)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Fusion Lectures
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fusion Lectures</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/u/1/d/1_dJtr18LfwCR4Nfwt3bX5_0U_g5N3Bw4/edit?usp=drive_web&amp;ouid=113195593718692427789&amp;rtpof=true">
-   (6/3/2024) W&amp;M and Fusion (S. Mordijck)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1XbhZegEIBQEl0Hs6Gl4qbhuIoGo7g9v9/view?usp=share_link">
-   (6/3/2024) Nuclear Fusion Power - A solution to the world’s energy problem? (S. Mordijck, A. Dominguez)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/14mtA2TOsMw9p_IYrTzvmxqqjSnSvjRgy/edit?usp=share_link&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">
-   (6/4/2024) Overview of plasma diagnostics and measurements (E. Kostadinova)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1gusvm06ELDBspuBO-N7sikNt7x1vw2uV/view?usp=share_link">
-   (6/5/2024) Alcator C-Mod  (A. Saperstein, J. Stillerman)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1FZRCgOj-D3lDDfXVXS4UdKUxQUHPdx2H/view?usp=share_link">
-   (6/6/2024) HDF (A. Jelenak)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1py52JvsHpcfBrhx0CobpgJ0khcH59aaP/view?usp=share_link">
-   (6/7/2024) Fusion Pilot (S. Diem)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1CJYhQjpjuBqhpH_GrZaXqEJnaFUnUg7k/edit?usp=sharing&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">
-   (6/10/2024) Managing Data - Why it matters, when it is important, and how to do it (N. Cummings)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1IM5AFQFwqM9EDm5HTPcIz5FDPfWiUFI3/view?usp=share_link">
-   (6/11/2024) Making plasma science open (N. Murphy)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1MvKyWDSXcwAfgmq7oo2Y8gFllnwvyhZm/view?usp=sharing">
-   (6/12/2024) DIII-D ML/AI perspective (B. Sammuli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1EenE3-aNIh5aLRX1vpKj0sowfNLRMS_ifPw7TAIFrXo/edit?usp=sharing">
-   (6/13/2024) Data-mining the tokamak density limit (A. Maris)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/u/1/d/1_dJtr18LfwCR4Nfwt3bX5_0U_g5N3Bw4/edit?usp=drive_web&amp;ouid=113195593718692427789&amp;rtpof=true">(6/3/2024) W&amp;M and Fusion (S. Mordijck)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1XbhZegEIBQEl0Hs6Gl4qbhuIoGo7g9v9/view?usp=share_link">(6/3/2024) Nuclear Fusion Power - A solution to the world’s energy problem? (S. Mordijck, A. Dominguez)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/14mtA2TOsMw9p_IYrTzvmxqqjSnSvjRgy/edit?usp=share_link&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">(6/4/2024) Overview of plasma diagnostics and measurements (E. Kostadinova)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1gusvm06ELDBspuBO-N7sikNt7x1vw2uV/view?usp=share_link">(6/5/2024) Alcator C-Mod  (A. Saperstein, J. Stillerman)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1FZRCgOj-D3lDDfXVXS4UdKUxQUHPdx2H/view?usp=share_link">(6/6/2024) HDF (A. Jelenak)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1py52JvsHpcfBrhx0CobpgJ0khcH59aaP/view?usp=share_link">(6/7/2024) Fusion Pilot (S. Diem)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1CJYhQjpjuBqhpH_GrZaXqEJnaFUnUg7k/edit?usp=sharing&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">(6/10/2024) Managing Data - Why it matters, when it is important, and how to do it (N. Cummings)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1IM5AFQFwqM9EDm5HTPcIz5FDPfWiUFI3/view?usp=share_link">(6/11/2024) Making plasma science open (N. Murphy)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1MvKyWDSXcwAfgmq7oo2Y8gFllnwvyhZm/view?usp=sharing">(6/12/2024) DIII-D ML/AI perspective (B. Sammuli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1EenE3-aNIh5aLRX1vpKj0sowfNLRMS_ifPw7TAIFrXo/edit?usp=sharing">(6/13/2024) Data-mining the tokamak density limit (A. Maris)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Datasets
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/13aKCJA56CmYUEc5zW4P62_BbU1vcewVT/view?usp=share_link">
-   C-Mod Dataset - Additional Documentation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">
-   Kaggle - Nuclear Fusion Data (Classification)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">
-   Zindi - Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">
-   IOP paper - The updated ITPA global H-mode confinement database; description and analysis (Regression)
-  </a>
- </li>
+
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/13aKCJA56CmYUEc5zW4P62_BbU1vcewVT/view?usp=share_link">C-Mod Dataset - Additional Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">Kaggle - Nuclear Fusion Data (Classification)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">Zindi - Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">IOP paper - The updated ITPA global H-mode confinement database; description and analysis (Regression)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Additional resources
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional resources</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="referencesmd.html">
-   References
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="referencesmd.html">References</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=tree/notebooks/Supervised_Learning_Linear_Regression.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=tree/notebooks/Supervised_Learning_Linear_Regression.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
-    <img src="_static/images/logo_binder.svg">
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Supervised_Learning_Linear_Regression.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Supervised_Learning_Linear_Regression.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
-    <img src="_static/images/logo_colab.png">
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
 <button onclick="initThebeSBT()"
-  class="headerbtn headerbtn-launch-thebe"
-  data-toggle="tooltip"
-data-placement="left"
-title="Launch Thebe"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-play"></i>
   </span>
-<span class="headerbtn__text-container">Live Code</span>
+<span class="btn__text-container">Live Code</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ai4fusion-wmschool/summer2024" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FSupervised_Learning_Linear_Regression.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Supervised_Learning_Linear_Regression.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/ai4fusion-wmschool/summer2024"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
 
-      </li>
-      
-      <li>
-        <a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FSupervised_Learning_Linear_Regression.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/Supervised_Learning_Linear_Regression.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </button>
-
-      </li>
+</div></div>
       
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
+    </div>
   
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
-    </div>
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-size-5pt-introduction-font">
-   <font color="blue" size="5pt">
-    Introduction
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-multiple-linear-regression-linear-models-with-more-features-font">
-   <font color="blue">
-    Multiple Linear Regression (Linear models with more features)
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-vector-spaces-font">
-   <font color="blue">
-    Vector Spaces
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-linear-vs-non-linear-models-font">
-   <font color="blue">
-    Linear vs Non-linear models
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#we-have-a-vector-of-weights">
-   We have a vector of weights:
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-forestgreen">
-   <font color="forestgreen">
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-darkgreen-we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals">
-   <font color="darkgreen">
-    We want to
-    <em>
-     learn
-    </em>
-    the weights
-    <span class="math notranslate nohighlight">
-     \(\beta_1,\beta_2,...\beta_p\)
-    </span>
-    that minimize the sum of the squared residuals:
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-red-how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals-font">
-   <font color="red">
-    How do we know we are on the right track after we perform the minimization of the square residuals?
-    <font>
-    </font>
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-the-anderson-darling-test-font">
-   <font color="blue">
-    The Anderson-Darling Test
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-error-metrics">
-   <font color="blue">
-    Error Metrics
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-blue-mse">
-     <font color="blue">
-      MSE
-     </font>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-blue-rmse">
-     <font color="blue">
-      RMSE
-     </font>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-blue-size-5pt-mae">
-     <font color="blue" size="5pt">
-      MAE
-     </font>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#setup">
-   Setup
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-import">
-   Data Import
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#relationship-between-x-and-y">
-   Relationship between x and y
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#message-the-histogram-does-not-quite-look-like-a-normal-distribution-we-can-also-consider-a-q-q-plot">
-   Message: The histogram does not quite look like a normal distribution. We can also consider a Q-Q Plot:
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-conclusion-in-our-case-is-that-the-normality-assumption-is-not-violated">
-   The conclusion, in our case, is that the normality assumption is not violated.
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-different-normality-test-indicates-the-same-thing">
-   A different normality test indicates the same thing
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Supervised Machine Learning: Linear Regression</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-size-5pt-introduction-font">
-   <font color="blue" size="5pt">
-    Introduction
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-multiple-linear-regression-linear-models-with-more-features-font">
-   <font color="blue">
-    Multiple Linear Regression (Linear models with more features)
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-vector-spaces-font">
-   <font color="blue">
-    Vector Spaces
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-linear-vs-non-linear-models-font">
-   <font color="blue">
-    Linear vs Non-linear models
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#we-have-a-vector-of-weights">
-   We have a vector of weights:
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-forestgreen">
-   <font color="forestgreen">
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-darkgreen-we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals">
-   <font color="darkgreen">
-    We want to
-    <em>
-     learn
-    </em>
-    the weights
-    <span class="math notranslate nohighlight">
-     \(\beta_1,\beta_2,...\beta_p\)
-    </span>
-    that minimize the sum of the squared residuals:
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-red-how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals-font">
-   <font color="red">
-    How do we know we are on the right track after we perform the minimization of the square residuals?
-    <font>
-    </font>
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-the-anderson-darling-test-font">
-   <font color="blue">
-    The Anderson-Darling Test
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-error-metrics">
-   <font color="blue">
-    Error Metrics
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-blue-mse">
-     <font color="blue">
-      MSE
-     </font>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-blue-rmse">
-     <font color="blue">
-      RMSE
-     </font>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#font-color-blue-size-5pt-mae">
-     <font color="blue" size="5pt">
-      MAE
-     </font>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#setup">
-   Setup
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-import">
-   Data Import
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#relationship-between-x-and-y">
-   Relationship between x and y
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#message-the-histogram-does-not-quite-look-like-a-normal-distribution-we-can-also-consider-a-q-q-plot">
-   Message: The histogram does not quite look like a normal distribution. We can also consider a Q-Q Plot:
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-conclusion-in-our-case-is-that-the-normality-assumption-is-not-violated">
-   The conclusion, in our case, is that the normality assumption is not violated.
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-different-normality-test-indicates-the-same-thing">
-   A different normality test indicates the same thing
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Supervised Machine Learning: Linear Regression</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><font color="blue" size="5pt">   Introduction </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-linear-regression-linear-models-with-more-features"><font color="blue">  Multiple Linear Regression (Linear models with more features)</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-spaces"><font color="blue"> Vector Spaces </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-vs-non-linear-models"><font color="blue">Linear vs Non-linear models</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#we-have-a-vector-of-weights">We have a vector of weights:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="forestgreen"></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals"><font color="darkgreen"> We want to <em>learn</em> the weights <span class="math notranslate nohighlight">\(\beta_1,\beta_2,...\beta_p\)</span> that minimize the sum of the squared residuals:</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals"><font color="red"> How do we know we are on the right track after we perform the minimization of the square residuals? <font></font></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-anderson-darling-test"><font color="blue"> The Anderson-Darling Test</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-metrics"><font color="blue"> Error Metrics</font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mse"><font color="blue"> MSE</font></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmse"><font color="blue"> RMSE</font></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mae"><font color="blue" size="5pt"> MAE</font></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-import">Data Import</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-between-x-and-y">Relationship between x and y</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#message-the-histogram-does-not-quite-look-like-a-normal-distribution-we-can-also-consider-a-q-q-plot">Message: The histogram does not quite look like a normal distribution. We can also consider a Q-Q Plot:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-conclusion-in-our-case-is-that-the-normality-assumption-is-not-violated">The conclusion, in our case, is that the normality assumption is not violated.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-different-normality-test-indicates-the-same-thing">A different normality test indicates the same thing</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section id="supervised-machine-learning-linear-regression">
-<h1>Supervised Machine Learning: Linear Regression<a class="headerlink" href="#supervised-machine-learning-linear-regression" title="Permalink to this headline">#</a></h1>
-<section id="font-color-blue-size-5pt-introduction-font">
-<h2><font color='blue' size=5pt>   Introduction </font><a class="headerlink" href="#font-color-blue-size-5pt-introduction-font" title="Permalink to this headline">#</a></h2>
+<h1>Supervised Machine Learning: Linear Regression<a class="headerlink" href="#supervised-machine-learning-linear-regression" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2><font color='blue' size=5pt>   Introduction </font><a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
 <p><strong>Main Idea</strong>:</p>
 <ul class="simple">
 <li><p>the output (dependent) variable is continuous and we want to “predict” its value within the range of the input features. (<font color='red'>WARNING: doing otherwise could lead to flawed inferences</font>).</p></li>
@@ -965,8 +584,8 @@ The linear correlation coefficient between two variables was introduced by Pears
 <div class="math notranslate nohighlight">
 \[\large R^2:=1-\frac{\sum (residual_i)^2}{\sum(y_i-\bar{y})^2}\]</div>
 </section>
-<section id="font-color-blue-multiple-linear-regression-linear-models-with-more-features-font">
-<h2><font color='blue'>  Multiple Linear Regression (Linear models with more features)</font><a class="headerlink" href="#font-color-blue-multiple-linear-regression-linear-models-with-more-features-font" title="Permalink to this headline">#</a></h2>
+<section id="multiple-linear-regression-linear-models-with-more-features">
+<h2><font color='blue'>  Multiple Linear Regression (Linear models with more features)</font><a class="headerlink" href="#multiple-linear-regression-linear-models-with-more-features" title="Link to this heading">#</a></h2>
 <p><strong>Important</strong> The matrix vector product is a linear combination of the columns of the matrix:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\large X\beta =\beta_1\begin{bmatrix}
@@ -1000,34 +619,34 @@ x_{n1}, x_{n2}, ... x_{np}
 \end{bmatrix}
 \end{split}\]</div>
 </section>
-<section id="font-color-blue-vector-spaces-font">
-<h2><font color='blue'> Vector Spaces </font><a class="headerlink" href="#font-color-blue-vector-spaces-font" title="Permalink to this headline">#</a></h2>
-<table class="colwidths-auto table">
+<section id="vector-spaces">
+<h2><font color='blue'> Vector Spaces </font><a class="headerlink" href="#vector-spaces" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Axiom</strong></p></th>
 <th class="head"><p><strong>Meaning</strong></p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Associativity">Associativity</a> of vector addition</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Associativity" title="Associativity">Associativity</a> of vector addition</p></td>
 <td><p><strong>u</strong> + (<strong>v</strong> + <strong>w</strong>) = (<strong>u</strong> + <strong>v</strong>) + <strong>w</strong></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Commutativity">Commutativity</a> of vector addition</p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Commutativity" title="Commutativity">Commutativity</a> of vector addition</p></td>
 <td><p><strong>u</strong> + <strong>v</strong> = <strong>v</strong> + <strong>u</strong></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Identity_element">Identity element</a> of vector addition</p></td>
-<td><p>There exists an element <strong>0</strong>∈ <em>V</em>, called the <em><a class="reference external" href="https://en.wikipedia.org/wiki/Zero_vector">zero vector</a></em>, such that <strong>v</strong> + <strong>0</strong> = <strong>v</strong> for all <strong>v</strong>∈ <em>V</em>.</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Identity_element" title="Identity element">Identity element</a> of vector addition</p></td>
+<td><p>There exists an element <strong>0</strong>∈ <em>V</em>, called the <em><a class="reference external" href="https://en.wikipedia.org/wiki/Zero_vector" title="Zero vector">zero vector</a></em>, such that <strong>v</strong> + <strong>0</strong> = <strong>v</strong> for all <strong>v</strong>∈ <em>V</em>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Inverse_element">Inverse elements</a> of vector addition</p></td>
-<td><p>For every <strong>v</strong>∈ <em>V</em>, there exists an element −<strong>v</strong> ∈ <em>V</em>, called the <em><a class="reference external" href="https://en.wikipedia.org/wiki/Additive_inverse">additive inverse</a></em> of <strong>v</strong>, such that <strong>v</strong> + (−<strong>v</strong>) = <strong>0</strong>.</p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Inverse_element" title="Inverse element">Inverse elements</a> of vector addition</p></td>
+<td><p>For every <strong>v</strong>∈ <em>V</em>, there exists an element −<strong>v</strong> ∈ <em>V</em>, called the <em><a class="reference external" href="https://en.wikipedia.org/wiki/Additive_inverse" title="Additive inverse">additive inverse</a></em> of <strong>v</strong>, such that <strong>v</strong> + (−<strong>v</strong>) = <strong>0</strong>.</p></td>
 </tr>
 <tr class="row-even"><td><p>Compatibility of scalar multiplication with field multiplication</p></td>
 <td><p><em>a</em>(<em>b</em><strong>v</strong>) = (<em>ab</em>)<strong>v</strong><sup><a class="reference external" href="https://en.wikipedia.org/wiki/Vector_space#cite_note-4">[nb 3]</a></sup></p></td>
 </tr>
 <tr class="row-odd"><td><p>Identity element of scalar multiplication</p></td>
-<td><p>1<strong>v</strong> = <strong>v</strong>, where 1 denotes the <a class="reference external" href="https://en.wikipedia.org/wiki/Multiplicative_identity">multiplicative identity</a> in <em>F</em>.</p></td>
+<td><p>1<strong>v</strong> = <strong>v</strong>, where 1 denotes the <a class="reference external" href="https://en.wikipedia.org/wiki/Multiplicative_identity" title="Multiplicative identity">multiplicative identity</a> in <em>F</em>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Distributivity">Distributivity</a> of scalar multiplication with respect to vector addition</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://en.wikipedia.org/wiki/Distributivity" title="Distributivity">Distributivity</a> of scalar multiplication with respect to vector addition</p></td>
 <td><p><em>a</em>(<strong>u</strong> + <strong>v</strong>) = <em>a</em><strong>u</strong> + <em>a</em><strong>v</strong></p></td>
 </tr>
 <tr class="row-odd"><td><p>Distributivity of scalar multiplication with respect to field addition</p></td>
@@ -1035,6 +654,7 @@ x_{n1}, x_{n2}, ... x_{np}
 </tr>
 </tbody>
 </table>
+</div>
 <p>An example of a linear model with two features is <span class="math notranslate nohighlight">\(\hat{y}_i = 1+3x_{i1}+5x_{i2}.\)</span></p>
 <p>In this example the value <span class="math notranslate nohighlight">\(1\)</span> is referred to as the <em>intercept</em>.</p>
 <p>If <span class="math notranslate nohighlight">\(p\)</span> features in the data and we want to create a linear model, the <em>input-output</em> mechanism is</p>
@@ -1067,8 +687,8 @@ X^tY = X^tX\beta+\sigma X^t\epsilon
 \]</div>
 <p>We can show by using <em>Linear Algebra</em> that the OLS solution obtained form minimizing the sum of the square residuals is equivalent.</p>
 </section>
-<section id="font-color-blue-linear-vs-non-linear-models-font">
-<h2><font color='blue'>Linear vs Non-linear models</font><a class="headerlink" href="#font-color-blue-linear-vs-non-linear-models-font" title="Permalink to this headline">#</a></h2>
+<section id="linear-vs-non-linear-models">
+<h2><font color='blue'>Linear vs Non-linear models</font><a class="headerlink" href="#linear-vs-non-linear-models" title="Link to this heading">#</a></h2>
 <p>This is a linear model in terms of the weights <span class="math notranslate nohighlight">\(\beta\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\large
@@ -1123,7 +743,7 @@ then we assume that the depdendent variable is predicted by a linear combination
 \end{split}\]</div>
 </section>
 <section id="we-have-a-vector-of-weights">
-<h2>We have a vector of weights:<a class="headerlink" href="#we-have-a-vector-of-weights" title="Permalink to this headline">#</a></h2>
+<h2>We have a vector of weights:<a class="headerlink" href="#we-have-a-vector-of-weights" title="Link to this heading">#</a></h2>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \beta = \begin{bmatrix}
@@ -1134,8 +754,8 @@ then we assume that the depdendent variable is predicted by a linear combination
          \end{bmatrix}
 \end{split}\]</div>
 </section>
-<section id="font-color-forestgreen">
-<h2><font color="forestgreen"><a class="headerlink" href="#font-color-forestgreen" title="Permalink to this headline">#</a></h2>
+<section id="id1">
+<h2><font color="forestgreen"><a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>Critical thinking: what exactly is <span class="math notranslate nohighlight">\(\hat{y}\)</span>?
 </font></p>
 <p><font color='magenta'> The matrix-vector product between the feaures and the weights
@@ -1156,16 +776,16 @@ $<span class="math notranslate nohighlight">\(
 <p>represents the predictions we make by training (or as we say in ML <em>learning</em>) the weights <span class="math notranslate nohighlight">\(\beta.\)</span></p>
 <p>Training means running an optimization algorithm and determining the values of the weights that minimize an objective function.</p>
 </section>
-<section id="font-color-darkgreen-we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals">
-<h2><font color='darkgreen'> We want to <em>learn</em> the weights <span class="math notranslate nohighlight">\(\beta_1,\beta_2,...\beta_p\)</span> that minimize the sum of the squared residuals:<a class="headerlink" href="#font-color-darkgreen-we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals" title="Permalink to this headline">#</a></h2>
+<section id="we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals">
+<h2><font color='darkgreen'> We want to <em>learn</em> the weights <span class="math notranslate nohighlight">\(\beta_1,\beta_2,...\beta_p\)</span> that minimize the sum of the squared residuals:<a class="headerlink" href="#we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals" title="Link to this heading">#</a></h2>
 <div class="math notranslate nohighlight">
 \[\large
 \sum\limits_{i=1}^{n}\left(y_i-\sum\limits_{j=1}^{p}X_{i,j}\cdot\beta_j\right)^2
  = \sum\limits_{i=1}^{n}\left(y_i-X_{i,1}\beta_1-X_{i,2}\beta_2 - ...X_{i,p}\beta_p\right)^2 \]</div>
 </font>
 </section>
-<section id="font-color-red-how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals-font">
-<h2><font color='red'> How do we know we are on the right track after we perform the minimization of the square residuals? <font><a class="headerlink" href="#font-color-red-how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals-font" title="Permalink to this headline">#</a></h2>
+<section id="how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals">
+<h2><font color='red'> How do we know we are on the right track after we perform the minimization of the square residuals? <font><a class="headerlink" href="#how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals" title="Link to this heading">#</a></h2>
 <p>##<font color='blue'>  Ordinary Least Squares Regression (OLS)</font></p>
 <p>First, we assume the simplest case: data has only one input feature that is continuous.</p>
 <p>The main idea of linear regression is the expected value of the output is a linear function of the input variable(s).</p>
@@ -1239,8 +859,8 @@ width='600px' />
 <p>The mathematical notation means that we add <span class="math notranslate nohighlight">\(1\)</span> for each <span class="math notranslate nohighlight">\(t\)</span> less than <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(n\)</span> represents the sample size.</p>
 <p>If the p-value is high (much greater then 5%) we do not reject the null hypethesis which means that the normality assumption is not violated.</p>
 </section>
-<section id="font-color-blue-the-anderson-darling-test-font">
-<h2><font color='blue'> The Anderson-Darling Test</font><a class="headerlink" href="#font-color-blue-the-anderson-darling-test-font" title="Permalink to this headline">#</a></h2>
+<section id="the-anderson-darling-test">
+<h2><font color='blue'> The Anderson-Darling Test</font><a class="headerlink" href="#the-anderson-darling-test" title="Link to this heading">#</a></h2>
 <p>The test is defined as:</p>
 <p><strong>H0 (the null hypothesis)</strong>:	The data follow a specified distribution.</p>
 <p><strong>H1 (the alternative hypothesis)</strong>: The data do not follow the specified distribution</p>
@@ -1249,10 +869,10 @@ width='600px' />
 \[\large AD := -n - \sum_{i=1}^{n} \frac{2i-1}{n}\left[\ln(CDF(x_i))+\ln(1-CDF(x_{n+1-i})\right] \]</div>
 <p>The critical values for the Anderson-Darling test are dependent on the specific distribution that is being tested.</p>
 </section>
-<section id="font-color-blue-error-metrics">
-<h2><font color='blue'> Error Metrics<a class="headerlink" href="#font-color-blue-error-metrics" title="Permalink to this headline">#</a></h2>
-<section id="font-color-blue-mse">
-<h3><font color='blue'> MSE<a class="headerlink" href="#font-color-blue-mse" title="Permalink to this headline">#</a></h3>
+<section id="error-metrics">
+<h2><font color='blue'> Error Metrics<a class="headerlink" href="#error-metrics" title="Link to this heading">#</a></h2>
+<section id="mse">
+<h3><font color='blue'> MSE<a class="headerlink" href="#mse" title="Link to this heading">#</a></h3>
 <div class="math notranslate nohighlight">
 \[\text{MSE}:=\frac{1}{n}\sum_{i=1}^{n}(y_i-x_i\cdot\vec{\beta})^2\]</div>
 <p>here the i-th observation has multiple features:</p>
@@ -1262,14 +882,14 @@ width='600px' />
 <div class="math notranslate nohighlight">
 \[x_i\cdot\vec{\beta} = \sum_{j=1}^{p} x_{ij}\beta_j\]</div>
 </section>
-<section id="font-color-blue-rmse">
-<h3><font color='blue'> RMSE<a class="headerlink" href="#font-color-blue-rmse" title="Permalink to this headline">#</a></h3>
+<section id="rmse">
+<h3><font color='blue'> RMSE<a class="headerlink" href="#rmse" title="Link to this heading">#</a></h3>
 <p>Root mean squared error:</p>
 <div class="math notranslate nohighlight">
 \[\text{RMSE}:=\left(\frac{1}{n}\sum_{i=1}^{n}(y_i-x_i\cdot\vec{\beta})^2\right)^{1/2}\]</div>
 </section>
-<section id="font-color-blue-size-5pt-mae">
-<h3><font color='blue' size=5pt> MAE<a class="headerlink" href="#font-color-blue-size-5pt-mae" title="Permalink to this headline">#</a></h3>
+<section id="mae">
+<h3><font color='blue' size=5pt> MAE<a class="headerlink" href="#mae" title="Link to this heading">#</a></h3>
 <p>Mean absolute error:</p>
 <div class="math notranslate nohighlight">
 \[\text{MAE}:=\frac{1}{n}\sum_{i=1}^{n}\left|y_i-x_i\cdot\vec{\beta}\right|\]</div>
@@ -1280,19 +900,19 @@ width='600px' />
 </section>
 </section>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">#</a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>import os
-if &#39;google.colab&#39; in str(get_ipython()):
-  print(&#39;Running on CoLab&#39;)
-  from google.colab import drive
-  drive.mount(&#39;/content/drive&#39;)
-  os.chdir(&#39;/content/drive/My Drive/Data Sets&#39;)
-  !pip install -q pygam
-else:
-  print(&#39;Running locally&#39;)
-  os.chdir(&#39;../Data&#39;)
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running on CoLab&#39;</span><span class="p">)</span>
+  <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+  <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+  <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;/content/drive/My Drive/Data Sets&#39;</span><span class="p">)</span>
+  <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">pygam</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running locally&#39;</span><span class="p">)</span>
+  <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;../Data&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1315,7 +935,7 @@ else:
 </div>
 </section>
 <section id="data-import">
-<h2>Data Import<a class="headerlink" href="#data-import" title="Permalink to this headline">#</a></h2>
+<h2>Data Import<a class="headerlink" href="#data-import" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># data</span>
@@ -1853,14 +1473,14 @@ else:
       <button class="colab-df-convert" onclick="convertToInteractive('df-882f07c1-0c67-4251-b433-6ccb0460ba8c')"
               title="Convert this dataframe to an interactive table."
               style="display:none;">
-
+        
   <svg xmlns="http://www.w3.org/2000/svg" height="24px"viewBox="0 0 24 24"
        width="24px">
     <path d="M0 0h24v24H0V0z" fill="none"/>
     <path d="M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z"/><path d="M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z"/>
   </svg>
       </button>
-
+      
   <style>
     .colab-df-container {
       display:flex;
@@ -1925,7 +1545,7 @@ else:
       </script>
     </div>
   </div>
-</div></div>
+  </div></div>
 </div>
 <p><strong>Objective 1</strong>: We want to to know if there is any association between the weight of the car and the mileage.</p>
 <div class="cell docutils container">
@@ -1980,7 +1600,7 @@ else:
 </div>
 </section>
 <section id="relationship-between-x-and-y">
-<h2>Relationship between x and y<a class="headerlink" href="#relationship-between-x-and-y" title="Permalink to this headline">#</a></h2>
+<h2>Relationship between x and y<a class="headerlink" href="#relationship-between-x-and-y" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">cars</span><span class="p">[</span><span class="s1">&#39;mpg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -2155,7 +1775,7 @@ $<span class="math notranslate nohighlight">\(y-\bar{y} = m\cdot(x-\bar{x})\)</s
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># this is the actual gradient descent</span>
 <span class="k">def</span> <span class="nf">step_gradient</span><span class="p">(</span><span class="n">b_current</span><span class="p">,</span> <span class="n">m_current</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;takes one step down towards the minima</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;takes one step down towards the minima</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        b_current (float): current value of b</span>
@@ -2187,7 +1807,7 @@ $<span class="math notranslate nohighlight">\(y-\bar{y} = m\cdot(x-\bar{x})\)</s
     <span class="k">return</span> <span class="n">b_updated</span><span class="p">,</span> <span class="n">m_updated</span>
 
 <span class="k">def</span> <span class="nf">gradient_descent</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">starting_b</span><span class="p">,</span> <span class="n">starting_m</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">num_iterations</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;runs gradient descent</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;runs gradient descent</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        data (np.array): training data, containing x,y</span>
@@ -2272,7 +1892,7 @@ Minimized cost: 8.697573986717137
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Supervised_Learning_Linear_Regression_48_0.png" src="_images/Supervised_Learning_Linear_Regression_48_0.png" />
+<img alt="_images/70c7a3803dadf6b2f7f7fb687a93599571256f5b6f175ec66f9e66137dafee8d.png" src="_images/70c7a3803dadf6b2f7f7fb687a93599571256f5b6f175ec66f9e66137dafee8d.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2416,12 +2036,12 @@ Minimized cost: 8.697573986717137
   warnings.warn(msg, FutureWarning)
 </pre></div>
 </div>
-<img alt="_images/Supervised_Learning_Linear_Regression_60_1.png" src="_images/Supervised_Learning_Linear_Regression_60_1.png" />
+<img alt="_images/2245671c05d666182e5008d5d4b94e651f1d62d890c536143c51e7c2f40fe6d1.png" src="_images/2245671c05d666182e5008d5d4b94e651f1d62d890c536143c51e7c2f40fe6d1.png" />
 </div>
 </div>
 </section>
 <section id="message-the-histogram-does-not-quite-look-like-a-normal-distribution-we-can-also-consider-a-q-q-plot">
-<h2>Message: The histogram does not quite look like a normal distribution. We can also consider a Q-Q Plot:<a class="headerlink" href="#message-the-histogram-does-not-quite-look-like-a-normal-distribution-we-can-also-consider-a-q-q-plot" title="Permalink to this headline">#</a></h2>
+<h2>Message: The histogram does not quite look like a normal distribution. We can also consider a Q-Q Plot:<a class="headerlink" href="#message-the-histogram-does-not-quite-look-like-a-normal-distribution-we-can-also-consider-a-q-q-plot" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
@@ -2441,7 +2061,7 @@ Minimized cost: 8.697573986717137
   &quot;&quot;&quot;
 </pre></div>
 </div>
-<img alt="_images/Supervised_Learning_Linear_Regression_62_1.png" src="_images/Supervised_Learning_Linear_Regression_62_1.png" />
+<img alt="_images/d998aa9b331ad02c94f95d2a93028936634f9b7e3b8ab90f4e9c378ed953320a.png" src="_images/d998aa9b331ad02c94f95d2a93028936634f9b7e3b8ab90f4e9c378ed953320a.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2479,7 +2099,7 @@ Minimized cost: 8.697573986717137
 </div>
 </section>
 <section id="the-conclusion-in-our-case-is-that-the-normality-assumption-is-not-violated">
-<h2>The conclusion, in our case, is that the normality assumption is not violated.<a class="headerlink" href="#the-conclusion-in-our-case-is-that-the-normality-assumption-is-not-violated" title="Permalink to this headline">#</a></h2>
+<h2>The conclusion, in our case, is that the normality assumption is not violated.<a class="headerlink" href="#the-conclusion-in-our-case-is-that-the-normality-assumption-is-not-violated" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># for your convenience, this is the table with the critical values for the</span>
@@ -2519,7 +2139,7 @@ Minimized cost: 8.697573986717137
 </div>
 </section>
 <section id="a-different-normality-test-indicates-the-same-thing">
-<h2>A different normality test indicates the same thing<a class="headerlink" href="#a-different-normality-test-indicates-the-same-thing" title="Permalink to this headline">#</a></h2>
+<h2>A different normality test indicates the same thing<a class="headerlink" href="#a-different-normality-test-indicates-the-same-thing" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span><span class="o">.</span><span class="n">anderson</span><span class="p">(</span><span class="n">residuals</span><span class="p">,</span><span class="n">dist</span><span class="o">=</span><span class="s1">&#39;norm&#39;</span><span class="p">)</span>
@@ -2931,7 +2551,7 @@ Minimized cost: 8.697573986717137
   warnings.warn(msg, FutureWarning)
 </pre></div>
 </div>
-<img alt="_images/Supervised_Learning_Linear_Regression_78_1.png" src="_images/Supervised_Learning_Linear_Regression_78_1.png" />
+<a class="reference internal image-reference" href="_images/cbfaa29ed14bbfe217b98d18cec9e69932734a97d52d6d647233a94b2b7182c9.png"><img alt="_images/cbfaa29ed14bbfe217b98d18cec9e69932734a97d52d6d647233a94b2b7182c9.png" src="_images/cbfaa29ed14bbfe217b98d18cec9e69932734a97d52d6d647233a94b2b7182c9.png" style="width: 630px; height: 414px;" /></a>
 </div>
 </div>
 <div class="cell docutils container">
@@ -2970,7 +2590,7 @@ Minimized cost: 8.697573986717137
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -2978,49 +2598,116 @@ Minimized cost: 8.697573986717137
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Introduction, Bias Variance Tradeoff and Gradient Descent</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction, Bias Variance Tradeoff and Gradient Descent</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="Regularization_Model_Selection_and_Cross_Validations.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="Regularization_Model_Selection_and_Cross_Validations.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Regularization and Cross-Validations</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction"><font color="blue" size="5pt">   Introduction </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-linear-regression-linear-models-with-more-features"><font color="blue">  Multiple Linear Regression (Linear models with more features)</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-spaces"><font color="blue"> Vector Spaces </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-vs-non-linear-models"><font color="blue">Linear vs Non-linear models</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#we-have-a-vector-of-weights">We have a vector of weights:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="forestgreen"></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#we-want-to-learn-the-weights-beta-1-beta-2-beta-p-that-minimize-the-sum-of-the-squared-residuals"><font color="darkgreen"> We want to <em>learn</em> the weights <span class="math notranslate nohighlight">\(\beta_1,\beta_2,...\beta_p\)</span> that minimize the sum of the squared residuals:</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-know-we-are-on-the-right-track-after-we-perform-the-minimization-of-the-square-residuals"><font color="red"> How do we know we are on the right track after we perform the minimization of the square residuals? <font></font></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-anderson-darling-test"><font color="blue"> The Anderson-Darling Test</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-metrics"><font color="blue"> Error Metrics</font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mse"><font color="blue"> MSE</font></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rmse"><font color="blue"> RMSE</font></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mae"><font color="blue" size="5pt"> MAE</font></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-import">Data Import</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relationship-between-x-and-y">Relationship between x and y</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#message-the-histogram-does-not-quite-look-like-a-normal-distribution-we-can-also-consider-a-q-q-plot">Message: The histogram does not quite look like a normal distribution. We can also consider a Q-Q Plot:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-conclusion-in-our-case-is-that-the-normality-assumption-is-not-violated">The conclusion, in our case, is that the normality assumption is not violated.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-different-normality-test-indicates-the-same-thing">A different normality test indicates the same thing</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Open-Fair-Fusion for Machine Learning Applications<br/>
-  
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By C. Fanelli on behalf of the Open-Fair-Fusion for Machine Learning Applications
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

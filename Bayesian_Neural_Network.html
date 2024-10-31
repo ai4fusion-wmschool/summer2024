@@ -1,111 +1,177 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="./" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Variational Inference: Bayesian Neural Networks &#8212; AI for Fusion Energy Summer School (2024)</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="shortcut icon" href="_static/wm_vertical_single_line_full_color.png"/>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Bayesian_Neural_Network';</script>
+    <link rel="icon" href="_static/wm_vertical_single_line_full_color.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="CNN Applications" href="Applications_CNNs.html" />
     <link rel="prev" title="Logistic Regression" href="Bayesian_Logistic_Regression.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/wm_vertical_single_line_full_color.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">AI for Fusion Energy Summer School (2024)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/wm_vertical_single_line_full_color.png" class="logo__image only-light" alt="AI for Fusion Energy Summer School (2024) - Home"/>
+    <script>document.write(`<img src="_static/wm_vertical_single_line_full_color.png" class="logo__image only-dark" alt="AI for Fusion Energy Summer School (2024) - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -114,633 +180,353 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Information on the Summer School
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Information on the Summer School</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="schedule.html">
-   Schedule
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lecturers.html">
-   Lecturers
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecturers.html">Lecturers</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Data Science (Lectures and Notebooks)
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Science (Lectures and Notebooks)</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">
-   (6/3/2024) - Intro to Data Science (get started, variance/bias) (slides, D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html">
-   (6/3/20224) - Intro to Data Science, Python Programming, Bias-Variance Tradeoff and the Gradient Descent Algorithm (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Supervised_Learning_Linear_Regression.html">
-   (6/3/2024) Supervised Learning, Linear Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Regularization_Model_Selection_and_Cross_Validations.html">
-   (6/4/2024) Regularization, Model Selection, Cross-Validation (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Supervised_Learning_Logistic_Regression.html">
-   (6/4/2024) Supervised Learning - Logistic Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Nonparametric_Methods_GAMs__old.html">
-   (6/5/2024) Nonparametric Methods, GAMs (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Coding_Examples_Locally_Weighted_Regression_corr.html">
-   (6/5/2024) Coding Examples Locally Weighted Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Anomaly_Detection_HDBScan.html">
-   (6/6/2024) Anomaly Detection, clustering with HDBScan (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">
-   (6/6/2024) Dimensionality Reduction, Unsupervised Learning (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">
-   (6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Intro_to_Deep_Learning_Multilayer_Perceptron.html">
-   (6/7/2024) Intro to Deep_Learning, Multilayer_Perceptron (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Convolutional_Neural_Networks_ok.html">
-   (6/10/2024) Convolutional Neural Networks (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Graph_Neural_Networks_corr.html">
-   (6/10/2024) Graph Neural Networks (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
-   (6/10/2024) Classification with C-Mod fusion data (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Regression_Fusion.html">
-   (6/10/2024) Regression with C-Mod fusion data (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">
-   (6/11/2024) Intro to Normalizing Flows (J. Giroux, slides)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="NFlows_BasicExample_new.html">
-   (6/11/2024) Normalizing Flows - Basic Example (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">
-   (6/11/2024) Normalizing Flows - GlueX BCAL Example (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1GDRbfTudsAcQES5TTCiFdgBxoH6QIxg0MjndLHmw8eU/edit?usp=sharing">
-   (6/12/2024) A Gentle Introduction to Uncertainty Quantification and Bayes' Rule (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="MCMC_from_scratch_all.html">
-   (6/12/2024) Sampling Techniques from Scratch (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Intro_PyMC_coin.html">
-   (6/12/2024) Introduction to Probabilistic Programming (coin example) (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/14D6R9mpg_x4Mf1OTuLlXeyV0UPZJGhcjP9kabm10Ung/edit?usp=sharing">
-   (6/12/2024) An Introduction to Bayesian Regression (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Bayesian_Polynomial_Regression.html">
-   (6/12/2024) Bayesian Linear/Polynomial Regression - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Bayesian_Logistic_Regression.html">
-   (6/12/2024) Bayesian Logistic Regression - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1BFDSM4vC6Hq_0d6azsNxDa5NMn9VVuxfJv8v6jt1DpU/edit?usp=sharing">
-   (6/12/2024) Introduction to Bayesian Neural Networks (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   (6/12/2024) Bayesian Neural Network - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Applications_CNNs.html">
-   (6/12/2024) Hands-on - CNN (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Applications_GNNs.html">
-   (6/12/2024) Hands-on - GNN (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Design_BO.html">
-   (6/13/2024) Single-Objective Bayesian Optimization (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Design_MOBO2.html">
-   (6/13/2024) Multi-Objective Bayesian Optimization (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Design_MOEA.html">
-   (6/13/2024) Multi-Objective Genetic Algorithm (C. Fanelli)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">(6/3/2024) - Intro to Data Science (get started, variance/bias) (slides, D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html">(6/3/20224) - Intro to Data Science, Python Programming, Bias-Variance Tradeoff and the Gradient Descent Algorithm (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Supervised_Learning_Linear_Regression.html">(6/3/2024) Supervised Learning, Linear Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regularization_Model_Selection_and_Cross_Validations.html">(6/4/2024) Regularization, Model Selection, Cross-Validation (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Supervised_Learning_Logistic_Regression.html">(6/4/2024) Supervised Learning - Logistic Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nonparametric_Methods_GAMs__old.html">(6/5/2024) Nonparametric Methods, GAMs (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Coding_Examples_Locally_Weighted_Regression_corr.html">(6/5/2024) Coding Examples Locally Weighted Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Anomaly_Detection_HDBScan.html">(6/6/2024) Anomaly Detection, clustering with HDBScan (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">(6/6/2024) Dimensionality Reduction, Unsupervised Learning (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">(6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro_to_Deep_Learning_Multilayer_Perceptron.html">(6/7/2024) Intro to Deep_Learning, Multilayer_Perceptron (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Convolutional_Neural_Networks_ok.html">(6/10/2024) Convolutional Neural Networks (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Graph_Neural_Networks_corr.html">(6/10/2024) Graph Neural Networks (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">(6/10/2024) Classification with C-Mod fusion data (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regression_Fusion.html">(6/10/2024) Regression with C-Mod fusion data (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">(6/11/2024) Intro to Normalizing Flows (J. Giroux, slides)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFlows_BasicExample_new.html">(6/11/2024) Normalizing Flows - Basic Example (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">(6/11/2024) Normalizing Flows - GlueX BCAL Example (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1GDRbfTudsAcQES5TTCiFdgBxoH6QIxg0MjndLHmw8eU/edit?usp=sharing">(6/12/2024) A Gentle Introduction to Uncertainty Quantification and Bayes' Rule (slides, C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MCMC_from_scratch_all.html">(6/12/2024) Sampling Techniques from Scratch (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro_PyMC_coin.html">(6/12/2024) Introduction to Probabilistic Programming (coin example) (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/14D6R9mpg_x4Mf1OTuLlXeyV0UPZJGhcjP9kabm10Ung/edit?usp=sharing">(6/12/2024) An Introduction to Bayesian Regression (slides, C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bayesian_Polynomial_Regression.html">(6/12/2024) Bayesian Linear/Polynomial Regression - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bayesian_Logistic_Regression.html">(6/12/2024) Bayesian Logistic Regression - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1BFDSM4vC6Hq_0d6azsNxDa5NMn9VVuxfJv8v6jt1DpU/edit?usp=sharing">(6/12/2024) Introduction to Bayesian Neural Networks (slides, C. Fanelli)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">(6/12/2024) Bayesian Neural Network - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Applications_CNNs.html">(6/12/2024) Hands-on - CNN (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Applications_GNNs.html">(6/12/2024) Hands-on - GNN (D. Vasiliu)</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="Design_BO.html">(6/13/2024) Single-Objective Bayesian Optimization (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_MOBO2.html">(6/13/2024) Multi-Objective Bayesian Optimization (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_MOEA.html">(6/13/2024) Multi-Objective Genetic Algorithm (C. Fanelli)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Fusion Lectures
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fusion Lectures</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/u/1/d/1_dJtr18LfwCR4Nfwt3bX5_0U_g5N3Bw4/edit?usp=drive_web&amp;ouid=113195593718692427789&amp;rtpof=true">
-   (6/3/2024) W&amp;M and Fusion (S. Mordijck)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1XbhZegEIBQEl0Hs6Gl4qbhuIoGo7g9v9/view?usp=share_link">
-   (6/3/2024) Nuclear Fusion Power - A solution to the world’s energy problem? (S. Mordijck, A. Dominguez)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/14mtA2TOsMw9p_IYrTzvmxqqjSnSvjRgy/edit?usp=share_link&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">
-   (6/4/2024) Overview of plasma diagnostics and measurements (E. Kostadinova)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1gusvm06ELDBspuBO-N7sikNt7x1vw2uV/view?usp=share_link">
-   (6/5/2024) Alcator C-Mod  (A. Saperstein, J. Stillerman)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1FZRCgOj-D3lDDfXVXS4UdKUxQUHPdx2H/view?usp=share_link">
-   (6/6/2024) HDF (A. Jelenak)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1py52JvsHpcfBrhx0CobpgJ0khcH59aaP/view?usp=share_link">
-   (6/7/2024) Fusion Pilot (S. Diem)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1CJYhQjpjuBqhpH_GrZaXqEJnaFUnUg7k/edit?usp=sharing&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">
-   (6/10/2024) Managing Data - Why it matters, when it is important, and how to do it (N. Cummings)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1IM5AFQFwqM9EDm5HTPcIz5FDPfWiUFI3/view?usp=share_link">
-   (6/11/2024) Making plasma science open (N. Murphy)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1MvKyWDSXcwAfgmq7oo2Y8gFllnwvyhZm/view?usp=sharing">
-   (6/12/2024) DIII-D ML/AI perspective (B. Sammuli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1EenE3-aNIh5aLRX1vpKj0sowfNLRMS_ifPw7TAIFrXo/edit?usp=sharing">
-   (6/13/2024) Data-mining the tokamak density limit (A. Maris)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/u/1/d/1_dJtr18LfwCR4Nfwt3bX5_0U_g5N3Bw4/edit?usp=drive_web&amp;ouid=113195593718692427789&amp;rtpof=true">(6/3/2024) W&amp;M and Fusion (S. Mordijck)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1XbhZegEIBQEl0Hs6Gl4qbhuIoGo7g9v9/view?usp=share_link">(6/3/2024) Nuclear Fusion Power - A solution to the world’s energy problem? (S. Mordijck, A. Dominguez)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/14mtA2TOsMw9p_IYrTzvmxqqjSnSvjRgy/edit?usp=share_link&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">(6/4/2024) Overview of plasma diagnostics and measurements (E. Kostadinova)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1gusvm06ELDBspuBO-N7sikNt7x1vw2uV/view?usp=share_link">(6/5/2024) Alcator C-Mod  (A. Saperstein, J. Stillerman)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1FZRCgOj-D3lDDfXVXS4UdKUxQUHPdx2H/view?usp=share_link">(6/6/2024) HDF (A. Jelenak)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1py52JvsHpcfBrhx0CobpgJ0khcH59aaP/view?usp=share_link">(6/7/2024) Fusion Pilot (S. Diem)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1CJYhQjpjuBqhpH_GrZaXqEJnaFUnUg7k/edit?usp=sharing&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">(6/10/2024) Managing Data - Why it matters, when it is important, and how to do it (N. Cummings)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1IM5AFQFwqM9EDm5HTPcIz5FDPfWiUFI3/view?usp=share_link">(6/11/2024) Making plasma science open (N. Murphy)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1MvKyWDSXcwAfgmq7oo2Y8gFllnwvyhZm/view?usp=sharing">(6/12/2024) DIII-D ML/AI perspective (B. Sammuli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1EenE3-aNIh5aLRX1vpKj0sowfNLRMS_ifPw7TAIFrXo/edit?usp=sharing">(6/13/2024) Data-mining the tokamak density limit (A. Maris)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Datasets
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/13aKCJA56CmYUEc5zW4P62_BbU1vcewVT/view?usp=share_link">
-   C-Mod Dataset - Additional Documentation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">
-   Kaggle - Nuclear Fusion Data (Classification)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">
-   Zindi - Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">
-   IOP paper - The updated ITPA global H-mode confinement database; description and analysis (Regression)
-  </a>
- </li>
+
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/13aKCJA56CmYUEc5zW4P62_BbU1vcewVT/view?usp=share_link">C-Mod Dataset - Additional Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">Kaggle - Nuclear Fusion Data (Classification)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">Zindi - Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">IOP paper - The updated ITPA global H-mode confinement database; description and analysis (Regression)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Additional resources
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional resources</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="referencesmd.html">
-   References
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="referencesmd.html">References</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=tree/notebooks/Bayesian_Neural_Network.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=tree/notebooks/Bayesian_Neural_Network.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
-    <img src="_static/images/logo_binder.svg">
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Bayesian_Neural_Network.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Bayesian_Neural_Network.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
-    <img src="_static/images/logo_colab.png">
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
 <button onclick="initThebeSBT()"
-  class="headerbtn headerbtn-launch-thebe"
-  data-toggle="tooltip"
-data-placement="left"
-title="Launch Thebe"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-play"></i>
   </span>
-<span class="headerbtn__text-container">Live Code</span>
+<span class="btn__text-container">Live Code</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ai4fusion-wmschool/summer2024" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FBayesian_Neural_Network.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Bayesian_Neural_Network.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/ai4fusion-wmschool/summer2024"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
 
-      </li>
-      
-      <li>
-        <a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FBayesian_Neural_Network.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/Bayesian_Neural_Network.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </button>
-
-      </li>
+</div></div>
       
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
+    </div>
   
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
-    </div>
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bridging-deep-learning-and-probabilistic-programming">
-   Bridging Deep Learning and Probabilistic Programming
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-neural-networks-in-pymc">
-   Bayesian Neural Networks in PyMC
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#model-specification">
-   Model Specification
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#variational-inference-scaling-model-complexity">
-   Variational Inference: Scaling model complexity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#let-s-look-at-what-the-classifer-has-learned">
-   Let’s look at what the classifer has learned
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#probability-surface">
-   Probability Surface
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#uncertainty-in-predicted-value">
-   Uncertainty in predicted value
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mini-batch-advi">
-   Mini-batch ADVI
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Variational Inference: Bayesian Neural Networks</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bridging-deep-learning-and-probabilistic-programming">
-   Bridging Deep Learning and Probabilistic Programming
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-neural-networks-in-pymc">
-   Bayesian Neural Networks in PyMC
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#model-specification">
-   Model Specification
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#variational-inference-scaling-model-complexity">
-   Variational Inference: Scaling model complexity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#let-s-look-at-what-the-classifer-has-learned">
-   Let’s look at what the classifer has learned
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#probability-surface">
-   Probability Surface
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#uncertainty-in-predicted-value">
-   Uncertainty in predicted value
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mini-batch-advi">
-   Mini-batch ADVI
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Variational Inference: Bayesian Neural Networks</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bridging-deep-learning-and-probabilistic-programming">Bridging Deep Learning and Probabilistic Programming</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-neural-networks-in-pymc">Bayesian Neural Networks in PyMC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-specification">Model Specification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-inference-scaling-model-complexity">Variational Inference: Scaling model complexity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-look-at-what-the-classifer-has-learned">Let’s look at what the classifer has learned</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-surface">Probability Surface</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-in-predicted-value">Uncertainty in predicted value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-advi">Mini-batch ADVI</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section id="variational-inference-bayesian-neural-networks">
-<h1>Variational Inference: Bayesian Neural Networks<a class="headerlink" href="#variational-inference-bayesian-neural-networks" title="Permalink to this headline">#</a></h1>
+<h1>Variational Inference: Bayesian Neural Networks<a class="headerlink" href="#variational-inference-bayesian-neural-networks" title="Link to this heading">#</a></h1>
 <p>This notebook is largely inspired to the tutorial that can be found in the PyMC website — <a class="reference external" href="https://www.pymc.io/projects/examples/en/latest/variational_inference/bayesian_neural_network_advi.html">https://www.pymc.io/projects/examples/en/latest/variational_inference/bayesian_neural_network_advi.html</a></p>
 <p><strong>Current trends in Machine Learning</strong>: Probabilistic Programming, Deep Learning, and “Big Data” are nowadays major trends in machine learning. Within Probabilistic Programming, a major focus of innovation lies in scaling processes through Variational Inference. In the following example, we will demonstrate the application of Variational Inference with PyMC to fit a simple Bayesian Neural Network.</p>
 <p><strong>Probabilistic Programming at scale</strong>: Probabilistic Programming allows flexible creation of custom probabilistic models and is concerned with inference and learning from your data. <strong>What is Bayesian in all this?</strong>  The approach is inherently <strong>Bayesian</strong> so we can specify <strong>priors</strong> to inform and constrain our models and get uncertainty estimation in form of a <strong>posterior</strong> distribution.</p>
@@ -751,7 +537,7 @@ That’s why, more recently, developers have introduced variational inference al
 On the other hand, Probabilistic Programming enables the acquisition of the posterior distribution and facilitates uncertainty quantification. This provides important and somewhat complementary information that can assist in characterizing the decision-making process.</p>
 <p><strong>Deep Learning</strong>: Deep learning models are especially effective as non-linear function approximators and representation learners. They gained widespread recognition a decade ago through remarkable achievements, including outperforming human players in Atari games <a class="reference external" href="https://arxiv.org/abs/1312.5602">arXiv:1312.5602, 2013</a>, defeating world champion Lee Sedol in the game of Go <a class="reference external" href="https://doi.org/10.1038/nature16961">Nature, 529:484–489, 2016</a>, and advancing unsupervised learning tasks <a class="reference external" href="https://arxiv.org/abs/1312.6114">arXiv:1312.6114, 2013</a>. These milestones were followed by a multitude of other methods and applications, leading to the recent surge in generative AI technologies.</p>
 <p>Deep learning has advanced significantly through innovations that made possible training complex models. Key factors include:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Speed: GPU utilization has drastically increased processing capabilities.</p></li>
 <li><p>Software: Frameworks like PyTorch and TensorFlow enable the creation and optimization of models for CPUs and GPUs.</p></li>
 <li><p>Learning Algorithms: Techniques like stochastic gradient descent and dropout facilitate training on large datasets and help prevent overfitting.</p></li>
@@ -759,11 +545,11 @@ On the other hand, Probabilistic Programming enables the acquisition of the post
 These developments collectively push the boundaries of what deep learning can achieve.</p></li>
 </ol>
 <section id="bridging-deep-learning-and-probabilistic-programming">
-<h2>Bridging Deep Learning and Probabilistic Programming<a class="headerlink" href="#bridging-deep-learning-and-probabilistic-programming" title="Permalink to this headline">#</a></h2>
+<h2>Bridging Deep Learning and Probabilistic Programming<a class="headerlink" href="#bridging-deep-learning-and-probabilistic-programming" title="Link to this heading">#</a></h2>
 <p>On one hand, Probabilistic Programming enables us to construct relatively small, focused models in a highly principled and well-understood manner, providing deep insights into our data. On the other hand, deep learning employs numerous heuristics to train vast and complex models that excel in prediction. Recent advances in variational inference have allowed Probabilistic Programming to scale both model complexity and data size. Consequently, we are on the brink of merging these two approaches, potentially leading to groundbreaking innovations in Machine Learning.</p>
 </section>
 <section id="bayesian-neural-networks-in-pymc">
-<h2>Bayesian Neural Networks in PyMC<a class="headerlink" href="#bayesian-neural-networks-in-pymc" title="Permalink to this headline">#</a></h2>
+<h2>Bayesian Neural Networks in PyMC<a class="headerlink" href="#bayesian-neural-networks-in-pymc" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#--- data generation</span>
@@ -851,12 +637,12 @@ These developments collectively push the boundaries of what deep learning can ac
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_17_0.png" src="_images/Bayesian_Neural_Network_17_0.png" />
+<a class="reference internal image-reference" href="_images/867f7e9b21349cb418c81eec150978cd27c7688b66a25b5b832901444000ea9b.png"><img alt="_images/867f7e9b21349cb418c81eec150978cd27c7688b66a25b5b832901444000ea9b.png" src="_images/867f7e9b21349cb418c81eec150978cd27c7688b66a25b5b832901444000ea9b.png" style="width: 731px; height: 491px;" /></a>
 </div>
 </div>
 </section>
 <section id="model-specification">
-<h2>Model Specification<a class="headerlink" href="#model-specification" title="Permalink to this headline">#</a></h2>
+<h2>Model Specification<a class="headerlink" href="#model-specification" title="Link to this heading">#</a></h2>
 <p>The basic unit is a perceptron which is nothing more than logistic regression. We use many of these in parallel and then stack them up to get hidden layers. Here we will use 2 hidden layers with 5 neurons each which is sufficient for such a simple problem.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -915,7 +701,7 @@ These developments collectively push the boundaries of what deep learning can ac
 <p>The Normal priors help regularize the weights. Usually we would add a constant bias <code class="docutils literal notranslate"><span class="pre">b</span></code> to the inputs but this is omitted here to keep the code cleaner.</p>
 </section>
 <section id="variational-inference-scaling-model-complexity">
-<h2>Variational Inference: Scaling model complexity<a class="headerlink" href="#variational-inference-scaling-model-complexity" title="Permalink to this headline">#</a></h2>
+<h2>Variational Inference: Scaling model complexity<a class="headerlink" href="#variational-inference-scaling-model-complexity" title="Link to this heading">#</a></h2>
 <p>We could now just run a MCMC sampler like <code class="docutils literal notranslate"><span class="pre">pymc.NUTS</span></code> which works pretty well in this case, but was already mentioned, this will become very slow as we scale our model up to deeper architectures with more layers. Instead, we will use the <code class="docutils literal notranslate"><span class="pre">pymc.ADVI</span></code> variational inference algorithm. This is much faster and will scale better. Note, that this is a mean-field approximation so we ignore correlations in the posterior.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -947,11 +733,11 @@ These developments collectively push the boundaries of what deep learning can ac
     }
 </style>
 </div><div class="output text_html">
-<div>
-  <progress value='30000' class='' max='30000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [30000/30000 00:32&lt;00:00 Average Loss = 109.96]
-</div>
-</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 33.7 s, sys: 661 ms, total: 34.4 s
+    <div>
+      <progress value='30000' class='' max='30000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [30000/30000 00:32&lt;00:00 Average Loss = 109.96]
+    </div>
+    </div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 33.7 s, sys: 661 ms, total: 34.4 s
 Wall time: 2min 3s
 </pre></div>
 </div>
@@ -973,7 +759,7 @@ Wall time: 2min 3s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_27_0.png" src="_images/Bayesian_Neural_Network_27_0.png" />
+<a class="reference internal image-reference" href="_images/9e50724b3483f67026949ed9052cde3290911b1f2da1bfb7a68438e2c0d119d4.png"><img alt="_images/9e50724b3483f67026949ed9052cde3290911b1f2da1bfb7a68438e2c0d119d4.png" src="_images/9e50724b3483f67026949ed9052cde3290911b1f2da1bfb7a68438e2c0d119d4.png" style="width: 731px; height: 491px;" /></a>
 </div>
 </div>
 <div class="cell docutils container">
@@ -1019,11 +805,11 @@ Wall time: 2min 3s
     }
 </style>
 </div><div class="output text_html">
-<div>
-  <progress value='2500' class='' max='2500' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [2500/2500 00:01&lt;00:00]
-</div>
-</div></div>
+    <div>
+      <progress value='2500' class='' max='2500' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [2500/2500 00:01&lt;00:00]
+    </div>
+    </div></div>
 </div>
 <p>We can average the predictions for each observation to estimate the underlying probability of class 1.</p>
 <div class="cell docutils container">
@@ -1045,12 +831,12 @@ Wall time: 2min 3s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_34_0.png" src="_images/Bayesian_Neural_Network_34_0.png" />
+<a class="reference internal image-reference" href="_images/32ca63ef565e469b8abd07c93ec7f6732a5589a095330db30416ae4567e1ec28.png"><img alt="_images/32ca63ef565e469b8abd07c93ec7f6732a5589a095330db30416ae4567e1ec28.png" src="_images/32ca63ef565e469b8abd07c93ec7f6732a5589a095330db30416ae4567e1ec28.png" style="width: 731px; height: 491px;" /></a>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy = </span><span class="si">{</span><span class="p">(</span><span class="n">Y_test</span> <span class="o">==</span> <span class="n">pred</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy = </span><span class="si">{</span><span class="p">(</span><span class="n">Y_test</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">pred</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1062,7 +848,7 @@ Wall time: 2min 3s
 </div>
 </section>
 <section id="let-s-look-at-what-the-classifer-has-learned">
-<h2>Let’s look at what the classifer has learned<a class="headerlink" href="#let-s-look-at-what-the-classifer-has-learned" title="Permalink to this headline">#</a></h2>
+<h2>Let’s look at what the classifer has learned<a class="headerlink" href="#let-s-look-at-what-the-classifer-has-learned" title="Link to this heading">#</a></h2>
 <p>For this, we evaluate the class probability predictions on a grid over the whole input space.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1113,11 +899,11 @@ Wall time: 2min 3s
     }
 </style>
 </div><div class="output text_html">
-<div>
-  <progress value='2500' class='' max='2500' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [2500/2500 00:11&lt;00:00]
-</div>
-</div></div>
+    <div>
+      <progress value='2500' class='' max='2500' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [2500/2500 00:11&lt;00:00]
+    </div>
+    </div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1128,7 +914,7 @@ Wall time: 2min 3s
 </div>
 </section>
 <section id="probability-surface">
-<h2>Probability Surface<a class="headerlink" href="#probability-surface" title="Permalink to this headline">#</a></h2>
+<h2>Probability Surface<a class="headerlink" href="#probability-surface" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">diverging_palette</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">85</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">as_cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1145,12 +931,12 @@ Wall time: 2min 3s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_43_0.png" src="_images/Bayesian_Neural_Network_43_0.png" />
+<a class="reference internal image-reference" href="_images/d3da4ddc4e3a87bdead1149e1ae53d7a6df7be5618e4a98ed750936af3ab0416.png"><img alt="_images/d3da4ddc4e3a87bdead1149e1ae53d7a6df7be5618e4a98ed750936af3ab0416.png" src="_images/d3da4ddc4e3a87bdead1149e1ae53d7a6df7be5618e4a98ed750936af3ab0416.png" style="width: 1009px; height: 611px;" /></a>
 </div>
 </div>
 </section>
 <section id="uncertainty-in-predicted-value">
-<h2>Uncertainty in predicted value<a class="headerlink" href="#uncertainty-in-predicted-value" title="Permalink to this headline">#</a></h2>
+<h2>Uncertainty in predicted value<a class="headerlink" href="#uncertainty-in-predicted-value" title="Link to this heading">#</a></h2>
 <p>Note that we could have done everything above with a non-Bayesian Neural Network. The mean of the posterior predictive for each class-label should be identical to maximum likelihood predicted values. However, we can also look at the standard deviation of the posterior predictive to get a sense for the uncertainty in our predictions. Here is what that looks like:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1168,13 +954,13 @@ Wall time: 2min 3s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_46_0.png" src="_images/Bayesian_Neural_Network_46_0.png" />
+<a class="reference internal image-reference" href="_images/841b18ec564fa6bc2ccd64f968f7b2a194ef49cf12878d21ab8dc0b3cd83b100.png"><img alt="_images/841b18ec564fa6bc2ccd64f968f7b2a194ef49cf12878d21ab8dc0b3cd83b100.png" src="_images/841b18ec564fa6bc2ccd64f968f7b2a194ef49cf12878d21ab8dc0b3cd83b100.png" style="width: 1009px; height: 611px;" /></a>
 </div>
 </div>
 <p>We can see that very close to the decision boundary, our uncertainty as to which label to predict is highest. You can imagine that associating predictions with uncertainty is a critical property for many applications like health care. To further maximize accuracy, we might want to train the model primarily on samples from that high-uncertainty region.</p>
 </section>
 <section id="mini-batch-advi">
-<h2>Mini-batch ADVI<a class="headerlink" href="#mini-batch-advi" title="Permalink to this headline">#</a></h2>
+<h2>Mini-batch ADVI<a class="headerlink" href="#mini-batch-advi" title="Link to this heading">#</a></h2>
 <p>So far, we have trained our model on all data at once. Obviously this won’t scale to something like ImageNet. Moreover, training on mini-batches of data (stochastic gradient descent) avoids local minima and can lead to faster convergence.</p>
 <p>Fortunately, ADVI can be run on mini-batches as well. It just requires some setting up:</p>
 <div class="cell docutils container">
@@ -1206,11 +992,11 @@ Wall time: 2min 3s
     }
 </style>
 </div><div class="output text_html">
-<div>
-  <progress value='40000' class='' max='40000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [40000/40000 00:41&lt;00:00 Average Loss = 110.62]
-</div>
-</div></div>
+    <div>
+      <progress value='40000' class='' max='40000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [40000/40000 00:41&lt;00:00 Average Loss = 110.62]
+    </div>
+    </div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1221,7 +1007,7 @@ Wall time: 2min 3s
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Bayesian_Neural_Network_52_0.png" src="_images/Bayesian_Neural_Network_52_0.png" />
+<a class="reference internal image-reference" href="_images/21895d97955d05b92fa1abe1a3213c276fa6e77f53e43a9d24c7920a58872582.png"><img alt="_images/21895d97955d05b92fa1abe1a3213c276fa6e77f53e43a9d24c7920a58872582.png" src="_images/21895d97955d05b92fa1abe1a3213c276fa6e77f53e43a9d24c7920a58872582.png" style="width: 731px; height: 491px;" /></a>
 </div>
 </div>
 <p>In general, mini-batch ADVI’s running time is lower. It also typically converges faster.</p>
@@ -1244,7 +1030,7 @@ Wall time: 2min 3s
   numba_fn = numba.jit(**self.kwargs)(self.function)
 </pre></div>
 </div>
-<img alt="_images/Bayesian_Neural_Network_55_1.png" src="_images/Bayesian_Neural_Network_55_1.png" />
+<a class="reference internal image-reference" href="_images/66ba51251a32d3e4a158684f949f2406ac6e48eeccce44d1c18696235a6ee087.png"><img alt="_images/66ba51251a32d3e4a158684f949f2406ac6e48eeccce44d1c18696235a6ee087.png" src="_images/66ba51251a32d3e4a158684f949f2406ac6e48eeccce44d1c18696235a6ee087.png" style="width: 1211px; height: 611px;" /></a>
 </div>
 </div>
 <div class="cell docutils container">
@@ -1274,11 +1060,11 @@ Wall time: 2min 3s
     }
 </style>
 </div><div class="output text_html">
-<div>
-  <progress value='2500' class='' max='2500' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [2500/2500 00:01&lt;00:00]
-</div>
-</div></div>
+    <div>
+      <progress value='2500' class='' max='2500' style='width:300px; height:20px; vertical-align: middle;'></progress>
+      100.00% [2500/2500 00:01&lt;00:00]
+    </div>
+    </div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1289,7 +1075,7 @@ Wall time: 2min 3s
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy = </span><span class="si">{</span><span class="p">(</span><span class="n">Y_test</span> <span class="o">==</span> <span class="n">pred_mb</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy = </span><span class="si">{</span><span class="p">(</span><span class="n">Y_test</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">pred_mb</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1314,7 +1100,7 @@ Wall time: 2min 3s
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1322,49 +1108,103 @@ Wall time: 2min 3s
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Bayesian_Logistic_Regression.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Logistic Regression</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Bayesian_Logistic_Regression.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Logistic Regression</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="Applications_CNNs.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="Applications_CNNs.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">CNN Applications</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bridging-deep-learning-and-probabilistic-programming">Bridging Deep Learning and Probabilistic Programming</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-neural-networks-in-pymc">Bayesian Neural Networks in PyMC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-specification">Model Specification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variational-inference-scaling-model-complexity">Variational Inference: Scaling model complexity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-look-at-what-the-classifer-has-learned">Let’s look at what the classifer has learned</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-surface">Probability Surface</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-in-predicted-value">Uncertainty in predicted value</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-batch-advi">Mini-batch ADVI</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Open-Fair-Fusion for Machine Learning Applications<br/>
-  
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By C. Fanelli on behalf of the Open-Fair-Fusion for Machine Learning Applications
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

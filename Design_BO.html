@@ -1,111 +1,177 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="./" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Bayesian Optimization &#8212; AI for Fusion Energy Summer School (2024)</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="shortcut icon" href="_static/wm_vertical_single_line_full_color.png"/>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Design_BO';</script>
+    <link rel="icon" href="_static/wm_vertical_single_line_full_color.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="MOBO" href="Design_MOBO2.html" />
     <link rel="prev" title="GNN Applications" href="Applications_GNNs.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/wm_vertical_single_line_full_color.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">AI for Fusion Energy Summer School (2024)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/wm_vertical_single_line_full_color.png" class="logo__image only-light" alt="AI for Fusion Energy Summer School (2024) - Home"/>
+    <script>document.write(`<img src="_static/wm_vertical_single_line_full_color.png" class="logo__image only-dark" alt="AI for Fusion Energy Summer School (2024) - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -114,684 +180,364 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Information on the Summer School
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Information on the Summer School</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="schedule.html">
-   Schedule
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lecturers.html">
-   Lecturers
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecturers.html">Lecturers</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Data Science (Lectures and Notebooks)
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Science (Lectures and Notebooks)</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">
-   (6/3/2024) - Intro to Data Science (get started, variance/bias) (slides, D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html">
-   (6/3/20224) - Intro to Data Science, Python Programming, Bias-Variance Tradeoff and the Gradient Descent Algorithm (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Supervised_Learning_Linear_Regression.html">
-   (6/3/2024) Supervised Learning, Linear Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Regularization_Model_Selection_and_Cross_Validations.html">
-   (6/4/2024) Regularization, Model Selection, Cross-Validation (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Supervised_Learning_Logistic_Regression.html">
-   (6/4/2024) Supervised Learning - Logistic Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Nonparametric_Methods_GAMs__old.html">
-   (6/5/2024) Nonparametric Methods, GAMs (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Coding_Examples_Locally_Weighted_Regression_corr.html">
-   (6/5/2024) Coding Examples Locally Weighted Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Anomaly_Detection_HDBScan.html">
-   (6/6/2024) Anomaly Detection, clustering with HDBScan (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">
-   (6/6/2024) Dimensionality Reduction, Unsupervised Learning (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">
-   (6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Intro_to_Deep_Learning_Multilayer_Perceptron.html">
-   (6/7/2024) Intro to Deep_Learning, Multilayer_Perceptron (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Convolutional_Neural_Networks_ok.html">
-   (6/10/2024) Convolutional Neural Networks (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Graph_Neural_Networks_corr.html">
-   (6/10/2024) Graph Neural Networks (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
-   (6/10/2024) Classification with C-Mod fusion data (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Regression_Fusion.html">
-   (6/10/2024) Regression with C-Mod fusion data (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">
-   (6/11/2024) Intro to Normalizing Flows (J. Giroux, slides)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="NFlows_BasicExample_new.html">
-   (6/11/2024) Normalizing Flows - Basic Example (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">
-   (6/11/2024) Normalizing Flows - GlueX BCAL Example (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1GDRbfTudsAcQES5TTCiFdgBxoH6QIxg0MjndLHmw8eU/edit?usp=sharing">
-   (6/12/2024) A Gentle Introduction to Uncertainty Quantification and Bayes' Rule (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="MCMC_from_scratch_all.html">
-   (6/12/2024) Sampling Techniques from Scratch (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Intro_PyMC_coin.html">
-   (6/12/2024) Introduction to Probabilistic Programming (coin example) (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/14D6R9mpg_x4Mf1OTuLlXeyV0UPZJGhcjP9kabm10Ung/edit?usp=sharing">
-   (6/12/2024) An Introduction to Bayesian Regression (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Bayesian_Polynomial_Regression.html">
-   (6/12/2024) Bayesian Linear/Polynomial Regression - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Bayesian_Logistic_Regression.html">
-   (6/12/2024) Bayesian Logistic Regression - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1BFDSM4vC6Hq_0d6azsNxDa5NMn9VVuxfJv8v6jt1DpU/edit?usp=sharing">
-   (6/12/2024) Introduction to Bayesian Neural Networks (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Bayesian_Neural_Network.html">
-   (6/12/2024) Bayesian Neural Network - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Applications_CNNs.html">
-   (6/12/2024) Hands-on - CNN (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Applications_GNNs.html">
-   (6/12/2024) Hands-on - GNN (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   (6/13/2024) Single-Objective Bayesian Optimization (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Design_MOBO2.html">
-   (6/13/2024) Multi-Objective Bayesian Optimization (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Design_MOEA.html">
-   (6/13/2024) Multi-Objective Genetic Algorithm (C. Fanelli)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">(6/3/2024) - Intro to Data Science (get started, variance/bias) (slides, D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html">(6/3/20224) - Intro to Data Science, Python Programming, Bias-Variance Tradeoff and the Gradient Descent Algorithm (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Supervised_Learning_Linear_Regression.html">(6/3/2024) Supervised Learning, Linear Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regularization_Model_Selection_and_Cross_Validations.html">(6/4/2024) Regularization, Model Selection, Cross-Validation (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Supervised_Learning_Logistic_Regression.html">(6/4/2024) Supervised Learning - Logistic Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nonparametric_Methods_GAMs__old.html">(6/5/2024) Nonparametric Methods, GAMs (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Coding_Examples_Locally_Weighted_Regression_corr.html">(6/5/2024) Coding Examples Locally Weighted Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Anomaly_Detection_HDBScan.html">(6/6/2024) Anomaly Detection, clustering with HDBScan (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">(6/6/2024) Dimensionality Reduction, Unsupervised Learning (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">(6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro_to_Deep_Learning_Multilayer_Perceptron.html">(6/7/2024) Intro to Deep_Learning, Multilayer_Perceptron (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Convolutional_Neural_Networks_ok.html">(6/10/2024) Convolutional Neural Networks (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Graph_Neural_Networks_corr.html">(6/10/2024) Graph Neural Networks (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">(6/10/2024) Classification with C-Mod fusion data (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regression_Fusion.html">(6/10/2024) Regression with C-Mod fusion data (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">(6/11/2024) Intro to Normalizing Flows (J. Giroux, slides)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFlows_BasicExample_new.html">(6/11/2024) Normalizing Flows - Basic Example (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">(6/11/2024) Normalizing Flows - GlueX BCAL Example (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1GDRbfTudsAcQES5TTCiFdgBxoH6QIxg0MjndLHmw8eU/edit?usp=sharing">(6/12/2024) A Gentle Introduction to Uncertainty Quantification and Bayes' Rule (slides, C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MCMC_from_scratch_all.html">(6/12/2024) Sampling Techniques from Scratch (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro_PyMC_coin.html">(6/12/2024) Introduction to Probabilistic Programming (coin example) (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/14D6R9mpg_x4Mf1OTuLlXeyV0UPZJGhcjP9kabm10Ung/edit?usp=sharing">(6/12/2024) An Introduction to Bayesian Regression (slides, C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bayesian_Polynomial_Regression.html">(6/12/2024) Bayesian Linear/Polynomial Regression - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bayesian_Logistic_Regression.html">(6/12/2024) Bayesian Logistic Regression - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1BFDSM4vC6Hq_0d6azsNxDa5NMn9VVuxfJv8v6jt1DpU/edit?usp=sharing">(6/12/2024) Introduction to Bayesian Neural Networks (slides, C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bayesian_Neural_Network.html">(6/12/2024) Bayesian Neural Network - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Applications_CNNs.html">(6/12/2024) Hands-on - CNN (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Applications_GNNs.html">(6/12/2024) Hands-on - GNN (D. Vasiliu)</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">(6/13/2024) Single-Objective Bayesian Optimization (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_MOBO2.html">(6/13/2024) Multi-Objective Bayesian Optimization (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_MOEA.html">(6/13/2024) Multi-Objective Genetic Algorithm (C. Fanelli)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Fusion Lectures
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fusion Lectures</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/u/1/d/1_dJtr18LfwCR4Nfwt3bX5_0U_g5N3Bw4/edit?usp=drive_web&amp;ouid=113195593718692427789&amp;rtpof=true">
-   (6/3/2024) W&amp;M and Fusion (S. Mordijck)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1XbhZegEIBQEl0Hs6Gl4qbhuIoGo7g9v9/view?usp=share_link">
-   (6/3/2024) Nuclear Fusion Power - A solution to the world’s energy problem? (S. Mordijck, A. Dominguez)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/14mtA2TOsMw9p_IYrTzvmxqqjSnSvjRgy/edit?usp=share_link&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">
-   (6/4/2024) Overview of plasma diagnostics and measurements (E. Kostadinova)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1gusvm06ELDBspuBO-N7sikNt7x1vw2uV/view?usp=share_link">
-   (6/5/2024) Alcator C-Mod  (A. Saperstein, J. Stillerman)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1FZRCgOj-D3lDDfXVXS4UdKUxQUHPdx2H/view?usp=share_link">
-   (6/6/2024) HDF (A. Jelenak)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1py52JvsHpcfBrhx0CobpgJ0khcH59aaP/view?usp=share_link">
-   (6/7/2024) Fusion Pilot (S. Diem)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1CJYhQjpjuBqhpH_GrZaXqEJnaFUnUg7k/edit?usp=sharing&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">
-   (6/10/2024) Managing Data - Why it matters, when it is important, and how to do it (N. Cummings)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1IM5AFQFwqM9EDm5HTPcIz5FDPfWiUFI3/view?usp=share_link">
-   (6/11/2024) Making plasma science open (N. Murphy)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1MvKyWDSXcwAfgmq7oo2Y8gFllnwvyhZm/view?usp=sharing">
-   (6/12/2024) DIII-D ML/AI perspective (B. Sammuli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1EenE3-aNIh5aLRX1vpKj0sowfNLRMS_ifPw7TAIFrXo/edit?usp=sharing">
-   (6/13/2024) Data-mining the tokamak density limit (A. Maris)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/u/1/d/1_dJtr18LfwCR4Nfwt3bX5_0U_g5N3Bw4/edit?usp=drive_web&amp;ouid=113195593718692427789&amp;rtpof=true">(6/3/2024) W&amp;M and Fusion (S. Mordijck)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1XbhZegEIBQEl0Hs6Gl4qbhuIoGo7g9v9/view?usp=share_link">(6/3/2024) Nuclear Fusion Power - A solution to the world’s energy problem? (S. Mordijck, A. Dominguez)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/14mtA2TOsMw9p_IYrTzvmxqqjSnSvjRgy/edit?usp=share_link&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">(6/4/2024) Overview of plasma diagnostics and measurements (E. Kostadinova)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1gusvm06ELDBspuBO-N7sikNt7x1vw2uV/view?usp=share_link">(6/5/2024) Alcator C-Mod  (A. Saperstein, J. Stillerman)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1FZRCgOj-D3lDDfXVXS4UdKUxQUHPdx2H/view?usp=share_link">(6/6/2024) HDF (A. Jelenak)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1py52JvsHpcfBrhx0CobpgJ0khcH59aaP/view?usp=share_link">(6/7/2024) Fusion Pilot (S. Diem)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1CJYhQjpjuBqhpH_GrZaXqEJnaFUnUg7k/edit?usp=sharing&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">(6/10/2024) Managing Data - Why it matters, when it is important, and how to do it (N. Cummings)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1IM5AFQFwqM9EDm5HTPcIz5FDPfWiUFI3/view?usp=share_link">(6/11/2024) Making plasma science open (N. Murphy)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1MvKyWDSXcwAfgmq7oo2Y8gFllnwvyhZm/view?usp=sharing">(6/12/2024) DIII-D ML/AI perspective (B. Sammuli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1EenE3-aNIh5aLRX1vpKj0sowfNLRMS_ifPw7TAIFrXo/edit?usp=sharing">(6/13/2024) Data-mining the tokamak density limit (A. Maris)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Datasets
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/13aKCJA56CmYUEc5zW4P62_BbU1vcewVT/view?usp=share_link">
-   C-Mod Dataset - Additional Documentation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">
-   Kaggle - Nuclear Fusion Data (Classification)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">
-   Zindi - Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">
-   IOP paper - The updated ITPA global H-mode confinement database; description and analysis (Regression)
-  </a>
- </li>
+
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/13aKCJA56CmYUEc5zW4P62_BbU1vcewVT/view?usp=share_link">C-Mod Dataset - Additional Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">Kaggle - Nuclear Fusion Data (Classification)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">Zindi - Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">IOP paper - The updated ITPA global H-mode confinement database; description and analysis (Regression)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Additional resources
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional resources</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="referencesmd.html">
-   References
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="referencesmd.html">References</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=tree/notebooks/Design_BO.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=tree/notebooks/Design_BO.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
-    <img src="_static/images/logo_binder.svg">
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Design_BO.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Design_BO.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
-    <img src="_static/images/logo_colab.png">
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
 <button onclick="initThebeSBT()"
-  class="headerbtn headerbtn-launch-thebe"
-  data-toggle="tooltip"
-data-placement="left"
-title="Launch Thebe"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-play"></i>
   </span>
-<span class="headerbtn__text-container">Live Code</span>
+<span class="btn__text-container">Live Code</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ai4fusion-wmschool/summer2024" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FDesign_BO.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Design_BO.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/ai4fusion-wmschool/summer2024"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
 
-      </li>
-      
-      <li>
-        <a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FDesign_BO.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/Design_BO.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </button>
-
-      </li>
+</div></div>
       
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
+    </div>
   
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
-    </div>
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#create-detector-geometry-and-simulate-tracks">
-   Create detector geometry and simulate tracks
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#list-of-parameters">
-     LIST OF PARAMETERS
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-objectives">
-   Define Objectives
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-optimization-of-the-detector-geometry">
-   Bayesian Optimization of the Detector Geometry
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-optimization-with-gaussian-processes">
-   Bayesian Optimization with Gaussian Processes
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#results-from-bo-gp">
-     Results from BO(GP)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#convergence">
-     Convergence
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#optimal-geometry">
-     Optimal Geometry
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-optimization-with-gbrt">
-   Bayesian Optimization with GBRT
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#random-search">
-   Random Search
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#visualization-of-results">
-   Visualization of Results
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#solution-1">
-   Solution 1
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Bayesian Optimization</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#create-detector-geometry-and-simulate-tracks">
-   Create detector geometry and simulate tracks
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#list-of-parameters">
-     LIST OF PARAMETERS
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#define-objectives">
-   Define Objectives
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-optimization-of-the-detector-geometry">
-   Bayesian Optimization of the Detector Geometry
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-optimization-with-gaussian-processes">
-   Bayesian Optimization with Gaussian Processes
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#results-from-bo-gp">
-     Results from BO(GP)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#convergence">
-     Convergence
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#optimal-geometry">
-     Optimal Geometry
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#bayesian-optimization-with-gbrt">
-   Bayesian Optimization with GBRT
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#random-search">
-   Random Search
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#visualization-of-results">
-   Visualization of Results
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#solution-1">
-   Solution 1
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Bayesian Optimization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-detector-geometry-and-simulate-tracks">Create detector geometry and simulate tracks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-parameters">LIST OF PARAMETERS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-objectives">Define Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-of-the-detector-geometry">Bayesian Optimization of the Detector Geometry</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-with-gaussian-processes">Bayesian Optimization with Gaussian Processes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results-from-bo-gp">Results from BO(GP)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence">Convergence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-geometry">Optimal Geometry</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-with-gbrt">Bayesian Optimization with GBRT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-search">Random Search</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-results">Visualization of Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-1">Solution 1</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section id="bayesian-optimization">
-<h1>Bayesian Optimization<a class="headerlink" href="#bayesian-optimization" title="Permalink to this headline">#</a></h1>
+<h1>Bayesian Optimization<a class="headerlink" href="#bayesian-optimization" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!git clone https://github.com/cfteach/modules.git
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>!git clone https://github.com/cfteach/modules.git
 !pip install scikit-optimize
 </pre></div>
 </div>
@@ -822,32 +568,32 @@ Successfully installed pyaml-21.10.1 scikit-optimize-0.9.0
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load_ext</span> <span class="n">autoreload</span>
-<span class="o">%</span><span class="n">autoreload</span> <span class="mi">2</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>%load_ext autoreload
+%autoreload 2
 
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">Math</span><span class="p">,</span> <span class="n">Latex</span>
+from IPython.display import display, Math, Latex
 
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="c1">#import AI4NP_detector_opt.sol2.detector2 as detector2</span>
-<span class="kn">import</span> <span class="nn">modules.detector2</span> <span class="k">as</span> <span class="nn">detector2</span>
-<span class="kn">import</span> <span class="nn">re</span>
+import os
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+#import AI4NP_detector_opt.sol2.detector2 as detector2
+import modules.detector2 as detector2
+import re
 </pre></div>
 </div>
 </div>
 </div>
 <section id="create-detector-geometry-and-simulate-tracks">
-<h2>Create detector geometry and simulate tracks<a class="headerlink" href="#create-detector-geometry-and-simulate-tracks" title="Permalink to this headline">#</a></h2>
+<h2>Create detector geometry and simulate tracks<a class="headerlink" href="#create-detector-geometry-and-simulate-tracks" title="Link to this heading">#</a></h2>
 <p>The module detector creates a simple 2D geometry of a wire based tracker made by 4 planes.</p>
 <p>The adjustable parameters are the radius of each wire, the pitch (along the y axis), and the shift along y and z of a plane with respect to the previous one.</p>
 <p>A total of 8 parameters can be tuned.</p>
 <p>The goal of this toy model, is to tune the detector design so to optimize the efficiency (fraction of tracks which are detected) as well as the cost for its realization. As a proxy for the cost, we use the material/volume (the surface in 2D) of the detector. For a track to be detetected, in the efficiency definition we require at least two wires hit by the track.</p>
 <p>So we want to maximize the efficiency (defined in <a class="reference external" href="http://detector.py">detector.py</a>) and minimize the cost.</p>
 <section id="list-of-parameters">
-<h3>LIST OF PARAMETERS<a class="headerlink" href="#list-of-parameters" title="Permalink to this headline">#</a></h3>
+<h3>LIST OF PARAMETERS<a class="headerlink" href="#list-of-parameters" title="Link to this heading">#</a></h3>
 <p>(baseline values)</p>
 <ul class="simple">
 <li><p>R = .5   [cm]</p></li>
@@ -856,49 +602,49 @@ Successfully installed pyaml-21.10.1 scikit-optimize-0.9.0
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># CONSTANT PARAMETERS</span>
-<span class="c1">#------ define mother region ------#</span>
-<span class="n">y_min</span><span class="o">=-</span><span class="mf">10.1</span>
-<span class="n">y_max</span><span class="o">=</span><span class="mf">10.1</span>
-<span class="n">N_tracks</span> <span class="o">=</span> <span class="mi">1000</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># CONSTANT PARAMETERS
+#------ define mother region ------#
+y_min=-10.1
+y_max=10.1
+N_tracks = 1000
 
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;::::: BASELINE PARAMETERS :::::&quot;</span><span class="p">)</span>
-<span class="n">R</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="c1">#.5</span>
-<span class="n">pitch</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="c1">#10.0</span>
-<span class="n">y1</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="n">y2</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="n">y3</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="n">z1</span> <span class="o">=</span> <span class="mf">2.0</span>
-<span class="n">z2</span> <span class="o">=</span> <span class="mf">4.0</span>
-<span class="n">z3</span> <span class="o">=</span> <span class="mf">6.0</span>
+print(&quot;::::: BASELINE PARAMETERS :::::&quot;)
+R = 0.5 #.5
+pitch = 4.0 #10.0
+y1 = 0.0
+y2 = 0.0
+y3 = 0.0
+z1 = 2.0
+z2 = 4.0
+z3 = 6.0
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R, pitch, y1, y2, y3, z1, z2, z3: &quot;</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span><span class="p">,</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-
-
-<span class="c1">#------------- GEOMETRY ---------------#</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;:::: INITIAL GEOMETRY ::::&quot;</span><span class="p">)</span>
-<span class="n">tr</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">Tracker</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span><span class="p">)</span>
-<span class="n">Z</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">create_geometry</span><span class="p">()</span>
-<span class="n">num_wires</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">calculate_wires</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span>
+print(&quot;R, pitch, y1, y2, y3, z1, z2, z3: &quot;, R, pitch, y1, y2, y3, z1, z2, z3,&quot;\n&quot;)
 
 
-<span class="n">detector2</span><span class="o">.</span><span class="n">geometry_display</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">y_min</span><span class="o">=</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="o">=</span><span class="n">y_max</span><span class="p">,</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">pause</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="c1">#5</span>
+#------------- GEOMETRY ---------------#
+print(&quot;:::: INITIAL GEOMETRY ::::&quot;)
+tr = detector2.Tracker(R, pitch, y1, y2, y3, z1, z2, z3)
+Z, Y = tr.create_geometry()
+num_wires = detector2.calculate_wires(Y, y_min, y_max)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# of wires: &quot;</span><span class="p">,</span> <span class="n">num_wires</span><span class="p">)</span>
 
-<span class="c1">#------------- TRACK GENERATION -----------#</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;:::: TRACK GENERATION ::::&quot;</span><span class="p">)</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">Tracks</span><span class="p">(</span><span class="n">b_min</span><span class="o">=</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">b_max</span><span class="o">=</span><span class="n">y_max</span><span class="p">,</span> <span class="n">alpha_mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha_std</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span> <span class="c1">#b_min=-100, b_max=100</span>
-<span class="n">tracks</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">N_tracks</span><span class="p">)</span>
+detector2.geometry_display(Z, Y, R, y_min=y_min, y_max=y_max,block=False,pause=5) #5
 
-<span class="n">detector2</span><span class="o">.</span><span class="n">geometry_display</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">y_min</span><span class="o">=</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="o">=</span><span class="n">y_max</span><span class="p">,</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pause</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">detector2</span><span class="o">.</span><span class="n">tracks_display</span><span class="p">(</span><span class="n">tracks</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">pause</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+print(&quot;# of wires: &quot;, num_wires)
 
- <span class="c1">#a track is detected if at least two wires have been hit</span>
-<span class="n">score</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">tracks</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
-<span class="n">frac_detected</span> <span class="o">=</span> <span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fraction of tracks detected: &quot;</span><span class="p">,</span><span class="n">frac_detected</span><span class="p">)</span>
+#------------- TRACK GENERATION -----------#
+print(&quot;:::: TRACK GENERATION ::::&quot;)
+t = detector2.Tracks(b_min= y_min, b_max=y_max, alpha_mean=0, alpha_std=0.2) #b_min=-100, b_max=100
+tracks = t.generate(N_tracks)
+
+detector2.geometry_display(Z, Y, R, y_min=y_min, y_max=y_max,block=False, pause=-1)
+detector2.tracks_display(tracks, Z,block=False,pause=-1)
+
+ #a track is detected if at least two wires have been hit
+score = detector2.get_score(Z, Y, tracks, R)
+frac_detected = score[0]
+print(&quot;fraction of tracks detected: &quot;,frac_detected)
 </pre></div>
 </div>
 </div>
@@ -911,8 +657,8 @@ R, pitch, y1, y2, y3, z1, z2, z3:  0.5 4.0 0.0 0.0 0.0 2.0 4.0 6.0
 :::: TRACK GENERATION ::::
 </pre></div>
 </div>
-<img alt="_images/Design_BO_4_1.png" src="_images/Design_BO_4_1.png" />
-<img alt="_images/Design_BO_4_2.png" src="_images/Design_BO_4_2.png" />
+<img alt="_images/58858194d870a7efa98114f8ca3ad84b918aaa91097db909c5a96a4ebe3c1a38.png" src="_images/58858194d870a7efa98114f8ca3ad84b918aaa91097db909c5a96a4ebe3c1a38.png" />
+<img alt="_images/3dbd996c34ce34eb172ab73101838a4d3416f43016ee6380c92e8973b7a488ef.png" src="_images/3dbd996c34ce34eb172ab73101838a4d3416f43016ee6380c92e8973b7a488ef.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fraction of tracks detected:  0.264
 </pre></div>
 </div>
@@ -922,33 +668,33 @@ R, pitch, y1, y2, y3, z1, z2, z3:  0.5 4.0 0.0 0.0 0.0 2.0 4.0 6.0
 </section>
 <hr class="docutils" />
 <section id="define-objectives">
-<h2>Define Objectives<a class="headerlink" href="#define-objectives" title="Permalink to this headline">#</a></h2>
+<h2>Define Objectives<a class="headerlink" href="#define-objectives" title="Link to this heading">#</a></h2>
 <p>Defines the objective function of the problem that can be used in the Bayesian Optimization.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#------------- OBJECTIVE FUNCTION ---------------#</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#------------- OBJECTIVE FUNCTION ---------------#
 
-<span class="k">class</span> <span class="nc">Obj</span><span class="p">:</span>
+class Obj:
 
-  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">R</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">pitch</span><span class="o">=</span><span class="mf">4.0</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">R</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span> <span class="o">=</span> <span class="n">pitch</span>
+  def __init__(self,R=0.5,pitch=4.0):
+    self.R = R
+    self.pitch = pitch
 
-  <span class="k">def</span> <span class="nf">update_pars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">r</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">r</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span> <span class="o">=</span> <span class="n">p</span>
+  def update_pars(self,r,p):
+    self.R = r
+    self.pitch = p
 
 
-  <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+  def objective(self,x):
 
-    <span class="c1">#you have to upack R, pitch if included in the BO</span>
-    <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span> <span class="o">=</span> <span class="n">x</span>
-    <span class="n">Z</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">Tracker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span><span class="p">)</span><span class="o">.</span><span class="n">create_geometry</span><span class="p">()</span>
-    <span class="c1">#a track is detected if at least two wires have been hit</span>
-    <span class="n">val</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">tracks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="c1">#print(self.R, self.pitch)</span>
+    #you have to upack R, pitch if included in the BO
+    y1, y2, y3, z1, z2, z3 = x
+    Z, Y = detector2.Tracker(self.R, self.pitch, y1, y2, y3, z1, z2, z3).create_geometry()
+    #a track is detected if at least two wires have been hit
+    val = detector2.get_score(Z, Y, tracks, self.R)[0]
+    #print(self.R, self.pitch)
 
-    <span class="k">return</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">val</span>  <span class="c1"># the smaller, the better.</span>
+    return 1. - val  # the smaller, the better.
 
 
 
@@ -959,79 +705,79 @@ R, pitch, y1, y2, y3, z1, z2, z3:  0.5 4.0 0.0 0.0 0.0 2.0 4.0 6.0
 </section>
 <hr class="docutils" />
 <section id="bayesian-optimization-of-the-detector-geometry">
-<h2>Bayesian Optimization of the Detector Geometry<a class="headerlink" href="#bayesian-optimization-of-the-detector-geometry" title="Permalink to this headline">#</a></h2>
+<h2>Bayesian Optimization of the Detector Geometry<a class="headerlink" href="#bayesian-optimization-of-the-detector-geometry" title="Link to this heading">#</a></h2>
 <p>You can find different options for the optimization.</p>
 <p>We refer to sklearn optimization package:
 <a class="reference external" href="https://scikit-optimize.github.io/stable/">https://scikit-optimize.github.io/stable/</a></p>
 <p>Different approaches for the regression part.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skopt</span> <span class="kn">import</span> <span class="n">gp_minimize</span><span class="p">,</span> <span class="n">gbrt_minimize</span><span class="p">,</span> <span class="n">dummy_minimize</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>from skopt import gp_minimize, gbrt_minimize, dummy_minimize
 
-<span class="c1"># You can change values within pre-defined ranges</span>
-<span class="c1"># Below we are considering only the shifts along y and z</span>
-<span class="c1"># (of each plane with respect to the previous plane)</span>
+# You can change values within pre-defined ranges
+# Below we are considering only the shifts along y and z
+# (of each plane with respect to the previous plane)
 
-<span class="n">y1_min</span><span class="p">,</span> <span class="n">y1_max</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">]</span>
-<span class="n">y2_min</span><span class="p">,</span> <span class="n">y2_max</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">]</span>
-<span class="n">y3_min</span><span class="p">,</span> <span class="n">y3_max</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">]</span>
-<span class="n">z1_min</span><span class="p">,</span> <span class="n">z1_max</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]</span>
-<span class="n">z2_min</span><span class="p">,</span> <span class="n">z2_max</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]</span>
-<span class="n">z3_min</span><span class="p">,</span> <span class="n">z3_max</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]</span>
+y1_min, y1_max = [0., 4.]
+y2_min, y2_max = [0., 4.]
+y3_min, y3_max = [0., 4.]
+z1_min, z1_max = [2., 10.]
+z2_min, z2_max = [2., 10.]
+z3_min, z3_max = [2., 10.]
 
-<span class="n">dims</span> <span class="o">=</span> <span class="p">[(</span><span class="n">y1_min</span><span class="p">,</span> <span class="n">y1_max</span><span class="p">),(</span><span class="n">y2_min</span><span class="p">,</span> <span class="n">y2_max</span><span class="p">),</span> <span class="p">(</span><span class="n">y3_min</span><span class="p">,</span> <span class="n">y3_max</span><span class="p">),</span>
-        <span class="p">(</span><span class="n">z1_min</span><span class="p">,</span> <span class="n">z1_max</span><span class="p">),</span> <span class="p">(</span><span class="n">z2_min</span><span class="p">,</span> <span class="n">z2_max</span><span class="p">),(</span><span class="n">z3_min</span><span class="p">,</span> <span class="n">z3_max</span><span class="p">)]</span>
+dims = [(y1_min, y1_max),(y2_min, y2_max), (y3_min, y3_max),
+        (z1_min, z1_max), (z2_min, z2_max),(z3_min, z3_max)]
 
-<span class="n">ncalls</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">rand_st</span> <span class="o">=</span> <span class="mi">1717</span> <span class="c1">#for reproducibility</span>
+ncalls = 100
+rand_st = 1717 #for reproducibility
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="bayesian-optimization-with-gaussian-processes">
-<h2>Bayesian Optimization with Gaussian Processes<a class="headerlink" href="#bayesian-optimization-with-gaussian-processes" title="Permalink to this headline">#</a></h2>
+<h2>Bayesian Optimization with Gaussian Processes<a class="headerlink" href="#bayesian-optimization-with-gaussian-processes" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">obj_fun</span> <span class="o">=</span> <span class="n">Obj</span><span class="p">()</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>obj_fun = Obj()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># https://scikit-optimize.github.io/stable/modules/generated/skopt.gp_minimize.html</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># https://scikit-optimize.github.io/stable/modules/generated/skopt.gp_minimize.html
 
 
-<span class="n">res_gp</span> <span class="o">=</span> <span class="n">gp_minimize</span><span class="p">(</span>
-    <span class="n">func</span><span class="o">=</span><span class="n">obj_fun</span><span class="o">.</span><span class="n">objective</span><span class="p">,</span>  <span class="c1"># the function to minimize</span>
-    <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>  <span class="c1"># the bounds on each dimension of x</span>
-    <span class="n">acq_func</span><span class="o">=</span><span class="s2">&quot;gp_hedge&quot;</span><span class="p">,</span> <span class="c1">#&quot;gp_hedge&quot;,  # the acquisition function EI</span>
-    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f</span>
-    <span class="n">n_random_starts</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>  <span class="c1"># the number of random initialization points</span>
-    <span class="c1">#noise=0.01**2,  # the noise level (optional)</span>
-    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed, use same for reproducibility</span>
-    <span class="c1">#kappa=kappa,  # the adjustable parameter of LCB; control variance</span>
-    <span class="c1">#xi = xi, # adjustable parameter of either EI, PI: controls improvement</span>
-    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+res_gp = gp_minimize(
+    func=obj_fun.objective,  # the function to minimize
+    dimensions=dims,  # the bounds on each dimension of x
+    acq_func=&quot;gp_hedge&quot;, #&quot;gp_hedge&quot;,  # the acquisition function EI
+    n_calls= ncalls,  # the number of evaluations of f
+    n_random_starts=15,  # the number of random initialization points
+    #noise=0.01**2,  # the noise level (optional)
+    random_state=rand_st,  # the random seed, use same for reproducibility
+    #kappa=kappa,  # the adjustable parameter of LCB; control variance
+    #xi = xi, # adjustable parameter of either EI, PI: controls improvement
+    verbose=False)
 </pre></div>
 </div>
 </div>
 </div>
 <section id="results-from-bo-gp">
-<h3>Results from BO(GP)<a class="headerlink" href="#results-from-bo-gp" title="Permalink to this headline">#</a></h3>
+<h3>Results from BO(GP)<a class="headerlink" href="#results-from-bo-gp" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------RESULT FROM BO(GP)-------&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------&quot;</span><span class="p">)</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>
+print(&quot;-------------------------------&quot;)
+print(&quot;------RESULT FROM BO(GP)-------&quot;)
+print(&quot;-------------------------------&quot;)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Objective optimum = &quot;</span><span class="p">,</span> <span class="n">res_gp</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best score (efficiency) = &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">res_gp</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
+print(&quot;Objective optimum = &quot;, res_gp.fun)
+print(&quot;Best score (efficiency) = &quot;, 1-res_gp.fun)
 
-<span class="c1"># get found optimal geometry #R, pitch,</span>
-<span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_gp</span><span class="o">.</span><span class="n">x</span>
+# get found optimal geometry #R, pitch,
+[y1, y2, y3, z1, z2, z3] = res_gp.x
 
 </pre></div>
 </div>
@@ -1048,12 +794,12 @@ Best score (efficiency) =  0.41500000000000004
 </div>
 </section>
 <section id="convergence">
-<h3>Convergence<a class="headerlink" href="#convergence" title="Permalink to this headline">#</a></h3>
+<h3>Convergence<a class="headerlink" href="#convergence" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;....plotting convergence&quot;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">skopt.plots</span> <span class="kn">import</span> <span class="n">plot_convergence</span>
-<span class="n">plot_convergence</span><span class="p">((</span><span class="s2">&quot;BO: GP&quot;</span><span class="p">,</span> <span class="n">res_gp</span><span class="p">))</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>print(&quot;....plotting convergence&quot;)
+from skopt.plots import plot_convergence
+plot_convergence((&quot;BO: GP&quot;, res_gp))
 </pre></div>
 </div>
 </div>
@@ -1064,30 +810,30 @@ Best score (efficiency) =  0.41500000000000004
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f0de9cb0c90&gt;
 </pre></div>
 </div>
-<img alt="_images/Design_BO_15_2.png" src="_images/Design_BO_15_2.png" />
+<img alt="_images/fe9dde581acef5d1e292f2635f1fe4c38276319b8ec962da04167a6529a2936d.png" src="_images/fe9dde581acef5d1e292f2635f1fe4c38276319b8ec962da04167a6529a2936d.png" />
 </div>
 </div>
 </section>
 <section id="optimal-geometry">
-<h3>Optimal Geometry<a class="headerlink" href="#optimal-geometry" title="Permalink to this headline">#</a></h3>
+<h3>Optimal Geometry<a class="headerlink" href="#optimal-geometry" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="c1">#------------- GEOMETRY ---------------#</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;:::: OPTIMAL GEOMETRY ::::&quot;</span><span class="p">)</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>
+#------------- GEOMETRY ---------------#
+print(&quot;:::: OPTIMAL GEOMETRY ::::&quot;)
 
-<span class="n">tr</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">Tracker</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span><span class="p">)</span>
-<span class="n">Z</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">create_geometry</span><span class="p">()</span>
-<span class="n">num_wires</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">calculate_wires</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;num_wires: &quot;</span><span class="p">,</span> <span class="n">num_wires</span><span class="p">)</span>
+tr = detector2.Tracker(R, pitch, y1, y2, y3, z1, z2, z3)
+Z, Y = tr.create_geometry()
+num_wires = detector2.calculate_wires(Y, y_min, y_max)
+print(&quot;num_wires: &quot;, num_wires)
 
-<span class="n">detector2</span><span class="o">.</span><span class="n">geometry_display</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">y_min</span><span class="o">=</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="o">=</span><span class="n">y_max</span><span class="p">,</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pause</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">detector2</span><span class="o">.</span><span class="n">tracks_display</span><span class="p">(</span><span class="n">tracks</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">pause</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+detector2.geometry_display(Z, Y, R, y_min=y_min, y_max=y_max,block=False, pause=-1)
+detector2.tracks_display(tracks, Z,block=False,pause=-1)
 
-<span class="c1">#a track is detected if at least two wires have been hit</span>
-<span class="n">score</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">tracks</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
-<span class="n">frac_detected</span> <span class="o">=</span> <span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fraction of tracks detected: &quot;</span><span class="p">,</span><span class="n">frac_detected</span><span class="p">)</span>
+#a track is detected if at least two wires have been hit
+score = detector2.get_score(Z, Y, tracks, R)
+frac_detected = score[0]
+print(&quot;fraction of tracks detected: &quot;,frac_detected)
 </pre></div>
 </div>
 </div>
@@ -1096,7 +842,7 @@ Best score (efficiency) =  0.41500000000000004
 num_wires:  20
 </pre></div>
 </div>
-<img alt="_images/Design_BO_17_1.png" src="_images/Design_BO_17_1.png" />
+<img alt="_images/bb4002f0177abf221c8e16b22e6304ea2a019c360a9958fa226fb27543cba3d9.png" src="_images/bb4002f0177abf221c8e16b22e6304ea2a019c360a9958fa226fb27543cba3d9.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fraction of tracks detected:  0.415
 </pre></div>
 </div>
@@ -1105,26 +851,26 @@ num_wires:  20
 </section>
 </section>
 <section id="bayesian-optimization-with-gbrt">
-<h2>Bayesian Optimization with GBRT<a class="headerlink" href="#bayesian-optimization-with-gbrt" title="Permalink to this headline">#</a></h2>
+<h2>Bayesian Optimization with GBRT<a class="headerlink" href="#bayesian-optimization-with-gbrt" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res_gbrt</span> <span class="o">=</span> <span class="n">gbrt_minimize</span><span class="p">(</span>
-    <span class="n">func</span><span class="o">=</span><span class="n">obj_fun</span><span class="o">.</span><span class="n">objective</span><span class="p">,</span>  <span class="c1"># the function to minimize</span>
-    <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>  <span class="c1"># the bounds on each dimension of x</span>
-    <span class="n">acq_func</span><span class="o">=</span><span class="s2">&quot;EI&quot;</span><span class="p">,</span>  <span class="c1"># the acquisition function EI</span>
-    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f</span>
-    <span class="n">n_random_starts</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>  <span class="c1"># the number of random initialization points</span>
-    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed, use same for reproducibility</span>
-    <span class="c1">#kappa=kappa,  # the adjustable parameter of LCB; control variance</span>
-    <span class="c1">#xi = xi, # adjustable parameter of either EI, PI: controls improvement</span>
-    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>res_gbrt = gbrt_minimize(
+    func=obj_fun.objective,  # the function to minimize
+    dimensions=dims,  # the bounds on each dimension of x
+    acq_func=&quot;EI&quot;,  # the acquisition function EI
+    n_calls= ncalls,  # the number of evaluations of f
+    n_random_starts=15,  # the number of random initialization points
+    random_state=rand_st,  # the random seed, use same for reproducibility
+    #kappa=kappa,  # the adjustable parameter of LCB; control variance
+    #xi = xi, # adjustable parameter of either EI, PI: controls improvement
+    verbose=False)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----RESULT FROM BO(GBRT)------&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------&quot;</span><span class="p">)</span>
+print(&quot;-------------------------------&quot;)
+print(&quot;-----RESULT FROM BO(GBRT)------&quot;)
+print(&quot;-------------------------------&quot;)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Objective optimum = &quot;</span><span class="p">,</span> <span class="n">res_gbrt</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best score = &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">res_gbrt</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
+print(&quot;Objective optimum = &quot;, res_gbrt.fun)
+print(&quot;Best score = &quot;, 1-res_gbrt.fun)
 </pre></div>
 </div>
 </div>
@@ -1140,22 +886,22 @@ Best score =  0.378
 </div>
 </section>
 <section id="random-search">
-<h2>Random Search<a class="headerlink" href="#random-search" title="Permalink to this headline">#</a></h2>
+<h2>Random Search<a class="headerlink" href="#random-search" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res_rand</span> <span class="o">=</span> <span class="n">dummy_minimize</span><span class="p">(</span>
-    <span class="n">func</span><span class="o">=</span><span class="n">obj_fun</span><span class="o">.</span><span class="n">objective</span><span class="p">,</span>  <span class="c1"># the function to minimize</span>
-    <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>  <span class="c1"># the bounds on each dimension of x</span>
-    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f</span>
-    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed</span>
-    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>res_rand = dummy_minimize(
+    func=obj_fun.objective,  # the function to minimize
+    dimensions=dims,  # the bounds on each dimension of x
+    n_calls= ncalls,  # the number of evaluations of f
+    random_state=rand_st,  # the random seed
+    verbose=False)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------  RESULT FROM RS  -------&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------&quot;</span><span class="p">)</span>
+print(&quot;-------------------------------&quot;)
+print(&quot;------  RESULT FROM RS  -------&quot;)
+print(&quot;-------------------------------&quot;)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Objective optimum = &quot;</span><span class="p">,</span> <span class="n">res_rand</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best score = &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">res_rand</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
+print(&quot;Objective optimum = &quot;, res_rand.fun)
+print(&quot;Best score = &quot;, 1-res_rand.fun)
 </pre></div>
 </div>
 </div>
@@ -1171,12 +917,12 @@ Best score =  0.33099999999999996
 </div>
 </section>
 <section id="visualization-of-results">
-<h2>Visualization of Results<a class="headerlink" href="#visualization-of-results" title="Permalink to this headline">#</a></h2>
+<h2>Visualization of Results<a class="headerlink" href="#visualization-of-results" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;....plotting convergence&quot;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">skopt.plots</span> <span class="kn">import</span> <span class="n">plot_convergence</span>
-<span class="n">plot_convergence</span><span class="p">((</span><span class="s2">&quot;BO: GP&quot;</span><span class="p">,</span> <span class="n">res_gp</span><span class="p">),(</span><span class="s2">&quot;BO: GBRT&quot;</span><span class="p">,</span> <span class="n">res_gbrt</span><span class="p">),(</span><span class="s2">&quot;random search&quot;</span><span class="p">,</span> <span class="n">res_rand</span><span class="p">))</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>print(&quot;....plotting convergence&quot;)
+from skopt.plots import plot_convergence
+plot_convergence((&quot;BO: GP&quot;, res_gp),(&quot;BO: GBRT&quot;, res_gbrt),(&quot;random search&quot;, res_rand))
 </pre></div>
 </div>
 </div>
@@ -1187,55 +933,55 @@ Best score =  0.33099999999999996
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f0dc912c550&gt;
 </pre></div>
 </div>
-<img alt="_images/Design_BO_23_2.png" src="_images/Design_BO_23_2.png" />
+<img alt="_images/db5a99f1c917bf71db3b6b2b3f2e34072b6e373e34fff6b83cd4aa79129a5f37.png" src="_images/db5a99f1c917bf71db3b6b2b3f2e34072b6e373e34fff6b83cd4aa79129a5f37.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">list_str</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;y1&quot;</span><span class="p">,</span> <span class="s2">&quot;y2&quot;</span><span class="p">,</span> <span class="s2">&quot;y3&quot;</span><span class="p">,</span> <span class="s2">&quot;z1&quot;</span><span class="p">,</span> <span class="s2">&quot;z2&quot;</span><span class="p">,</span> <span class="s2">&quot;z3&quot;</span><span class="p">]</span> <span class="c1">#----&quot;R&quot;, &quot;pitch&quot;</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>list_str = [&quot;y1&quot;, &quot;y2&quot;, &quot;y3&quot;, &quot;z1&quot;, &quot;z2&quot;, &quot;z3&quot;] #----&quot;R&quot;, &quot;pitch&quot;
 
-<span class="kn">from</span> <span class="nn">skopt.plots</span> <span class="kn">import</span> <span class="n">plot_objective</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plot_objective</span><span class="p">(</span><span class="n">res_gp</span><span class="p">,</span><span class="n">dimensions</span><span class="o">=</span><span class="n">list_str</span><span class="p">)</span>
+from skopt.plots import plot_objective
+_ = plot_objective(res_gp,dimensions=list_str)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Design_BO_24_0.png" src="_images/Design_BO_24_0.png" />
+<img alt="_images/bc2ddb5c07ea8af36570054c87e8d70cec60968d0e3b1d43428336831cf0d617.png" src="_images/bc2ddb5c07ea8af36570054c87e8d70cec60968d0e3b1d43428336831cf0d617.png" />
 </div>
 </div>
 </section>
 <hr class="docutils" />
 <section id="solution-1">
-<h2>Solution 1<a class="headerlink" href="#solution-1" title="Permalink to this headline">#</a></h2>
-<ol class="simple">
+<h2>Solution 1<a class="headerlink" href="#solution-1" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
 <li><p>Increase radius to 1.0 and compare convergence plots of GP and RS with before.</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span><span class="p">,</span> <span class="n">pitch</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span> <span class="c1">#to update final plot of optimal geometry</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>R, pitch = 1.0, 4.0 #to update final plot of optimal geometry
 
-<span class="n">obj_fun</span><span class="o">.</span><span class="n">update_pars</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pitch</span><span class="p">)</span>
+obj_fun.update_pars(R, pitch)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res_gp_largeR</span> <span class="o">=</span> <span class="n">gp_minimize</span><span class="p">(</span>
-    <span class="n">func</span><span class="o">=</span><span class="n">obj_fun</span><span class="o">.</span><span class="n">objective</span><span class="p">,</span>  <span class="c1"># the function to minimize</span>
-    <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>  <span class="c1"># the bounds on each dimension of x</span>
-    <span class="n">acq_func</span><span class="o">=</span><span class="s2">&quot;gp_hedge&quot;</span><span class="p">,</span> <span class="c1">#&quot;gp_hedge&quot;,  # the acquisition function EI</span>
-    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f</span>
-    <span class="n">n_random_starts</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>  <span class="c1"># the number of random initialization points</span>
-    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed, use same for reproducibility</span>
-    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>res_gp_largeR = gp_minimize(
+    func=obj_fun.objective,  # the function to minimize
+    dimensions=dims,  # the bounds on each dimension of x
+    acq_func=&quot;gp_hedge&quot;, #&quot;gp_hedge&quot;,  # the acquisition function EI
+    n_calls= ncalls,  # the number of evaluations of f
+    n_random_starts=15,  # the number of random initialization points
+    random_state=rand_st,  # the random seed, use same for reproducibility
+    verbose=False)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------  RESULT FROM GP  -------&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------&quot;</span><span class="p">)</span>
+print(&quot;-------------------------------&quot;)
+print(&quot;------  RESULT FROM GP  -------&quot;)
+print(&quot;-------------------------------&quot;)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Objective optimum = &quot;</span><span class="p">,</span> <span class="n">res_gp_largeR</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best score = &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">res_gp_largeR</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
+print(&quot;Objective optimum = &quot;, res_gp_largeR.fun)
+print(&quot;Best score = &quot;, 1-res_gp_largeR.fun)
 </pre></div>
 </div>
 </div>
@@ -1251,19 +997,19 @@ Best score =  0.887
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res_rand_largeR</span> <span class="o">=</span> <span class="n">dummy_minimize</span><span class="p">(</span>
-    <span class="n">func</span><span class="o">=</span><span class="n">obj_fun</span><span class="o">.</span><span class="n">objective</span><span class="p">,</span>  <span class="c1"># the function to minimize</span>
-    <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>  <span class="c1"># the bounds on each dimension of x</span>
-    <span class="n">n_calls</span><span class="o">=</span> <span class="n">ncalls</span><span class="p">,</span>  <span class="c1"># the number of evaluations of f</span>
-    <span class="n">random_state</span><span class="o">=</span><span class="n">rand_st</span><span class="p">,</span>  <span class="c1"># the random seed</span>
-    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>res_rand_largeR = dummy_minimize(
+    func=obj_fun.objective,  # the function to minimize
+    dimensions=dims,  # the bounds on each dimension of x
+    n_calls= ncalls,  # the number of evaluations of f
+    random_state=rand_st,  # the random seed
+    verbose=False)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------  RESULT FROM RS  -------&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------------------------------&quot;</span><span class="p">)</span>
+print(&quot;-------------------------------&quot;)
+print(&quot;------  RESULT FROM RS  -------&quot;)
+print(&quot;-------------------------------&quot;)
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Objective optimum = &quot;</span><span class="p">,</span> <span class="n">res_rand_largeR</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best score = &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">res_rand_largeR</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
+print(&quot;Objective optimum = &quot;, res_rand_largeR.fun)
+print(&quot;Best score = &quot;, 1-res_rand_largeR.fun)
 </pre></div>
 </div>
 </div>
@@ -1279,9 +1025,9 @@ Best score =  0.796
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;....plotting convergence&quot;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">skopt.plots</span> <span class="kn">import</span> <span class="n">plot_convergence</span>
-<span class="n">plot_convergence</span><span class="p">((</span><span class="s2">&quot;BO: GP, R=0.5&quot;</span><span class="p">,</span> <span class="n">res_gp</span><span class="p">),(</span><span class="s2">&quot;BO: GP, R=1.0&quot;</span><span class="p">,</span> <span class="n">res_gp_largeR</span><span class="p">),(</span><span class="s2">&quot;random search, R=0.5&quot;</span><span class="p">,</span> <span class="n">res_rand</span><span class="p">),(</span><span class="s2">&quot;random search, R=1.0&quot;</span><span class="p">,</span> <span class="n">res_rand_largeR</span><span class="p">))</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>print(&quot;....plotting convergence&quot;)
+from skopt.plots import plot_convergence
+plot_convergence((&quot;BO: GP, R=0.5&quot;, res_gp),(&quot;BO: GP, R=1.0&quot;, res_gp_largeR),(&quot;random search, R=0.5&quot;, res_rand),(&quot;random search, R=1.0&quot;, res_rand_largeR))
 </pre></div>
 </div>
 </div>
@@ -1292,13 +1038,13 @@ Best score =  0.796
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f0de9b1bd10&gt;
 </pre></div>
 </div>
-<img alt="_images/Design_BO_29_2.png" src="_images/Design_BO_29_2.png" />
+<img alt="_images/e4704e232ac442a37669ee658485069e20c39447ca965d904fdf670013322f99.png" src="_images/e4704e232ac442a37669ee658485069e20c39447ca965d904fdf670013322f99.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">res_gp_largeR</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">res_gp</span><span class="o">.</span><span class="n">fun</span><span class="p">)</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>print(res_gp_largeR.fun)
+print(res_gp.fun)
 </pre></div>
 </div>
 </div>
@@ -1311,23 +1057,23 @@ Best score =  0.796
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_gp_largeR</span><span class="o">.</span><span class="n">x</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>[y1, y2, y3, z1, z2, z3] = res_gp_largeR.x
 
-<span class="c1">#------------- GEOMETRY ---------------#</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;:::: OPTIMAL GEOMETRY ::::&quot;</span><span class="p">)</span>
+#------------- GEOMETRY ---------------#
+print(&quot;:::: OPTIMAL GEOMETRY ::::&quot;)
 
-<span class="n">tr</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">Tracker</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">z3</span><span class="p">)</span>
-<span class="n">Z</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">create_geometry</span><span class="p">()</span>
-<span class="n">num_wires</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">calculate_wires</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;num_wires: &quot;</span><span class="p">,</span> <span class="n">num_wires</span><span class="p">)</span>
+tr = detector2.Tracker(R, pitch, y1, y2, y3, z1, z2, z3)
+Z, Y = tr.create_geometry()
+num_wires = detector2.calculate_wires(Y, y_min, y_max)
+print(&quot;num_wires: &quot;, num_wires)
 
-<span class="n">detector2</span><span class="o">.</span><span class="n">geometry_display</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">y_min</span><span class="o">=</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="o">=</span><span class="n">y_max</span><span class="p">,</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pause</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">detector2</span><span class="o">.</span><span class="n">tracks_display</span><span class="p">(</span><span class="n">tracks</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">pause</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+detector2.geometry_display(Z, Y, R, y_min=y_min, y_max=y_max,block=False, pause=-1)
+detector2.tracks_display(tracks, Z,block=False,pause=-1)
 
-<span class="c1">#a track is detected if at least two wires have been hit</span>
-<span class="n">score</span> <span class="o">=</span> <span class="n">detector2</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">tracks</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
-<span class="n">frac_detected</span> <span class="o">=</span> <span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fraction of tracks detected: &quot;</span><span class="p">,</span><span class="n">frac_detected</span><span class="p">)</span>
+#a track is detected if at least two wires have been hit
+score = detector2.get_score(Z, Y, tracks, R)
+frac_detected = score[0]
+print(&quot;fraction of tracks detected: &quot;,frac_detected)
 </pre></div>
 </div>
 </div>
@@ -1336,7 +1082,7 @@ Best score =  0.796
 num_wires:  21
 </pre></div>
 </div>
-<img alt="_images/Design_BO_31_1.png" src="_images/Design_BO_31_1.png" />
+<img alt="_images/79446cdadf96e9ba9eb81897030992e74a1144a9f3499d22cb6d7bec0990484c.png" src="_images/79446cdadf96e9ba9eb81897030992e74a1144a9f3499d22cb6d7bec0990484c.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fraction of tracks detected:  0.887
 </pre></div>
 </div>
@@ -1357,7 +1103,7 @@ num_wires:  21
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1365,49 +1111,111 @@ num_wires:  21
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Applications_GNNs.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">GNN Applications</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Applications_GNNs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">GNN Applications</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="Design_MOBO2.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="Design_MOBO2.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">MOBO</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-detector-geometry-and-simulate-tracks">Create detector geometry and simulate tracks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-of-parameters">LIST OF PARAMETERS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-objectives">Define Objectives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-of-the-detector-geometry">Bayesian Optimization of the Detector Geometry</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-with-gaussian-processes">Bayesian Optimization with Gaussian Processes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results-from-bo-gp">Results from BO(GP)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence">Convergence</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-geometry">Optimal Geometry</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-optimization-with-gbrt">Bayesian Optimization with GBRT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-search">Random Search</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-results">Visualization of Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-1">Solution 1</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Open-Fair-Fusion for Machine Learning Applications<br/>
-  
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By C. Fanelli on behalf of the Open-Fair-Fusion for Machine Learning Applications
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

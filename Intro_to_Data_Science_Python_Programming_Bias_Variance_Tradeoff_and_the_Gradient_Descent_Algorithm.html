@@ -1,113 +1,179 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="./" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Introduction, Bias Variance Tradeoff and Gradient Descent &#8212; AI for Fusion Energy Summer School (2024)</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="shortcut icon" href="_static/wm_vertical_single_line_full_color.png"/>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm';</script>
+    <link rel="icon" href="_static/wm_vertical_single_line_full_color.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Supervised Machine Learning: Linear Regression" href="Supervised_Learning_Linear_Regression.html" />
     <link rel="prev" title="Lecturers and Speakers" href="lecturers.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/wm_vertical_single_line_full_color.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">AI for Fusion Energy Summer School (2024)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/wm_vertical_single_line_full_color.png" class="logo__image only-light" alt="AI for Fusion Energy Summer School (2024) - Home"/>
+    <script>document.write(`<img src="_static/wm_vertical_single_line_full_color.png" class="logo__image only-dark" alt="AI for Fusion Energy Summer School (2024) - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -116,985 +182,390 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Information on the Summer School
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Information on the Summer School</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="schedule.html">
-   Schedule
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="lecturers.html">
-   Lecturers
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lecturers.html">Lecturers</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Data Science (Lectures and Notebooks)
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Data Science (Lectures and Notebooks)</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">
-   (6/3/2024) - Intro to Data Science (get started, variance/bias) (slides, D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   (6/3/20224) - Intro to Data Science, Python Programming, Bias-Variance Tradeoff and the Gradient Descent Algorithm (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Supervised_Learning_Linear_Regression.html">
-   (6/3/2024) Supervised Learning, Linear Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Regularization_Model_Selection_and_Cross_Validations.html">
-   (6/4/2024) Regularization, Model Selection, Cross-Validation (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Supervised_Learning_Logistic_Regression.html">
-   (6/4/2024) Supervised Learning - Logistic Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Nonparametric_Methods_GAMs__old.html">
-   (6/5/2024) Nonparametric Methods, GAMs (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Coding_Examples_Locally_Weighted_Regression_corr.html">
-   (6/5/2024) Coding Examples Locally Weighted Regression (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Anomaly_Detection_HDBScan.html">
-   (6/6/2024) Anomaly Detection, clustering with HDBScan (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">
-   (6/6/2024) Dimensionality Reduction, Unsupervised Learning (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">
-   (6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Intro_to_Deep_Learning_Multilayer_Perceptron.html">
-   (6/7/2024) Intro to Deep_Learning, Multilayer_Perceptron (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Convolutional_Neural_Networks_ok.html">
-   (6/10/2024) Convolutional Neural Networks (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Graph_Neural_Networks_corr.html">
-   (6/10/2024) Graph Neural Networks (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">
-   (6/10/2024) Classification with C-Mod fusion data (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Regression_Fusion.html">
-   (6/10/2024) Regression with C-Mod fusion data (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">
-   (6/11/2024) Intro to Normalizing Flows (J. Giroux, slides)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="NFlows_BasicExample_new.html">
-   (6/11/2024) Normalizing Flows - Basic Example (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">
-   (6/11/2024) Normalizing Flows - GlueX BCAL Example (J. Giroux)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1GDRbfTudsAcQES5TTCiFdgBxoH6QIxg0MjndLHmw8eU/edit?usp=sharing">
-   (6/12/2024) A Gentle Introduction to Uncertainty Quantification and Bayes' Rule (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="MCMC_from_scratch_all.html">
-   (6/12/2024) Sampling Techniques from Scratch (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Intro_PyMC_coin.html">
-   (6/12/2024) Introduction to Probabilistic Programming (coin example) (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/14D6R9mpg_x4Mf1OTuLlXeyV0UPZJGhcjP9kabm10Ung/edit?usp=sharing">
-   (6/12/2024) An Introduction to Bayesian Regression (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Bayesian_Polynomial_Regression.html">
-   (6/12/2024) Bayesian Linear/Polynomial Regression - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Bayesian_Logistic_Regression.html">
-   (6/12/2024) Bayesian Logistic Regression - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1BFDSM4vC6Hq_0d6azsNxDa5NMn9VVuxfJv8v6jt1DpU/edit?usp=sharing">
-   (6/12/2024) Introduction to Bayesian Neural Networks (slides, C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Bayesian_Neural_Network.html">
-   (6/12/2024) Bayesian Neural Network - Basic Example (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Applications_CNNs.html">
-   (6/12/2024) Hands-on - CNN (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Applications_GNNs.html">
-   (6/12/2024) Hands-on - GNN (D. Vasiliu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Design_BO.html">
-   (6/13/2024) Single-Objective Bayesian Optimization (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Design_MOBO2.html">
-   (6/13/2024) Multi-Objective Bayesian Optimization (C. Fanelli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Design_MOEA.html">
-   (6/13/2024) Multi-Objective Genetic Algorithm (C. Fanelli)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference external" href="https://fabulous-torte-3ed97c.netlify.app/1">(6/3/2024) - Intro to Data Science (get started, variance/bias) (slides, D. Vasiliu)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">(6/3/20224) - Intro to Data Science, Python Programming, Bias-Variance Tradeoff and the Gradient Descent Algorithm (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Supervised_Learning_Linear_Regression.html">(6/3/2024) Supervised Learning, Linear Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regularization_Model_Selection_and_Cross_Validations.html">(6/4/2024) Regularization, Model Selection, Cross-Validation (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Supervised_Learning_Logistic_Regression.html">(6/4/2024) Supervised Learning - Logistic Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Nonparametric_Methods_GAMs__old.html">(6/5/2024) Nonparametric Methods, GAMs (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Coding_Examples_Locally_Weighted_Regression_corr.html">(6/5/2024) Coding Examples Locally Weighted Regression (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Anomaly_Detection_HDBScan.html">(6/6/2024) Anomaly Detection, clustering with HDBScan (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dimensionality_Reduction_Unsupervised_Learning.html">(6/6/2024) Dimensionality Reduction, Unsupervised Learning (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Supervised_Learning_DTrees_Random_Forest_and_XGBoost.html">(6/7/2024) Supervised Learning, Decision Trees, Random_Forest and XGBoost (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro_to_Deep_Learning_Multilayer_Perceptron.html">(6/7/2024) Intro to Deep_Learning, Multilayer_Perceptron (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Convolutional_Neural_Networks_ok.html">(6/10/2024) Convolutional Neural Networks (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Graph_Neural_Networks_corr.html">(6/10/2024) Graph Neural Networks (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ai4fusion-wmschool.github.io/summer2024/intro.html">(6/10/2024) Classification with C-Mod fusion data (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Regression_Fusion.html">(6/10/2024) Regression with C-Mod fusion data (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1-YWO5Q6EkFpkGgiFm0rUaqfGTHaj-Y7OvPYwjettU6A/edit?usp=sharing">(6/11/2024) Intro to Normalizing Flows (J. Giroux, slides)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NFlows_BasicExample_new.html">(6/11/2024) Normalizing Flows - Basic Example (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NormalizingFlows_GlueX_BCAL_new.html">(6/11/2024) Normalizing Flows - GlueX BCAL Example (J. Giroux)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1GDRbfTudsAcQES5TTCiFdgBxoH6QIxg0MjndLHmw8eU/edit?usp=sharing">(6/12/2024) A Gentle Introduction to Uncertainty Quantification and Bayes' Rule (slides, C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MCMC_from_scratch_all.html">(6/12/2024) Sampling Techniques from Scratch (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Intro_PyMC_coin.html">(6/12/2024) Introduction to Probabilistic Programming (coin example) (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/14D6R9mpg_x4Mf1OTuLlXeyV0UPZJGhcjP9kabm10Ung/edit?usp=sharing">(6/12/2024) An Introduction to Bayesian Regression (slides, C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bayesian_Polynomial_Regression.html">(6/12/2024) Bayesian Linear/Polynomial Regression - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bayesian_Logistic_Regression.html">(6/12/2024) Bayesian Logistic Regression - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1BFDSM4vC6Hq_0d6azsNxDa5NMn9VVuxfJv8v6jt1DpU/edit?usp=sharing">(6/12/2024) Introduction to Bayesian Neural Networks (slides, C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bayesian_Neural_Network.html">(6/12/2024) Bayesian Neural Network - Basic Example (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Applications_CNNs.html">(6/12/2024) Hands-on - CNN (D. Vasiliu)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Applications_GNNs.html">(6/12/2024) Hands-on - GNN (D. Vasiliu)</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="Design_BO.html">(6/13/2024) Single-Objective Bayesian Optimization (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_MOBO2.html">(6/13/2024) Multi-Objective Bayesian Optimization (C. Fanelli)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Design_MOEA.html">(6/13/2024) Multi-Objective Genetic Algorithm (C. Fanelli)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Fusion Lectures
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fusion Lectures</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/u/1/d/1_dJtr18LfwCR4Nfwt3bX5_0U_g5N3Bw4/edit?usp=drive_web&amp;ouid=113195593718692427789&amp;rtpof=true">
-   (6/3/2024) W&amp;M and Fusion (S. Mordijck)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1XbhZegEIBQEl0Hs6Gl4qbhuIoGo7g9v9/view?usp=share_link">
-   (6/3/2024) Nuclear Fusion Power - A solution to the world’s energy problem? (S. Mordijck, A. Dominguez)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/14mtA2TOsMw9p_IYrTzvmxqqjSnSvjRgy/edit?usp=share_link&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">
-   (6/4/2024) Overview of plasma diagnostics and measurements (E. Kostadinova)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1gusvm06ELDBspuBO-N7sikNt7x1vw2uV/view?usp=share_link">
-   (6/5/2024) Alcator C-Mod  (A. Saperstein, J. Stillerman)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1FZRCgOj-D3lDDfXVXS4UdKUxQUHPdx2H/view?usp=share_link">
-   (6/6/2024) HDF (A. Jelenak)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1py52JvsHpcfBrhx0CobpgJ0khcH59aaP/view?usp=share_link">
-   (6/7/2024) Fusion Pilot (S. Diem)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1CJYhQjpjuBqhpH_GrZaXqEJnaFUnUg7k/edit?usp=sharing&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">
-   (6/10/2024) Managing Data - Why it matters, when it is important, and how to do it (N. Cummings)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1IM5AFQFwqM9EDm5HTPcIz5FDPfWiUFI3/view?usp=share_link">
-   (6/11/2024) Making plasma science open (N. Murphy)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/1MvKyWDSXcwAfgmq7oo2Y8gFllnwvyhZm/view?usp=sharing">
-   (6/12/2024) DIII-D ML/AI perspective (B. Sammuli)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://docs.google.com/presentation/d/1EenE3-aNIh5aLRX1vpKj0sowfNLRMS_ifPw7TAIFrXo/edit?usp=sharing">
-   (6/13/2024) Data-mining the tokamak density limit (A. Maris)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/u/1/d/1_dJtr18LfwCR4Nfwt3bX5_0U_g5N3Bw4/edit?usp=drive_web&amp;ouid=113195593718692427789&amp;rtpof=true">(6/3/2024) W&amp;M and Fusion (S. Mordijck)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1XbhZegEIBQEl0Hs6Gl4qbhuIoGo7g9v9/view?usp=share_link">(6/3/2024) Nuclear Fusion Power - A solution to the world’s energy problem? (S. Mordijck, A. Dominguez)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/14mtA2TOsMw9p_IYrTzvmxqqjSnSvjRgy/edit?usp=share_link&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">(6/4/2024) Overview of plasma diagnostics and measurements (E. Kostadinova)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1gusvm06ELDBspuBO-N7sikNt7x1vw2uV/view?usp=share_link">(6/5/2024) Alcator C-Mod  (A. Saperstein, J. Stillerman)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1FZRCgOj-D3lDDfXVXS4UdKUxQUHPdx2H/view?usp=share_link">(6/6/2024) HDF (A. Jelenak)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1py52JvsHpcfBrhx0CobpgJ0khcH59aaP/view?usp=share_link">(6/7/2024) Fusion Pilot (S. Diem)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1CJYhQjpjuBqhpH_GrZaXqEJnaFUnUg7k/edit?usp=sharing&amp;ouid=113195593718692427789&amp;rtpof=true&amp;sd=true">(6/10/2024) Managing Data - Why it matters, when it is important, and how to do it (N. Cummings)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1IM5AFQFwqM9EDm5HTPcIz5FDPfWiUFI3/view?usp=share_link">(6/11/2024) Making plasma science open (N. Murphy)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/1MvKyWDSXcwAfgmq7oo2Y8gFllnwvyhZm/view?usp=sharing">(6/12/2024) DIII-D ML/AI perspective (B. Sammuli)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://docs.google.com/presentation/d/1EenE3-aNIh5aLRX1vpKj0sowfNLRMS_ifPw7TAIFrXo/edit?usp=sharing">(6/13/2024) Data-mining the tokamak density limit (A. Maris)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Datasets
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference external" href="https://drive.google.com/file/d/13aKCJA56CmYUEc5zW4P62_BbU1vcewVT/view?usp=share_link">
-   C-Mod Dataset - Additional Documentation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">
-   Kaggle - Nuclear Fusion Data (Classification)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">
-   Zindi - Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">
-   IOP paper - The updated ITPA global H-mode confinement database; description and analysis (Regression)
-  </a>
- </li>
+
+<li class="toctree-l1"><a class="reference external" href="https://drive.google.com/file/d/13aKCJA56CmYUEc5zW4P62_BbU1vcewVT/view?usp=share_link">C-Mod Dataset - Additional Documentation</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.kaggle.com/code/jayrdixit/nuclear-fusion">Kaggle - Nuclear Fusion Data (Classification)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://zindi.africa/competitions/multi-machine-disruption-prediction-challenge">Zindi - Multi-Machine Disruption Prediction Challenge for Fusion Energy by ITU (Classification)</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://iopscience.iop.org/article/10.1088/1741-4326/abdb91">IOP paper - The updated ITPA global H-mode confinement database; description and analysis (Regression)</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Additional resources
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional resources</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="referencesmd.html">
-   References
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="referencesmd.html">References</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=tree/notebooks/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/ai4fusion-wmschool/summer2024/main?urlpath=tree/notebooks/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Binder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
-    <img src="_static/images/logo_binder.svg">
+    <img alt="Binder logo" src="_static/images/logo_binder.svg">
   </span>
-<span class="headerbtn__text-container">Binder</span>
+<span class="btn__text-container">Binder</span>
 </a>
-
-      </li>
+</li>
       
-      <li>
-        <a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ai4fusion-wmschool/summer2024/blob/main/notebooks/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
-    <img src="_static/images/logo_colab.png">
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
 <button onclick="initThebeSBT()"
-  class="headerbtn headerbtn-launch-thebe"
-  data-toggle="tooltip"
-data-placement="left"
-title="Launch Thebe"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-play"></i>
   </span>
-<span class="headerbtn__text-container">Live Code</span>
+<span class="btn__text-container">Live Code</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ai4fusion-wmschool/summer2024" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FIntro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/ai4fusion-wmschool/summer2024"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
 
-      </li>
-      
-      <li>
-        <a href="https://github.com/ai4fusion-wmschool/summer2024/issues/new?title=Issue%20on%20page%20%2FIntro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </button>
-
-      </li>
+</div></div>
       
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
+    </div>
   
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
-    </div>
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-data-science-font">
-   <font color="blue">
-    Data Science
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-machine-learning-font">
-   <font color="blue">
-    Machine Learning
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#suggested-references">
-     Suggested References:
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#who-said-machine-learning">
-     Who said “machine-learning?”
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-types-of-data-font">
-   <font color="blue">
-    Types of Data
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-types-of-data-example-font">
-   <font color="blue">
-    Types of Data - Example
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   <font color="blue">
-    Machine Learning
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-programming-language-python-font">
-   <font color="blue">
-    Programming Language: Python
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-functions-font">
-   <font color="blue">
-    Functions
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-object-oriented-programming-font">
-   <font color="blue">
-    Object Oriented Programming
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#introduction-to-classes-in-python">
-     Introduction to Classes in Python
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#key-concepts">
-     Key Concepts
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#creating-a-class">
-     Creating a Class
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#explanation">
-     Explanation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#inheritance">
-     Inheritance
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
-     Explanation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#encapsulation-and-access-modifiers">
-     Encapsulation and Access Modifiers
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#conclusion">
-     Conclusion
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-the-law-of-probable-errors-font">
-   <font color="blue">
-    The Law of Probable Errors
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-bias-and-variance-font">
-   <font color="blue">
-    Bias and Variance
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bias">
-     <strong>
-      Bias
-     </strong>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#variance">
-     <strong>
-      Variance
-     </strong>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-bias-variance-tradeoff-font">
-   <font color="blue">
-    Bias-Variance Tradeoff
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#total-error">
-     <strong>
-      Total Error
-     </strong>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#visualization">
-     <strong>
-      Visualization
-     </strong>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#interpretation">
-     <strong>
-      Interpretation
-     </strong>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-mean-squared-error-font">
-   <font color="blue">
-    Mean Squared Error
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-the-gradient-descent-in-2-d-font">
-   <font color="blue">
-    The Gradient Descent in 2-D
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-the-loss-function-sse-and-its-gradient-for-n-observations-font">
-   <font color="blue">
-    The Loss Function (SSE) and its Gradient for n Observations
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-code-applications-font">
-   <font color="blue">
-    Code Applications
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-with-functions-and-classes">
-     Example with Functions and Classes
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#an-example-of-gradient-descent-with-contour-plots">
-     An Example of Gradient Descent with Contour Plots
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#code-for-plotting-the-bias-variance-tradeoff">
-     Code for Plotting the Bias - Variance Tradeoff
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Introduction, Bias Variance Tradeoff and Gradient Descent</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-data-science-font">
-   <font color="blue">
-    Data Science
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-machine-learning-font">
-   <font color="blue">
-    Machine Learning
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#suggested-references">
-     Suggested References:
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#who-said-machine-learning">
-     Who said “machine-learning?”
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-types-of-data-font">
-   <font color="blue">
-    Types of Data
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-types-of-data-example-font">
-   <font color="blue">
-    Types of Data - Example
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   <font color="blue">
-    Machine Learning
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-programming-language-python-font">
-   <font color="blue">
-    Programming Language: Python
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-functions-font">
-   <font color="blue">
-    Functions
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-object-oriented-programming-font">
-   <font color="blue">
-    Object Oriented Programming
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#introduction-to-classes-in-python">
-     Introduction to Classes in Python
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#key-concepts">
-     Key Concepts
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#creating-a-class">
-     Creating a Class
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#explanation">
-     Explanation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#inheritance">
-     Inheritance
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
-     Explanation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#encapsulation-and-access-modifiers">
-     Encapsulation and Access Modifiers
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#conclusion">
-     Conclusion
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-the-law-of-probable-errors-font">
-   <font color="blue">
-    The Law of Probable Errors
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-bias-and-variance-font">
-   <font color="blue">
-    Bias and Variance
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bias">
-     <strong>
-      Bias
-     </strong>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#variance">
-     <strong>
-      Variance
-     </strong>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-bias-variance-tradeoff-font">
-   <font color="blue">
-    Bias-Variance Tradeoff
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#total-error">
-     <strong>
-      Total Error
-     </strong>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#visualization">
-     <strong>
-      Visualization
-     </strong>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#interpretation">
-     <strong>
-      Interpretation
-     </strong>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-mean-squared-error-font">
-   <font color="blue">
-    Mean Squared Error
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-the-gradient-descent-in-2-d-font">
-   <font color="blue">
-    The Gradient Descent in 2-D
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-the-loss-function-sse-and-its-gradient-for-n-observations-font">
-   <font color="blue">
-    The Loss Function (SSE) and its Gradient for n Observations
-   </font>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-code-applications-font">
-   <font color="blue">
-    Code Applications
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example-with-functions-and-classes">
-     Example with Functions and Classes
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#an-example-of-gradient-descent-with-contour-plots">
-     An Example of Gradient Descent with Contour Plots
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#code-for-plotting-the-bias-variance-tradeoff">
-     Code for Plotting the Bias - Variance Tradeoff
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction, Bias Variance Tradeoff and Gradient Descent</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-science"><font color="blue">Data Science</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning"><font color="blue"> Machine Learning </font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#suggested-references">Suggested References:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#who-said-machine-learning">Who said “machine-learning?”</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-data"><font color="blue"> Types of Data </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-data-example"><font color="blue"> Types of Data - Example </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="blue"> Machine Learning </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#programming-language-python"><font color="blue"> Programming Language: Python </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions"><font color="blue"> Functions </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-oriented-programming"><font color="blue"> Object Oriented Programming </font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-classes-in-python">Introduction to Classes in Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">Key Concepts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-class">Creating a Class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inheritance">Inheritance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encapsulation-and-access-modifiers">Encapsulation and Access Modifiers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-law-of-probable-errors"><font color="blue"> The Law of Probable Errors </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-and-variance"><font color="blue"> Bias and Variance </font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bias"><strong>Bias</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variance"><strong>Variance</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-tradeoff"><font color="blue"> Bias-Variance Tradeoff </font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#total-error"><strong>Total Error</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization"><strong>Visualization</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation"><strong>Interpretation</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error"><font color="blue"> Mean Squared Error </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gradient-descent-in-2-d"><font color="blue"> The Gradient Descent in 2-D </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-loss-function-sse-and-its-gradient-for-n-observations"><font color="blue"> The Loss Function (SSE) and its Gradient for n Observations </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-applications"><font color="blue"> Code Applications </font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-with-functions-and-classes">Example with Functions and Classes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-of-gradient-descent-with-contour-plots">An Example of Gradient Descent with Contour Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-for-plotting-the-bias-variance-tradeoff">Code for Plotting the Bias - Variance Tradeoff</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section id="introduction-bias-variance-tradeoff-and-gradient-descent">
-<h1>Introduction, Bias Variance Tradeoff and Gradient Descent<a class="headerlink" href="#introduction-bias-variance-tradeoff-and-gradient-descent" title="Permalink to this headline">#</a></h1>
-<section id="font-color-blue-data-science-font">
-<h2><font color='blue'>Data Science</font><a class="headerlink" href="#font-color-blue-data-science-font" title="Permalink to this headline">#</a></h2>
+<h1>Introduction, Bias Variance Tradeoff and Gradient Descent<a class="headerlink" href="#introduction-bias-variance-tradeoff-and-gradient-descent" title="Link to this heading">#</a></h1>
+<section id="data-science">
+<h2><font color='blue'>Data Science</font><a class="headerlink" href="#data-science" title="Link to this heading">#</a></h2>
 <style> #margins > p { margin-top: -50px; } </style>
 <ul class="simple">
 <li><p>Data is information, a perception of our own existence and everything surrounding us.</p></li>
@@ -1113,10 +584,10 @@ title="Print to PDF"
 <li><p>1 ebyte = <span class="math notranslate nohighlight">\(10^3\)</span> pbytes, (ebyte means exabyte).</p></li>
 </ul>
 </section>
-<section id="font-color-blue-machine-learning-font">
-<h2><font color='blue'> Machine Learning </font><a class="headerlink" href="#font-color-blue-machine-learning-font" title="Permalink to this headline">#</a></h2>
+<section id="machine-learning">
+<h2><font color='blue'> Machine Learning </font><a class="headerlink" href="#machine-learning" title="Link to this heading">#</a></h2>
 <section id="suggested-references">
-<h3>Suggested References:<a class="headerlink" href="#suggested-references" title="Permalink to this headline">#</a></h3>
+<h3>Suggested References:<a class="headerlink" href="#suggested-references" title="Link to this heading">#</a></h3>
 <table><tr>
 <td> <img src='https://m.media-amazon.com/images/I/411CpImAaAL._SX404_BO1,204,203,200_.jpg 'width='300px'/><figcaption><a href="https://www.amazon.com/Hundred-Page-Machine-Learning-Book-ebook/dp/B09Q15C9CQ/ref=sr_1_2?crid=1M3F100NG6OM9&keywords=andrii+burkov&qid=1693420556&sprefix=andrii+burkov+%2Caps%2C789&sr=8-2" target="_blank">The Hundred-Page Book of Machine Learning</a></figcaption> </td>
 <td> <img src='https://m.media-amazon.com/images/I/41xowcRDX9L._SX424_BO1,204,203,200_.jpg'width='315px'/>
@@ -1124,13 +595,13 @@ title="Print to PDF"
 </tr></table>
 </section>
 <section id="who-said-machine-learning">
-<h3>Who said “machine-learning?”<a class="headerlink" href="#who-said-machine-learning" title="Permalink to this headline">#</a></h3>
+<h3>Who said “machine-learning?”<a class="headerlink" href="#who-said-machine-learning" title="Link to this heading">#</a></h3>
 <p><a class="reference external" href="https://www.ibm.com/cloud/learn/machine-learning">https://www.ibm.com/cloud/learn/machine-learning</a></p>
 <p>In a few words, it is the science of automating and improving decisions and inferences based on data.</p>
 </section>
 </section>
-<section id="font-color-blue-types-of-data-font">
-<h2><font color='blue'> Types of Data </font><a class="headerlink" href="#font-color-blue-types-of-data-font" title="Permalink to this headline">#</a></h2>
+<section id="types-of-data">
+<h2><font color='blue'> Types of Data </font><a class="headerlink" href="#types-of-data" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Data could be classified based on the levels of measurement, such as nominal, ordinal, interval and ratio.</p></li>
 <li><p>Nominal data: unique identifiers but order does not matter for example, peoples’ names, names of flowers, colors etc.</p></li>
@@ -1139,50 +610,51 @@ title="Print to PDF"
 <li><p>Continuous data: Ratio level of measurement: numerical values, that are at the interval level of measurement and also the ratio and proportions make sense in the context of using them, such as salaries, weights, distances, forces, etc.</p></li>
 </ul>
 </section>
-<section id="font-color-blue-types-of-data-example-font">
-<h2><font color='blue'> Types of Data - Example </font><a class="headerlink" href="#font-color-blue-types-of-data-example-font" title="Permalink to this headline">#</a></h2>
+<section id="types-of-data-example">
+<h2><font color='blue'> Types of Data - Example </font><a class="headerlink" href="#types-of-data-example" title="Link to this heading">#</a></h2>
 <p>Independent vs Dependent variables:</p>
-<table class="colwidths-auto table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>Country</p></th>
-<th class="text-align:right head"><p>Age</p></th>
-<th class="text-align:right head"><p>Salary</p></th>
-<th class="text-align:right head"><p>Purchased</p></th>
+<tr class="row-odd"><th class="head text-left"><p>Country</p></th>
+<th class="head text-right"><p>Age</p></th>
+<th class="head text-right"><p>Salary</p></th>
+<th class="head text-right"><p>Purchased</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>France</p></td>
-<td class="text-align:right"><p>44</p></td>
-<td class="text-align:right"><p>72000</p></td>
-<td class="text-align:right"><p>No</p></td>
+<tr class="row-even"><td class="text-left"><p>France</p></td>
+<td class="text-right"><p>44</p></td>
+<td class="text-right"><p>72000</p></td>
+<td class="text-right"><p>No</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Spain</p></td>
-<td class="text-align:right"><p>29</p></td>
-<td class="text-align:right"><p>51000</p></td>
-<td class="text-align:right"><p>Yes</p></td>
+<tr class="row-odd"><td class="text-left"><p>Spain</p></td>
+<td class="text-right"><p>29</p></td>
+<td class="text-right"><p>51000</p></td>
+<td class="text-right"><p>Yes</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Germany</p></td>
-<td class="text-align:right"><p>32</p></td>
-<td class="text-align:right"><p>63000</p></td>
-<td class="text-align:right"><p>No</p></td>
+<tr class="row-even"><td class="text-left"><p>Germany</p></td>
+<td class="text-right"><p>32</p></td>
+<td class="text-right"><p>63000</p></td>
+<td class="text-right"><p>No</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Japan</p></td>
-<td class="text-align:right"><p>53</p></td>
-<td class="text-align:right"><p>81000</p></td>
-<td class="text-align:right"><p>Yes</p></td>
+<tr class="row-odd"><td class="text-left"><p>Japan</p></td>
+<td class="text-right"><p>53</p></td>
+<td class="text-right"><p>81000</p></td>
+<td class="text-right"><p>Yes</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>Portugal</p></td>
-<td class="text-align:right"><p>48</p></td>
-<td class="text-align:right"><p>73000</p></td>
-<td class="text-align:right"><p>Yes</p></td>
+<tr class="row-even"><td class="text-left"><p>Portugal</p></td>
+<td class="text-right"><p>48</p></td>
+<td class="text-right"><p>73000</p></td>
+<td class="text-right"><p>Yes</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>Italy</p></td>
-<td class="text-align:right"><p>43</p></td>
-<td class="text-align:right"><p>67500</p></td>
-<td class="text-align:right"><p>No</p></td>
+<tr class="row-odd"><td class="text-left"><p>Italy</p></td>
+<td class="text-right"><p>43</p></td>
+<td class="text-right"><p>67500</p></td>
+<td class="text-right"><p>No</p></td>
 </tr>
 </tbody>
 </table>
+</div>
 <p>In this example, the variables “Country”, “Age” and “Salary” are independent whereas “Purchased” is a dependent variable.</p>
 <p>Quite often in the Data Science community nominal variables are referred as “discrete”.</p>
 <p>CRITICAL THINKING: the context and the implied usage is very important for determining the level of measurement.</p>
@@ -1193,7 +665,7 @@ title="Print to PDF"
 </figure>
 </section>
 <section id="id1">
-<h2><font color='blue'> Machine Learning </font><a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<h2><font color='blue'> Machine Learning </font><a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Machine learning is the science of programming computers for using data with the goal of automating <strong>predictions</strong> and analyses.</p></li>
 <li><p>In all, it consists of input-output algorithms for supervised and/or unsupervised learning.</p></li>
@@ -1201,8 +673,8 @@ title="Print to PDF"
 <li><p>Pyhton is a very popular and friendly to use interpreted programming language that has currently emerged with prominence in the Data Science commumity.</p></li>
 </ul>
 </section>
-<section id="font-color-blue-programming-language-python-font">
-<h2><font color='blue'> Programming Language: Python </font><a class="headerlink" href="#font-color-blue-programming-language-python-font" title="Permalink to this headline">#</a></h2>
+<section id="programming-language-python">
+<h2><font color='blue'> Programming Language: Python </font><a class="headerlink" href="#programming-language-python" title="Link to this heading">#</a></h2>
 <p>For using Python you can access <a class="reference external" href="http://colab.research.google.com">http://colab.research.google.com</a> via an internet browser such as Chrome.</p>
 <p>It is a scripting language that uses libraries of functions which must to be imported before using the specific functions needed.</p>
 <p>Example:</p>
@@ -1212,8 +684,8 @@ title="Print to PDF"
 </div>
 <p>This means that <span class="math notranslate nohighlight">\(a=\sin(\frac{\pi}{3})=\frac{\sqrt{3}}{2}\)</span></p>
 </section>
-<section id="font-color-blue-functions-font">
-<h2><font color='blue'> Functions </font><a class="headerlink" href="#font-color-blue-functions-font" title="Permalink to this headline">#</a></h2>
+<section id="functions">
+<h2><font color='blue'> Functions </font><a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
 <p>Functions are a building block in Machine Learning. Every solution to a data problem is articulated in terms of functions.</p>
 <p>A function is a mapping, a rule of correspondence such that an input is assigned exacly one output.</p>
 <p><font color='green'><em>Crtical Thinking: Functions and Set Theory represent the building blocks of modern mathematics.</em></font></p>
@@ -1229,15 +701,15 @@ ii. the <font color='magenta'><em>range (co-domain)</em></font> of the function<
 iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 </div></blockquote>
 </section>
-<section id="font-color-blue-object-oriented-programming-font">
-<h2><font color='blue'> Object Oriented Programming </font><a class="headerlink" href="#font-color-blue-object-oriented-programming-font" title="Permalink to this headline">#</a></h2>
+<section id="object-oriented-programming">
+<h2><font color='blue'> Object Oriented Programming </font><a class="headerlink" href="#object-oriented-programming" title="Link to this heading">#</a></h2>
 <section id="introduction-to-classes-in-python">
-<h3>Introduction to Classes in Python<a class="headerlink" href="#introduction-to-classes-in-python" title="Permalink to this headline">#</a></h3>
+<h3>Introduction to Classes in Python<a class="headerlink" href="#introduction-to-classes-in-python" title="Link to this heading">#</a></h3>
 <p>In Python, a class is a blueprint for creating objects. Objects are instances of classes, and classes define the properties (attributes) and behaviors (methods) that the objects created from the class can have. Classes are a fundamental concept in object-oriented programming (OOP) and allow for the creation of complex data structures and models.</p>
 </section>
 <section id="key-concepts">
-<h3>Key Concepts<a class="headerlink" href="#key-concepts" title="Permalink to this headline">#</a></h3>
-<ol class="simple">
+<h3>Key Concepts<a class="headerlink" href="#key-concepts" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
 <li><p><strong>Class</strong>: A blueprint for creating objects. It defines a set of attributes and methods that the created objects can have.</p></li>
 <li><p><strong>Object</strong>: An instance of a class. Each object can have unique values for the attributes defined in the class.</p></li>
 <li><p><strong>Attributes</strong>: Variables that belong to a class or an instance of a class. They represent the properties or state of an object.</p></li>
@@ -1248,7 +720,7 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 </ol>
 </section>
 <section id="creating-a-class">
-<h3>Creating a Class<a class="headerlink" href="#creating-a-class" title="Permalink to this headline">#</a></h3>
+<h3>Creating a Class<a class="headerlink" href="#creating-a-class" title="Link to this heading">#</a></h3>
 <p>To create a class in Python, use the <code class="docutils literal notranslate"><span class="pre">class</span></code> keyword followed by the class name and a colon. Inside the class, you can define attributes and methods.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
     <span class="c1"># Class attribute</span>
@@ -1272,7 +744,7 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 </div>
 </section>
 <section id="explanation">
-<h3>Explanation<a class="headerlink" href="#explanation" title="Permalink to this headline">#</a></h3>
+<h3>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Class Definition</strong>: The <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">MyClass:</span></code> line defines a new class named <code class="docutils literal notranslate"><span class="pre">MyClass</span></code>.</p></li>
 <li><p><strong>Class Attribute</strong>: <code class="docutils literal notranslate"><span class="pre">class_attribute</span></code> is a class attribute shared by all instances of the class.</p></li>
@@ -1284,7 +756,7 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 </ul>
 </section>
 <section id="inheritance">
-<h3>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this headline">#</a></h3>
+<h3>Inheritance<a class="headerlink" href="#inheritance" title="Link to this heading">#</a></h3>
 <p>Inheritance allows a class (child class) to inherit attributes and methods from another class (parent class).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ParentClass</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">):</span>
@@ -1311,7 +783,7 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 </div>
 </section>
 <section id="id2">
-<h3>Explanation<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<h3>Explanation<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>ParentClass</strong>: A base class with an initializer and a display method.</p></li>
 <li><p><strong>ChildClass</strong>: A derived class that inherits from <code class="docutils literal notranslate"><span class="pre">ParentClass</span></code> and adds an additional attribute and method.</p></li>
@@ -1319,7 +791,7 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 </ul>
 </section>
 <section id="encapsulation-and-access-modifiers">
-<h3>Encapsulation and Access Modifiers<a class="headerlink" href="#encapsulation-and-access-modifiers" title="Permalink to this headline">#</a></h3>
+<h3>Encapsulation and Access Modifiers<a class="headerlink" href="#encapsulation-and-access-modifiers" title="Link to this heading">#</a></h3>
 <p>Python does not have strict access modifiers like <code class="docutils literal notranslate"><span class="pre">private</span></code>, <code class="docutils literal notranslate"><span class="pre">protected</span></code>, and <code class="docutils literal notranslate"><span class="pre">public</span></code>. However, there are naming conventions to indicate the intended visibility of attributes and methods:</p>
 <ul class="simple">
 <li><p><strong>Public</strong>: Attributes and methods that can be accessed from outside the class. (No underscores)</p></li>
@@ -1349,18 +821,18 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 </div>
 </section>
 <section id="conclusion">
-<h3>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h3>
+<h3>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h3>
 <p>Classes in Python provide a way to encapsulate data and functionality together. Understanding the concepts of attributes, methods, inheritance, encapsulation, and polymorphism allows for the creation of complex and reusable code structures. By using classes, you can model real-world entities and their interactions, leading to cleaner and more maintainable code.</p>
 </section>
 </section>
-<section id="font-color-blue-the-law-of-probable-errors-font">
-<h2><font color='blue'> The Law of Probable Errors </font><a class="headerlink" href="#font-color-blue-the-law-of-probable-errors-font" title="Permalink to this headline">#</a></h2>
+<section id="the-law-of-probable-errors">
+<h2><font color='blue'> The Law of Probable Errors </font><a class="headerlink" href="#the-law-of-probable-errors" title="Link to this heading">#</a></h2>
 <p>The story began when in 1801 an italian astonomer, Giuseppe Piazzi, discovered a new object in our solar system, the dwarf planet (asteroid) Ceres:</p>
 <p><a class="reference external" href="https://www.jpl.nasa.gov/news/ceres-keeping-well-guarded-secrets-for-215-years">https://www.jpl.nasa.gov/news/ceres-keeping-well-guarded-secrets-for-215-years</a></p>
 <p>A german mathematician, Carl Friedrich Gauss, helped relocate the position of Ceres and confirmed the discovery.</p>
 <p>“… <em>for it is now clearly shown that the orbit of a heavenly body may be determined quite nearly from good observations embracing only a few days; and this without any hypothetical assumption</em>.” - Carl Friedrich Gauss</p>
 <p>Gauss proposed the <em>law of probable errors:</em></p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Small errors are more likely than large errors;</p></li>
 <li><p>The likelihood of errors of the same magnitude but different signs, such as  x and -x, are equal (the distribution is symmetrical);</p></li>
 <li><p>When several measurements are taken of the same quantity, the average (arithmetic mean) is the most likely value.</p></li>
@@ -1371,11 +843,11 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 <li><p><a class="reference external" href="https://solarsystem.nasa.gov/solar-system/our-solar-system/overview/">https://solarsystem.nasa.gov/solar-system/our-solar-system/overview/</a></p></li>
 </ul>
 </section>
-<section id="font-color-blue-bias-and-variance-font">
-<h2><font color='blue'> Bias and Variance </font><a class="headerlink" href="#font-color-blue-bias-and-variance-font" title="Permalink to this headline">#</a></h2>
+<section id="bias-and-variance">
+<h2><font color='blue'> Bias and Variance </font><a class="headerlink" href="#bias-and-variance" title="Link to this heading">#</a></h2>
 <p>The variance-bias tradeoff is a fundamental concept in machine learning and statistics that describes the balance between two sources of error that affect the performance of predictive models: bias and variance. Understanding this tradeoff is crucial for developing models that generalize well to new data.</p>
 <section id="bias">
-<h3><strong>Bias</strong><a class="headerlink" href="#bias" title="Permalink to this headline">#</a></h3>
+<h3><strong>Bias</strong><a class="headerlink" href="#bias" title="Link to this heading">#</a></h3>
 <p>Bias refers to the error introduced by approximating a real-world problem, which may be complex, by a simplified model. High bias can cause an algorithm to miss relevant relations between features and target outputs (underfitting).</p>
 <ul class="simple">
 <li><p><strong>High Bias:</strong> Assumptions in the model are too strong, making it overly simplistic.</p></li>
@@ -1383,7 +855,7 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 </ul>
 </section>
 <section id="variance">
-<h3><strong>Variance</strong><a class="headerlink" href="#variance" title="Permalink to this headline">#</a></h3>
+<h3><strong>Variance</strong><a class="headerlink" href="#variance" title="Link to this heading">#</a></h3>
 <p>Variance refers to the error introduced by the model’s sensitivity to the fluctuations in the training data. High variance can cause an algorithm to model the random noise in the training data, rather than the intended outputs (overfitting).</p>
 <ul class="simple">
 <li><p><strong>High Variance:</strong> The model is too complex, capturing noise along with the underlying pattern.</p></li>
@@ -1391,21 +863,21 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 </ul>
 </section>
 </section>
-<section id="font-color-blue-bias-variance-tradeoff-font">
-<h2><font color='blue'> Bias-Variance Tradeoff </font><a class="headerlink" href="#font-color-blue-bias-variance-tradeoff-font" title="Permalink to this headline">#</a></h2>
+<section id="bias-variance-tradeoff">
+<h2><font color='blue'> Bias-Variance Tradeoff </font><a class="headerlink" href="#bias-variance-tradeoff" title="Link to this heading">#</a></h2>
 <p>The tradeoff is the balance between these two sources of error. Increasing model complexity typically decreases bias but increases variance, and vice versa. The goal is to find the right balance to minimize the total error.</p>
 <section id="total-error">
-<h3><strong>Total Error</strong><a class="headerlink" href="#total-error" title="Permalink to this headline">#</a></h3>
+<h3><strong>Total Error</strong><a class="headerlink" href="#total-error" title="Link to this heading">#</a></h3>
 <p>The total error in a model can be expressed as the sum of bias squared, variance, and irreducible error (noise):</p>
 <div class="math notranslate nohighlight">
 \[ \text{Total Error} = (\text{Bias}^2) + \text{Variance} + \text{Irreducible Error} \]</div>
 <p>The irreducible error is due to noise in the data itself and cannot be reduced by any model.</p>
 </section>
 <section id="visualization">
-<h3><strong>Visualization</strong><a class="headerlink" href="#visualization" title="Permalink to this headline">#</a></h3>
+<h3><strong>Visualization</strong><a class="headerlink" href="#visualization" title="Link to this heading">#</a></h3>
 <p>To illustrate the bias-variance tradeoff, we can use a visual representation. Here, we’ll plot the training error and test error as functions of model complexity. Typically, as model complexity increases, the training error decreases, while the test error first decreases and then increases, forming a U-shaped curve.</p>
 <p>Graphs include:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><strong>Model Complexity vs. Error:</strong></p>
 <ul class="simple">
 <li><p>Plot training error and test error against model complexity.</p></li>
@@ -1420,8 +892,8 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 <p><a href="https://imgur.com/jtNMGca"><img src="https://i.imgur.com/jtNMGca.png" title="Bias - Variance Tradeoff" /></a></p>
 </section>
 <section id="interpretation">
-<h3><strong>Interpretation</strong><a class="headerlink" href="#interpretation" title="Permalink to this headline">#</a></h3>
-<ol class="simple">
+<h3><strong>Interpretation</strong><a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
 <li><p><strong>Model Complexity vs. Error:</strong></p>
 <ul class="simple">
 <li><p>The training error decreases as model complexity increases because the model can better fit the training data.</p></li>
@@ -1440,8 +912,8 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 <p>In summary, the optimal model complexity is where the total error is minimized, which takes into account the contributions of bias, variance, and irreducible error. This point is typically where the model has the best balance between underfitting and overfitting.</p>
 </section>
 </section>
-<section id="font-color-blue-mean-squared-error-font">
-<h2><font color='blue'> Mean Squared Error </font><a class="headerlink" href="#font-color-blue-mean-squared-error-font" title="Permalink to this headline">#</a></h2>
+<section id="mean-squared-error">
+<h2><font color='blue'> Mean Squared Error </font><a class="headerlink" href="#mean-squared-error" title="Link to this heading">#</a></h2>
 <p>From many <em>independent</em> imperfect measurements we can easily derive a better one. Here the accent goes on the concept of independence. We say that two events, <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, are independent if</p>
 <div class="math notranslate nohighlight">
 \[ \text{P}\left(A\cap B\right) = \text{P}\left(A\right)\cdot\text{P}\left(B\right)\]</div>
@@ -1468,8 +940,8 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 \[ x = \frac{x_1+x_2+\dots x_n}{n}\]</div>
 <p>This highlights the idea that the average is the best representative of a sample.</p>
 </section>
-<section id="font-color-blue-the-gradient-descent-in-2-d-font">
-<h2><font color='blue'> The Gradient Descent in 2-D </font><a class="headerlink" href="#font-color-blue-the-gradient-descent-in-2-d-font" title="Permalink to this headline">#</a></h2>
+<section id="the-gradient-descent-in-2-d">
+<h2><font color='blue'> The Gradient Descent in 2-D </font><a class="headerlink" href="#the-gradient-descent-in-2-d" title="Link to this heading">#</a></h2>
 <p>We want to minimize a cost function that depends on some coefficients. An example in 2-D is</p>
 <div class="math notranslate nohighlight">
 \[L(w_1,w_2): = \frac{1}{n}\sum (y_i - w_1\cdot x_{i1} - w_2\cdot x_{i2})^2\]</div>
@@ -1487,8 +959,8 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 <p>where “lr” stands for “learning rate.”</p>
 <p><a href="https://imgur.com/KzUuU3q"><img src="https://i.imgur.com/KzUuU3q.gif" title="Gradient Descent Animation" /></a></p>
 </section>
-<section id="font-color-blue-the-loss-function-sse-and-its-gradient-for-n-observations-font">
-<h2><font color='blue'> The Loss Function (SSE) and its Gradient for n Observations </font><a class="headerlink" href="#font-color-blue-the-loss-function-sse-and-its-gradient-for-n-observations-font" title="Permalink to this headline">#</a></h2>
+<section id="the-loss-function-sse-and-its-gradient-for-n-observations">
+<h2><font color='blue'> The Loss Function (SSE) and its Gradient for n Observations </font><a class="headerlink" href="#the-loss-function-sse-and-its-gradient-for-n-observations" title="Link to this heading">#</a></h2>
 <div class="math notranslate nohighlight">
 \[L(w_1,w_2):=\sum_{i=1}^{n}(y_i-w_1\cdot x_{i1} -w_2\cdot x_{i2})^2\]</div>
 <div class="math notranslate nohighlight">
@@ -1503,21 +975,21 @@ iii. the <font color='magenta'><em>definition</em></font> of the function.</p>
 <div class="math notranslate nohighlight">
 \[\frac{\partial{L}}{\partial{w_2}}= 2\cdot(y-w_1\cdot x_1-w_2\cdot x_2)\cdot (-x_2)\]</div>
 </section>
-<section id="font-color-blue-code-applications-font">
-<h2><font color='blue'> Code Applications </font><a class="headerlink" href="#font-color-blue-code-applications-font" title="Permalink to this headline">#</a></h2>
+<section id="code-applications">
+<h2><font color='blue'> Code Applications </font><a class="headerlink" href="#code-applications" title="Link to this heading">#</a></h2>
 <hr class="docutils" />
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>import os
-if &#39;google.colab&#39; in str(get_ipython()):
-  print(&#39;Running on CoLab&#39;)
-  from google.colab import drive
-  drive.mount(&#39;/content/drive&#39;)
-  os.chdir(&#39;/content/drive/My Drive/Data Sets&#39;)
-  !pip install -q pygam
-else:
-  print(&#39;Running locally&#39;)
-  os.chdir(&#39;../Data&#39;)
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running on CoLab&#39;</span><span class="p">)</span>
+  <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+  <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+  <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;/content/drive/My Drive/Data Sets&#39;</span><span class="p">)</span>
+  <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">pygam</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Running locally&#39;</span><span class="p">)</span>
+  <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;../Data&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1544,7 +1016,7 @@ Mounted at /content/drive
 </div>
 </div>
 <section id="example-with-functions-and-classes">
-<h3>Example with Functions and Classes<a class="headerlink" href="#example-with-functions-and-classes" title="Permalink to this headline">#</a></h3>
+<h3>Example with Functions and Classes<a class="headerlink" href="#example-with-functions-and-classes" title="Link to this heading">#</a></h3>
 <p>Let’s create some examples in Python:</p>
 <p><font color='deepskyblue'><strong>Example 1</strong></font> Create a function whose graph intersects the line <span class="math notranslate nohighlight">\(y=0.5\)</span> exactly three times.</p>
 <p><em>Solution:</em> We think of a simple possible design that accomodates the requirement such as the construct of a third degree polynomial:</p>
@@ -1723,7 +1195,7 @@ x &amp;\text{if}\,\,\,0&lt;x&lt;1\\
 </div>
 </section>
 <section id="an-example-of-gradient-descent-with-contour-plots">
-<h3>An Example of Gradient Descent with Contour Plots<a class="headerlink" href="#an-example-of-gradient-descent-with-contour-plots" title="Permalink to this headline">#</a></h3>
+<h3>An Example of Gradient Descent with Contour Plots<a class="headerlink" href="#an-example-of-gradient-descent-with-contour-plots" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># here we generate many equally spaced points</span>
@@ -1761,7 +1233,7 @@ x &amp;\text{if}\,\,\,0&lt;x&lt;1\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_36_0.png" src="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_36_0.png" />
+<a class="reference internal image-reference" href="_images/6b836a6ff1c65dd43b9bd59cb6c46981fa3ad7306b2ba20f12fa6525817ca1bf.png"><img alt="_images/6b836a6ff1c65dd43b9bd59cb6c46981fa3ad7306b2ba20f12fa6525817ca1bf.png" src="_images/6b836a6ff1c65dd43b9bd59cb6c46981fa3ad7306b2ba20f12fa6525817ca1bf.png" style="width: 380px; height: 351px;" /></a>
 </div>
 </div>
 <div class="cell docutils container">
@@ -1779,7 +1251,7 @@ x &amp;\text{if}\,\,\,0&lt;x&lt;1\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_37_0.png" src="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_37_0.png" />
+<a class="reference internal image-reference" href="_images/dce27c2f8559619c87332546bbe189ad6016b97a22ec45427906ff58c6f8ff87.png"><img alt="_images/dce27c2f8559619c87332546bbe189ad6016b97a22ec45427906ff58c6f8ff87.png" src="_images/dce27c2f8559619c87332546bbe189ad6016b97a22ec45427906ff58c6f8ff87.png" style="width: 408px; height: 376px;" /></a>
 </div>
 </div>
 <div class="cell docutils container">
@@ -1797,12 +1269,12 @@ x &amp;\text{if}\,\,\,0&lt;x&lt;1\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_38_0.png" src="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_38_0.png" />
+<a class="reference internal image-reference" href="_images/40f4087ca500eef1031ae391d224050c11dd09fa57ec8959f3d3dfebd3fd2c2f.png"><img alt="_images/40f4087ca500eef1031ae391d224050c11dd09fa57ec8959f3d3dfebd3fd2c2f.png" src="_images/40f4087ca500eef1031ae391d224050c11dd09fa57ec8959f3d3dfebd3fd2c2f.png" style="width: 408px; height: 376px;" /></a>
 </div>
 </div>
 </section>
 <section id="code-for-plotting-the-bias-variance-tradeoff">
-<h3>Code for Plotting the Bias - Variance Tradeoff<a class="headerlink" href="#code-for-plotting-the-bias-variance-tradeoff" title="Permalink to this headline">#</a></h3>
+<h3>Code for Plotting the Bias - Variance Tradeoff<a class="headerlink" href="#code-for-plotting-the-bias-variance-tradeoff" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate example data</span>
@@ -1849,7 +1321,7 @@ x &amp;\text{if}\,\,\,0&lt;x&lt;1\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_42_0.png" src="_images/Intro_to_Data_Science_Python_Programming_Bias_Variance_Tradeoff_and_the_Gradient_Descent_Algorithm_42_0.png" />
+<a class="reference internal image-reference" href="_images/e1f1f16e661f72008240a3127dc43e9fb744f9144734aaa36aeb8caa679764e2.png"><img alt="_images/e1f1f16e661f72008240a3127dc43e9fb744f9144734aaa36aeb8caa679764e2.png" src="_images/e1f1f16e661f72008240a3127dc43e9fb744f9144734aaa36aeb8caa679764e2.png" style="width: 1390px; height: 590px;" /></a>
 </div>
 </div>
 </section>
@@ -1868,7 +1340,7 @@ x &amp;\text{if}\,\,\,0&lt;x&lt;1\\
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1876,49 +1348,138 @@ x &amp;\text{if}\,\,\,0&lt;x&lt;1\\
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="lecturers.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Lecturers and Speakers</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lecturers.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lecturers and Speakers</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="Supervised_Learning_Linear_Regression.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="Supervised_Learning_Linear_Regression.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Supervised Machine Learning: Linear Regression</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-science"><font color="blue">Data Science</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning"><font color="blue"> Machine Learning </font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#suggested-references">Suggested References:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#who-said-machine-learning">Who said “machine-learning?”</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-data"><font color="blue"> Types of Data </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-data-example"><font color="blue"> Types of Data - Example </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="blue"> Machine Learning </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#programming-language-python"><font color="blue"> Programming Language: Python </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions"><font color="blue"> Functions </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-oriented-programming"><font color="blue"> Object Oriented Programming </font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-classes-in-python">Introduction to Classes in Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">Key Concepts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-class">Creating a Class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inheritance">Inheritance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encapsulation-and-access-modifiers">Encapsulation and Access Modifiers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-law-of-probable-errors"><font color="blue"> The Law of Probable Errors </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-and-variance"><font color="blue"> Bias and Variance </font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bias"><strong>Bias</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variance"><strong>Variance</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-tradeoff"><font color="blue"> Bias-Variance Tradeoff </font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#total-error"><strong>Total Error</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization"><strong>Visualization</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation"><strong>Interpretation</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error"><font color="blue"> Mean Squared Error </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gradient-descent-in-2-d"><font color="blue"> The Gradient Descent in 2-D </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-loss-function-sse-and-its-gradient-for-n-observations"><font color="blue"> The Loss Function (SSE) and its Gradient for n Observations </font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-applications"><font color="blue"> Code Applications </font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-with-functions-and-classes">Example with Functions and Classes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-of-gradient-descent-with-contour-plots">An Example of Gradient Descent with Contour Plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-for-plotting-the-bias-variance-tradeoff">Code for Plotting the Bias - Variance Tradeoff</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Open-Fair-Fusion for Machine Learning Applications<br/>
-  
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By C. Fanelli on behalf of the Open-Fair-Fusion for Machine Learning Applications
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
